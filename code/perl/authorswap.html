@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+ <head>
+  <title>qnot.org | authorswap.pl</title>
+  <style>
+/*
+ * A stylesheet designed to be used with the HTML output of the
+ * Perl module Text::Highlight::Vim.
+ *
+ * This is designed to make the highlighting look like the default gvim
+ * colour scheme, with 'background=light'.
+ *
+ * Geoff Richards (qef@laxan.com)
+ *
+ * This CSS file (light.css) is public domain.  Do what you want with it.
+ * That doesn't mean that HTML with this CSS in is public domain.
+ */
+
+body { color: black; background: #eeeeee none }
+
+A:link { color: #00F; background: white none }
+A:visited { color: #909; background: white none }
+A:hover { color: #F00; background: white none }
+A:active { color: #F00; background: white none }
+
+.synComment    { color: #0000FF }
+.synConstant   { color: #b84 }
+.synIdentifier { color: #008B8B }
+.synStatement  { color: #A52A2A ; font-weight: bold }
+.synPreProc    { color: #A020F0 }
+.synType       { color: #2E8B57 ; font-weight: bold }
+.synSpecial    { color: #6A5ACD }
+.synUnderlined { color: #000000 ; text-decoration: underline }
+.synError      { color: #FFFFFF ; background: #FF0000 none }
+.synTodo       { color: #0000FF ; background: #FFFF00 none }
+</style>
+ </head>
+ <body>
+
+<pre><span class="synPreProc">#!/usr/bin/perl</span>
+
+<span class="synPreProc">use strict</span>;
+<span class="synPreProc">use </span>Getopt::Long;
+<span class="synPreProc">use </span>RTF::Tokenizer;
+
+<span class="synStatement">my</span> <span class="synIdentifier">%opts</span> = ();
+GetOptions (<span class="synIdentifier">\%opts</span>, <span class="synConstant">'from=s'</span>, <span class="synConstant">'to=s'</span>);
+
+<span class="synStatement">my</span> <span class="synIdentifier">$filename</span> = <span class="synStatement">shift</span>;
+
+<span class="synStatement">die</span> <span class="synConstant">&quot;Please provide an rtf file to parse.</span><span class="synSpecial">\n</span><span class="synConstant">&quot;</span> <span class="synStatement">unless</span> <span class="synIdentifier">$filename</span>;
+
+<span class="synStatement">my</span> <span class="synIdentifier">$tokenizer</span> = RTF::Tokenizer-&gt;<span class="synStatement">new</span>( <span class="synConstant">file </span>=&gt; <span class="synIdentifier">$filename</span>);
+
+<span class="synStatement">while</span>( <span class="synStatement">my</span> ( <span class="synIdentifier">$type</span>, <span class="synIdentifier">$arg</span>, <span class="synIdentifier">$param</span> ) = <span class="synIdentifier">$tokenizer-&gt;get_token</span>() ){
+    <span class="synStatement">last</span> <span class="synStatement">if</span> <span class="synIdentifier">$type</span> <span class="synStatement">eq</span> <span class="synConstant">'eof'</span>;
+
+    <span class="synStatement">if</span>(<span class="synIdentifier">$type</span> <span class="synStatement">eq</span> <span class="synConstant">'control'</span> <span class="synStatement">and</span> <span class="synIdentifier">$arg</span> <span class="synStatement">eq</span> <span class="synConstant">'revtbl'</span>) {
+        <span class="synStatement">my</span> <span class="synIdentifier">$match</span> = <span class="synConstant">0</span>;
+        put(<span class="synIdentifier">$type</span>, <span class="synIdentifier">$arg</span>, <span class="synIdentifier">$param</span>) <span class="synStatement">if</span> <span class="synIdentifier">$opts{</span><span class="synConstant">from</span><span class="synIdentifier">}</span> <span class="synStatement">and</span> <span class="synIdentifier">$opts{</span><span class="synConstant">to</span><span class="synIdentifier">}</span>;
+
+        <span class="synStatement">my</span> <span class="synIdentifier">$brace</span> = <span class="synConstant">1</span>;
+
+        <span class="synStatement">while</span>(<span class="synIdentifier">$brace</span> &gt; <span class="synConstant">0</span>){
+            <span class="synStatement">my</span> <span class="synIdentifier">@attr</span> = <span class="synIdentifier">$tokenizer-&gt;get_token</span>();
+
+            <span class="synIdentifier">$brace</span>++ <span class="synStatement">if</span> <span class="synIdentifier">$attr[</span><span class="synConstant">0</span><span class="synIdentifier">]</span> <span class="synStatement">eq</span> <span class="synConstant">'group'</span> <span class="synStatement">and</span> <span class="synIdentifier">$attr[</span><span class="synConstant">1</span><span class="synIdentifier">]</span> == <span class="synConstant">1</span>;
+            <span class="synIdentifier">$brace</span>-- <span class="synStatement">if</span> <span class="synIdentifier">$attr[</span><span class="synConstant">0</span><span class="synIdentifier">]</span> <span class="synStatement">eq</span> <span class="synConstant">'group'</span> <span class="synStatement">and</span> <span class="synIdentifier">$attr[</span><span class="synConstant">1</span><span class="synIdentifier">]</span> == <span class="synConstant">0</span>;
+
+            <span class="synStatement">if</span>( <span class="synIdentifier">$attr[</span><span class="synConstant">0</span><span class="synIdentifier">]</span> <span class="synStatement">eq</span> <span class="synConstant">'text'</span>) {
+                <span class="synIdentifier">$attr[</span><span class="synConstant">1</span><span class="synIdentifier">]</span> =~ <span class="synStatement">s/</span><span class="synConstant">;$</span><span class="synStatement">//</span>;
+
+                <span class="synStatement">if</span>( <span class="synIdentifier">$opts{</span><span class="synConstant">from</span><span class="synIdentifier">}</span> <span class="synStatement">and</span> <span class="synIdentifier">$opts{</span><span class="synConstant">to</span><span class="synIdentifier">}</span> ){
+                    <span class="synStatement">if</span>( <span class="synIdentifier">$opts{</span><span class="synConstant">from</span><span class="synIdentifier">}</span> <span class="synStatement">eq</span> <span class="synIdentifier">$attr[</span><span class="synConstant">1</span><span class="synIdentifier">]</span> ) {
+                        <span class="synIdentifier">$attr[</span><span class="synConstant">1</span><span class="synIdentifier">]</span> = <span class="synIdentifier">$opts{</span><span class="synConstant">to</span><span class="synIdentifier">}</span>;
+                        <span class="synIdentifier">$match</span> = <span class="synConstant">1</span>;
+                    }
+
+                    <span class="synIdentifier">$attr[</span><span class="synConstant">1</span><span class="synIdentifier">]</span> .= <span class="synConstant">';'</span>;
+                    put( <span class="synIdentifier">@attr</span>);
+                } <span class="synStatement">else</span> {
+                    <span class="synStatement">print</span> <span class="synIdentifier">$attr[</span><span class="synConstant">1</span><span class="synIdentifier">]</span>, <span class="synConstant">&quot;</span><span class="synSpecial">\n</span><span class="synConstant">&quot;</span> <span class="synStatement">unless</span> <span class="synIdentifier">$attr[</span><span class="synConstant">1</span><span class="synIdentifier">]</span> <span class="synStatement">eq</span> <span class="synConstant">'Unknown'</span>;
+                }
+            } <span class="synStatement">else</span> {
+                put(<span class="synIdentifier">@attr</span>) <span class="synStatement">if</span> <span class="synIdentifier">$opts{</span><span class="synConstant">from</span><span class="synIdentifier">}</span> <span class="synStatement">and</span> <span class="synIdentifier">$opts{</span><span class="synConstant">to</span><span class="synIdentifier">}</span>;
+            }
+        }
+
+        <span class="synStatement">if</span>(<span class="synIdentifier">$opts{</span><span class="synConstant">from</span><span class="synIdentifier">}</span> <span class="synStatement">and</span> <span class="synIdentifier">$opts{</span><span class="synConstant">to</span><span class="synIdentifier">}</span> <span class="synStatement">and</span> !<span class="synIdentifier">$match</span>) {
+            <span class="synStatement">print</span> <span class="synIdentifier">STDERR</span> <span class="synConstant">&quot;The author </span><span class="synIdentifier">$opts{</span><span class="synConstant">from</span><span class="synIdentifier">}</span><span class="synConstant"> was not found in the document!</span><span class="synSpecial">\n</span><span class="synConstant">&quot;</span>;
+        }
+    } <span class="synStatement">else</span> {
+        put(<span class="synIdentifier">$type</span>, <span class="synIdentifier">$arg</span>, <span class="synIdentifier">$param</span>) <span class="synStatement">if</span> <span class="synIdentifier">$opts{</span><span class="synConstant">from</span><span class="synIdentifier">}</span> <span class="synStatement">and</span> <span class="synIdentifier">$opts{</span><span class="synConstant">to</span><span class="synIdentifier">}</span>;
+    }
+}
+
+<span class="synStatement">sub</span><span class="synIdentifier"> put </span>{
+    <span class="synStatement">my</span> (<span class="synIdentifier">$type</span>, <span class="synIdentifier">$arg</span>, <span class="synIdentifier">$param</span>) = <span class="synIdentifier">@_</span>;
+
+    <span class="synStatement">if</span>( <span class="synIdentifier">$type</span> <span class="synStatement">eq</span> <span class="synConstant">'group'</span> ) {
+        <span class="synStatement">print</span> <span class="synIdentifier">$arg</span> == <span class="synConstant">1</span> ? <span class="synConstant">'{'</span> : <span class="synConstant">'}'</span>;
+    } <span class="synStatement">elsif</span>( <span class="synIdentifier">$type</span> <span class="synStatement">eq</span> <span class="synConstant">'control'</span> ) {
+        <span class="synStatement">print</span> <span class="synConstant">&quot;</span><span class="synSpecial">\\</span><span class="synIdentifier">$arg$param</span><span class="synConstant">&quot;</span>; 
+    } <span class="synStatement">elsif</span>( <span class="synIdentifier">$type</span> <span class="synStatement">eq</span> <span class="synConstant">'text'</span> ) {
+        <span class="synStatement">print</span> <span class="synConstant">&quot;</span><span class="synSpecial">\n</span><span class="synIdentifier">$arg</span><span class="synConstant">&quot;</span>; 
+    }
+}
+
+<span class="synComment">__END__</span>
+
+<span class="synStatement">=head1</span><span class="synConstant"> NAME</span>
+
+<span class="synComment">revswapper - Swap Revision Authors</span>
+
+<span class="synStatement">=head1</span><span class="synConstant"> SYNOPSIS</span>
+
+<span class="synComment">revswapper [-from author -to new author] filename.rtf</span>
+
+<span class="synStatement">=head1</span><span class="synConstant"> OPTIONS</span>
+
+<span class="synStatement">=over</span><span class="synComment"> </span><span class="synConstant">4</span>
+
+<span class="synStatement">=item</span><span class="synConstant"> </span><span class="synIdentifier">B&lt;-from&gt;</span>
+
+<span class="synComment">The existing Author name.</span>
+
+<span class="synStatement">=item</span><span class="synConstant"> </span><span class="synIdentifier">B&lt;-to&gt;</span>
+
+<span class="synComment">The new Author name to replace with.</span>
+
+<span class="synStatement">=back</span>
+
+<span class="synStatement">=head1</span><span class="synConstant"> DESCRIPTION</span>
+
+<span class="synComment">Swap revision authors within an rtf file. Called with no options will</span>
+<span class="synComment">list the current authors in the file. Prints output to STDOUT.</span>
+
+<span class="synStatement">=head1</span><span class="synConstant"> AUTHOR</span>
+
+<span class="synComment">Andrew Bruno &lt;aeb</span><span class="synIdentifier">@qnot</span><span class="synComment">.org&gt;</span>
+
+<span class="synStatement">=head1</span><span class="synConstant"> COPYRIGHT</span>
+
+<span class="synComment">Copyright (C) 2004 Andrew Bruno</span>
+
+<span class="synComment">This module is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</span>
+
+<span class="synStatement">=cut</span>
+</pre>
+
+ </body>
+</html>
