@@ -1,0 +1,12 @@
+---
+baseurl: "http://qnot.org/"
+languageCode: "en-us"
+title: "qnot.org"
+pygmentsstyle: "monokai"
+pygmentsuseclasses: true
+permalinks:
+  blog: /:year/:month/:day/:title/
+
+taxonomies:
+  tag: "tags"
+  category: "categories"

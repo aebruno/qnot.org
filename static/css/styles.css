@@ -1,0 +1,28 @@
+pre {
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: auto;
+}
+
+body {
+    font-family: Inconsolata;
+    font-size: 16px;
+}
+
+.breadcrumb {
+    background-color: #fff;
+    text-transform: uppercase;
+}
+
+.breadcrumb>li+li:before {
+    content: "|\00a0";
+}
+
+.tab {
+    margin-left: 50px;
+}
+
+.post-date {
+    margin-bottom: 15px;
+    color: #999;
+}
