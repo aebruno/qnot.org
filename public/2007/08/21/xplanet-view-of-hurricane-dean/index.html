@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
+    <meta name="author" content="Andrew E. Bruno">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="" rel="alternate" type="application/rss+xml" title="qnot.org">
+    <title> Xplanet view of Hurricane Dean &middot; qnot.org</title>
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://qnot.org//css/syntax.css">
+    <link rel="stylesheet" href="http://qnot.org//css/styles.css">
+
+    
+    
+  </head>
+
+<body>
+
+<div class="container">
+<ol class="breadcrumb">
+    <li><a href="/">About</a></li>
+    <li><a href="/blog/">Syncopated Pandemonium</a></li>
+    <li><a href="/publications/">Publications</a></li>
+    <li><a href="https://github.com/aebruno">Code</a></li>
+    <li><a href="/contact/">Contact</a></li>
+</ol>
+
+
+<div class="post">
+  <h1>Xplanet view of Hurricane Dean</h1>
+  <div class="post-date">Tue, Aug 21, 2007</div>
+      <p>I&rsquo;m a big fan of <a href="http://xplanet.sourceforge.net/">Xplanet</a> and every year
+during the hurricane season there&rsquo;s no better way to liven up your desktop than
+to download the latest <a href="http://xplanet.sourceforge.net/clouds.php">cloud maps</a>
+and watch the path of the storm. Here&rsquo;s a screenshot of my desktop showing
+<a href="http://en.wikipedia.org/wiki/Hurricane_Dean_(2007">hurricane dean</a>):</p>
+
+<p>
+<figure >
+    
+        <img src="/media/dean_xplanet_large.jpg" />
+    
+    
+</figure>
+</p>
+
+<p>I cron a script to download the latest cloud maps every 4 hours or so. The
+xplanet command I run is as follows:</p>
+
+<p><div class="highlight"><pre>xplanet -origin sun -north orbit <span class="se">\</span>
+        -config xplanet.conf -label <span class="se">\</span>
+        -marker_file brightStars <span class="se">\</span>
+        -target earth <span class="se">\</span>
+        -latitude 22 <span class="se">\</span>
+        -longitude -78 <span class="se">\</span>
+        -radius 30 <span class="se">\</span>
+        -labelpos +30+30
+</pre></div>
+</p>
+
+<p>Here&rsquo;s my xplanet.conf:</p>
+
+<p><div class="highlight"><pre><span class="o">[</span>earth<span class="o">]</span>
+<span class="nv">cloud_map</span><span class="o">=</span>clouds_2048.jpg
+<span class="nv">magnify</span><span class="o">=</span>20
+
+<span class="o">[</span>moon<span class="o">]</span>
+<span class="nv">magnify</span><span class="o">=</span>20
+</pre></div>
+</p>
+
+</div>
+
+</div>
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+
+  </body>
+</html>
