@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
+    <meta name="author" content="Andrew E. Bruno">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="" rel="alternate" type="application/rss+xml" title="qnot.org">
+    <title> Logging out without killing a process &middot; qnot.org</title>
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://qnot.org//css/syntax.css">
+    <link rel="stylesheet" href="http://qnot.org//css/styles.css">
+
+    
+    
+  </head>
+
+<body>
+
+<div class="container">
+<ol class="breadcrumb">
+    <li><a href="/">About</a></li>
+    <li><a href="/blog/">Syncopated Pandemonium</a></li>
+    <li><a href="/publications/">Publications</a></li>
+    <li><a href="https://github.com/aebruno">Code</a></li>
+    <li><a href="/contact/">Contact</a></li>
+</ol>
+
+
+<div class="post">
+  <h1>Logging out without killing a process</h1>
+  <div class="post-date">Tue, Sep 14, 2010</div>
+      <p>Here&rsquo;s the scenario, you&rsquo;re logged into your favorite *nix box and are using
+bash as your shell. You fired off some process which is going to take a while
+to run (and forgot to run <a href="http://www.gnu.org/software/screen/">screen</a>) and
+you want to logout without killing that process. The command to use is
+<a href="http://www.gnu.org/software/bash/manual/bashref.html#Job-Control-Builtins">disown</a>.
+Here&rsquo;s a really simple example:</p>
+
+<pre><code>$ ssh some-host
+$ perl script-that-chugs-along.pl
+$ Ctrl-Z (suspend)
+$ bg (put it in background)
+$ disown -h
+$ logout
+</code></pre>
+
+<p>The <code>disown</code> command allows you to remove jobs from the list of active jobs
+associated with your login shell. Here&rsquo;s an excerpt from the bash man page:</p>
+
+<blockquote>
+<p>Without options, each <em>jobspec</em> is removed from the table of active jobs. If
+the <code>-h</code> option is given, the job is not removed from the table, but is marked
+so that <code>SIGHUP</code> is not sent to the job if the shell receives a <code>SIGHUP</code>.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+
+  </body>
+</html>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on qnot.org</title>
+    <link>http://qnot.org/tags/linux/</link>
+    <description>Recent content in Linux on qnot.org</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 23 Jul 2008 03:22:40 +0000</lastBuildDate>
+    <atom:link href="http://qnot.org/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Neo FreeRunner = Freedom</title>
+      <link>http://qnot.org/2008/07/23/neo-freerunner--freedom/</link>
+      <pubDate>Wed, 23 Jul 2008 03:22:40 +0000</pubDate>
+      
+      <guid>http://qnot.org/2008/07/23/neo-freerunner--freedom/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Open. Mobile. Free.&lt;/strong&gt; That was the tag line printed on the side of the box
+which housed my shiny new &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
+FreeRunner&lt;/a&gt;. I finally had
+some time to sit down and play with this new device and so far it&amp;rsquo;s blown me
+away. If you&amp;rsquo;re a Linux geek and haven&amp;rsquo;t checked this out yet I highly
+recommend &lt;a href=&#34;http://www.openmoko.com/product.html&#34;&gt;getting one&lt;/a&gt;. It&amp;rsquo;s a truly
+open platform with a thriving community and is supported by a company which has
+basically open sourced their internal development. Where else could you get the
+complete &lt;a href=&#34;http://wiki.openmoko.org/wiki/CAD_models&#34;&gt;CAD files&lt;/a&gt; for your phone?
+There&amp;rsquo;s a good post about why you might &lt;a href=&#34;http://www.fsf.org/blogs/community/5-reasons-to-avoid-iphone-3g&#34;&gt;think twice before buying an
+iPhone&lt;/a&gt; and
+picking up a FreeRunner instead.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a few pics of what the Neo looks like all boxed up..&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://qnot.org/media/neo-box.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://qnot.org/media/neo-box2.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The Neo came bundled with a USB cable, a nifty stylus + laser pen, AC adapter,
+battery, and a 512mb microSD card.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://qnot.org/media/neo-accessories.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://wiki.openmoko.org/wiki/Neo_FreeRunner_GTA02_Hardware&#34;&gt;hardware
+specs&lt;/a&gt; for the Neo
+(GTA02) are impressive, GSM, WiFi, Bluetooth, GPS. All that packed into a full
+blown Linux distro that fits in the palm of your hand.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://qnot.org/media/neo-hand.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://qnot.org/media/neo-back.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ll be posting more about my experiences using the Neo as my daily phone. More
+to come..&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

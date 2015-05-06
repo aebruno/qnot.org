@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
+    <meta name="author" content="Andrew E. Bruno">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="" rel="alternate" type="application/rss+xml" title="qnot.org">
+    <title> Customizing Pidgin Chat Windows &middot; qnot.org</title>
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://qnot.org//css/syntax.css">
+    <link rel="stylesheet" href="http://qnot.org//css/styles.css">
+
+    
+    
+  </head>
+
+<body>
+
+<div class="container">
+<ol class="breadcrumb">
+    <li><a href="/">About</a></li>
+    <li><a href="/blog/">Syncopated Pandemonium</a></li>
+    <li><a href="/publications/">Publications</a></li>
+    <li><a href="https://github.com/aebruno">Code</a></li>
+    <li><a href="/contact/">Contact</a></li>
+</ol>
+
+
+<div class="post">
+  <h1>Customizing Pidgin Chat Windows</h1>
+  <div class="post-date">Sat, Jul 7, 2007</div>
+      <p>In my <a href="http://qnot.org/2007/01/14/customizing-gaim-chat-windows/">previous post</a> I discussed
+customizing Gaim chat windows. Since then Gaim has formally changed it&rsquo;s name
+to <a href="http://pidgin.im/pidgin/home/">Pidgin</a> due to <a href="http://pidgin.im/~elb/cgi-bin/pyblosxom.cgi/going_public.html">legal issues with
+AOL</a>. I finally
+upgraded to Pidgin and had to do a few minor tweaks to get the same chat window
+customizations as before.  I updated <code>~/.purple/gtkrc-2.0</code> which previously
+resided in <code>~/.gaim</code> and changed the widget names from <code>gaim_gtkconv_*</code> to
+<code>pidgin_conv_*</code>. Here&rsquo;s my updated <code>~/.purple/gtkrc-2.0</code> file:</p>
+
+<pre><code>style &quot;pidgin-dark&quot; {
+    base[NORMAL]=&quot;#000000&quot;
+    text[NORMAL]=&quot;#00FF00&quot;
+    GtkIMHtml::hyperlink-color=&quot;#007FFF&quot;
+    GtkWidget::cursor-color=&quot;#60AFFE&quot;
+    GtkWidget::secondary-cursor-color=&quot;#A4D3EE&quot;
+}
+widget &quot;*pidgin_conv_imhtml&quot; style &quot;pidgin-dark&quot;
+widget &quot;*pidgin_conv_entry&quot; style &quot;pidgin-dark&quot;
+</code></pre>
+
+</div>
+
+</div>
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+
+  </body>
+</html>

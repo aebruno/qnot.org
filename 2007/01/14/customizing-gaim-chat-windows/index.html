@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
+    <meta name="author" content="Andrew E. Bruno">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="" rel="alternate" type="application/rss+xml" title="qnot.org">
+    <title> Customizing Gaim Chat Windows &middot; qnot.org</title>
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://qnot.org//css/syntax.css">
+    <link rel="stylesheet" href="http://qnot.org//css/styles.css">
+
+    
+    
+  </head>
+
+<body>
+
+<div class="container">
+<ol class="breadcrumb">
+    <li><a href="/">About</a></li>
+    <li><a href="/blog/">Syncopated Pandemonium</a></li>
+    <li><a href="/publications/">Publications</a></li>
+    <li><a href="https://github.com/aebruno">Code</a></li>
+    <li><a href="/contact/">Contact</a></li>
+</ol>
+
+
+<div class="post">
+  <h1>Customizing Gaim Chat Windows</h1>
+  <div class="post-date">Sun, Jan 14, 2007</div>
+      <p><a href="http://gaim.sf.net">Gaim</a> is an excellent instant messaging client with
+support for multiple protocols and runs on several different
+<a href="http://gaim.sourceforge.net/about.php">platforms</a>. For the longest time I&rsquo;ve
+wanted to customize the background color of my chat windows so they resemble my
+xterm settings of green text on a black background. There doesn&rsquo;t seem to be an
+easy way to do this via Gaim&rsquo;s preferences and after a little digging I finally
+got it working.</p>
+
+<p>The most recent version of Gaim uses <a href="http://www.gtk.org">GTK+ 2.0</a> and the
+background color for chat windows can be customized by adding some styles to
+your <code>~/.gaim/gtkrc-2.0</code> file. You can also customize key bindings, fonts, and
+other widgets in Gaim by tweaking this file but I&rsquo;m just going to discuss the
+settings for the chat windows in this post. I&rsquo;m no GTK+ guru but I found the
+<a href="http://www.gtk.org/tutorial/x2138.html">API docs</a> and this
+<a href="http://ometer.com/gtk-colors.html">mini-FAQ</a> helpful and gave a nice
+introduction to styles and themes in GTK+.</p>
+
+<p>To customize the colors in your chat windows edit your <code>~/.gaim/gtkrc-2.0</code> file
+or create if it doesn&rsquo;t exist and add the following lines:</p>
+
+<p><div class="highlight"><pre><span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span> <span class="p">{</span>
+    <span class="n">base</span><span class="p">[</span><span class="n">NORMAL</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span>
+    <span class="k">text</span><span class="p">[</span><span class="n">NORMAL</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;#00FF00&quot;</span>
+    <span class="n">GtkIMHtml</span><span class="o">::</span><span class="n">hyperlink</span><span class="o">-</span><span class="k">color</span><span class="o">=</span><span class="s2">&quot;#007FFF&quot;</span>
+    <span class="n">GtkWidget</span><span class="o">::</span><span class="k">cursor</span><span class="o">-</span><span class="k">color</span><span class="o">=</span><span class="s2">&quot;#60AFFE&quot;</span>
+    <span class="n">GtkWidget</span><span class="o">::</span><span class="n">secondary</span><span class="o">-</span><span class="k">cursor</span><span class="o">-</span><span class="k">color</span><span class="o">=</span><span class="s2">&quot;#A4D3EE&quot;</span>
+<span class="p">}</span>
+<span class="nt">widget</span> <span class="s2">&quot;*gaim_gtkconv_imhtml&quot;</span> <span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span>
+<span class="nt">widget</span> <span class="s2">&quot;*gaim_gtkconv_entry&quot;</span> <span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span>
+</pre></div>
+</p>
+
+<p><code>base[NORMAL]</code> sets the background color and <code>text[NORMAL]</code> sets the color of
+the text. You can tweak the colors to your liking restart Gaim and your chat
+windows should now be customized. I didn&rsquo;t find a way to change the color of
+the screen names displayed in the chat window. Digging through the source code
+it looks like these colors are hardcoded  using <code>#define SEND_COLOR &quot;#204a87&quot;</code>
+and <code>#define RECV_COLOR &quot;#cc0000&quot;</code> around line number 86 inside the file
+<a href="https://svn.sourceforge.net/svnroot/gaim/trunk/gtk/gtkconv.c">./gtk/gtkconv.c</a>
+of the Gaim source. You could always try changing these values and re-compiling
+Gaim. I haven&rsquo;t tested this but seems like it should work.  Here&rsquo;s a screen
+shot of my customized chat window:</p>
+
+<p>
+<figure >
+    
+        <img src="/media/gaim_green_black.jpg" />
+    
+    
+</figure>
+</p>
+
+<p>There is also a plugin which comes with Gaim called <em>Gaim GTK+ Theme Control</em>
+which seems to provide a GUI interface for editing your <code>~/.gaim/gtkrc-2.0</code>
+file but I didn&rsquo;t see any options for customizing the chat windows. In the Gaim
+FAQ there is also a link to a <a href="http://gaim.sourceforge.net/gtkrc-2.0">sample gtkrc-2.0</a>
+which gives some good examples of other customizations.</p>
+
+</div>
+
+</div>
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+
+  </body>
+</html>

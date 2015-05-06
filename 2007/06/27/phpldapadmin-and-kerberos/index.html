@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
+    <meta name="author" content="Andrew E. Bruno">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="" rel="alternate" type="application/rss+xml" title="qnot.org">
+    <title> phpLDAPadmin and Kerberos &middot; qnot.org</title>
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://qnot.org//css/syntax.css">
+    <link rel="stylesheet" href="http://qnot.org//css/styles.css">
+
+    
+    
+  </head>
+
+<body>
+
+<div class="container">
+<ol class="breadcrumb">
+    <li><a href="/">About</a></li>
+    <li><a href="/blog/">Syncopated Pandemonium</a></li>
+    <li><a href="/publications/">Publications</a></li>
+    <li><a href="https://github.com/aebruno">Code</a></li>
+    <li><a href="/contact/">Contact</a></li>
+</ol>
+
+
+<div class="post">
+  <h1>phpLDAPadmin and Kerberos</h1>
+  <div class="post-date">Wed, Jun 27, 2007</div>
+      <p>I&rsquo;ve been experimenting with
+<a href="http://phpldapadmin.sourceforge.net/">phpLDAPadmin</a> for browsing/searching
+LDAP directories over the web and found it to be a wonderful tool. I&rsquo;m
+currently working with LDAP in a central authentication system together with
+Kerberos and wanted to have a nice web interface for managing user information
+within the LDAP directory. phpLDAPadmin provides a very nice interface for
+browsing, searching, and updating entries which makes it a bit easier than
+working with the ldap* command line tools. Here&rsquo;s my basic setup of
+phpLDAPadmin using Kerberos for authentication. This assumes you already have
+an LDAP/Kerberos setup working and are using Apache as your web server.</p>
+
+<p>First step is to make sure you have
+<a href="http://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer">SASL</a>
+support compiled into the LDAP PHP extension <code>--with-ldap-sasl</code>. Check out
+phpinfo() and make sure you see <code>SASL Support   Enabled</code> under the LDAP
+extension. If not re-compile PHP.<br />
+Grab a copy of phpLDAPadmin
+<a href="http://phpldapadmin.sourceforge.net/download.php">here</a> and untar into a
+directory of your choice (/usr/local). Copy the config.php.example to
+config.php:</p>
+
+<p><div class="highlight"><pre><span class="nv">$ </span>tar -xvxf phpldapadmin-x.x.x.tar.gz
+<span class="nv">$ </span>ln -s phpldapadmin-x.x.x phpldapadmin
+<span class="nv">$ </span><span class="nb">cd </span>phpldapadmin
+<span class="nv">$ </span>cp config/config.php.example config/config.php
+</pre></div>
+</p>
+
+<p>Edit config/config.php. A few options to define are as follows:</p>
+
+<p><div class="highlight"><pre><span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;name&#39;,&#39;My LDAP Server&#39;);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;host&#39;,&#39;ldap.host.com&#39;);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;port&#39;,&#39;389&#39;);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;auth_type&#39;,&#39;config&#39;);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;login&#39;,&#39;dn&#39;,&#39;&#39;);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;login&#39;,&#39;pass&#39;,&#39;&#39;);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;tls&#39;,false);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_auth&#39;,true);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_mech&#39;,&#39;GSSAPI&#39;);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_authz_id_regex&#39;,&#39;/^uid=([^,]+)(.+)/i&#39;);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_authz_id_replacement&#39;,&#39;$1&#39;);</span>
+<span class="x">$ldapservers-&gt;SetValue($i,&#39;login&#39;,&#39;anon_bind&#39;,false); </span>
+</pre></div>
+</p>
+
+<p>Basically, we&rsquo;re configuring phpLDAPadmin with <code>auth_type = config</code> which means
+that the user/pass used to bind to the LDAP server is hard coded in the
+config.php file. We leave the user/pass blank because each user will first be
+authenticating through Kerberos and using their tickets to bind to the LDAP
+server. Internally phpLDAPadmin calls the <a href="http://us.php.net/manual/en/function.ldap-sasl-bind.php">ldap_sasl_bind(..)</a>
+function with an <code>auth_mech</code> of
+<a href="http://en.wikipedia.org/wiki/Generic_Security_Services_Application_Program_Interface">GSSAPI</a>
+which does the work of binding using Kerberos tickets.</p>
+
+<p>Next, we&rsquo;ll configure apache to point to the location where we installed
+phpLDAPadmin. Edit your httpd.conf file or equivalent. If your running redhat
+usually create a file in /etc/httpd/conf.d or on Debian
+/etc/apache2/site-available/. You will probably want to add this to an SSL
+vhost to ensure your username/passwords are transmitted over a secure
+connection.</p>
+
+<p><div class="highlight"><pre><span class="nb">Alias</span> <span class="sx">/ldapadmin</span> <span class="sx">/usr/local/phpldapadmin/htdocs/</span>
+<span class="nt">&lt;Location</span> <span class="s">/ldapadmin</span><span class="nt">&gt;</span>
+    <span class="nb">AuthType</span> Kerberos
+    <span class="nb">AuthName</span> <span class="s2">&quot;LDAP Admin&quot;</span>
+    <span class="nb">KrbAuthRealms</span> kerb.yourhost.com
+    <span class="nb">KrbVerifyKDC</span> <span class="k">off</span>
+    <span class="nb">KrbServiceName</span> HTTP
+    <span class="nb">Krb5KeyTab</span> <span class="sx">/path/to/your/httpd.keytab</span>
+    <span class="nb">KrbSaveCredentials</span> <span class="k">on</span>
+    <span class="nb">require</span> valid-user
+<span class="nt">&lt;/Location&gt;</span>
+</pre></div>
+</p>
+
+<p>In order to authenticate users against Kerberos and obtain the necessary
+Kerberos tickets we use the apache module
+<a href="http://modauthkerb.sourceforge.net/">mod_auth_kerb</a>. The apache config above
+defines our location for phpLDAPadmin and adds in the necessary config for
+mod_auth_kerb. More info can be found
+<a href="http://modauthkerb.sourceforge.net/configure.html">here</a>. Make sure to add in
+the <code>KrbSaveCredentails on</code> directive so that mod_auth_kerb will save the
+Kerberos tickets for use throughout the request.</p>
+
+<p>Next we need to expose the location of the Kerberos tickets to phpLDAPadmin.
+mod_auth_kerb sets an environment variable <code>KRB5CCNAME</code> to the location of the
+credential cache. To expose this environment variable to the phpLDAPadmin code
+edit the file <code>[phpLDAPadmin_install]/lib/common.php</code> and add this line to the
+very top:</p>
+
+<p><div class="highlight"><pre><span class="x">putenv(&quot;KRB5CCNAME={$_SERVER[&#39;KRB5CCNAME&#39;]}&quot;); </span>
+</pre></div>
+</p>
+
+<p>That should do it. Now when you access <a href="http://yourserver.com/ldapadmin">http://yourserver.com/ldapadmin</a> you
+should be challenged with HTTP basic auth, which authenticates against Kerberos
+and uses the Kerberos credentials to bind to your LDAP server. There might be
+an easier way to go about doing this but I wasn&rsquo;t able to turn much up on
+google so I thought I&rsquo;d share one way I was able to get things working.</p>
+
+</div>
+
+</div>
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+
+  </body>
+</html>
