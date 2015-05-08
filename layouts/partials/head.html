@@ -8,7 +8,7 @@
     <meta name="author" content="Andrew E. Bruno">
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="{{ .RSSlink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}">
-    <title> {{ .Title }} &middot; qnot.org</title>
+    <title> {{ with .Title }} {{ . }} &middot; {{ end }} qnot.org</title>
     <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ .Site.BaseUrl }}/css/syntax.css">
