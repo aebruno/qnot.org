@@ -41,7 +41,7 @@ because if iBATIS doesn&rsquo;t know how to handle a certain type it just return
 java.lang.Object. The way to go about inserting BigInteger types is to set up a
 type handler. Here&rsquo;s an example type handler for BigInteger types:</p>
 
-<p><div class="highlight"><pre><span class="kn">package</span> <span class="n">org</span><span class="o">.</span><span class="na">qnot</span><span class="o">.</span><span class="na">util</span><span class="o">;</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">org.qnot.util</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.math.BigDecimal</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.math.BigInteger</span><span class="o">;</span>
@@ -84,8 +84,8 @@ type handler. Here&rsquo;s an example type handler for BigInteger types:</p>
         <span class="k">return</span> <span class="n">s</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</pre></div>
-</p>
+</code></pre></div>
+
 
 </div>
 

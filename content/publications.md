@@ -4,6 +4,11 @@ slug: publications
 title: Publications
 ---
 
+1. Rachel M. Simpson, **Andrew E. Bruno**, Jonathan E. Bard, Michael J. Buck and
+   Laurie K. Read. High-throughput sequencing of partially edited trypanosome
+   mRNAs reveals barriers to editing progression and evidence for alternative
+   editing. *RNA*, 2016. doi:10.1261/rna.055160.115
+   [`doi:10.1261/rna.055160.115`](http://dx.doi.org/10.1261/rna.055160.115)
 1. Diana Fusco, Timothy J. Barnum, **Andrew E. Bruno**, Joseph R. Luft, Edward H.
    Snell, Sayan Mukherjee, Patrick Charbonneau. Statistical Analysis of
    Crystallization Database Links Protein Physico-Chemical Features with

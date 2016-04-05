@@ -62,49 +62,49 @@ picking up a FreeRunner instead.&lt;/p&gt;
 
 &lt;p&gt;Here&amp;rsquo;s a few pics of what the Neo looks like all boxed up..&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/neo-box.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
 
-&lt;p&gt;
+
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/neo-box2.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;The Neo came bundled with a USB cable, a nifty stylus + laser pen, AC adapter,
 battery, and a 512mb microSD card.&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/neo-accessories.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;The &lt;a href=&#34;http://wiki.openmoko.org/wiki/Neo_FreeRunner_GTA02_Hardware&#34;&gt;hardware
 specs&lt;/a&gt; for the Neo
 (GTA02) are impressive, GSM, WiFi, Bluetooth, GPS. All that packed into a full
 blown Linux distro that fits in the palm of your hand.&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/neo-hand.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;
 &lt;figure &gt;
@@ -154,14 +154,14 @@ sheet from the drop down list. We&amp;rsquo;ll be using various UML objects to r
 tables and definitions that make up our database. Here&amp;rsquo;s a quick overview of
 the main UML objects and their usage:&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/dia_menu.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -173,20 +173,17 @@ the main UML objects and their usage:&lt;/p&gt;
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_class.png&#34; alt=&#34;&#34; /&gt;
-&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_class.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
 &lt;td&gt;Class represents a table in the database. A Class has a name which corresponds to the name of the table and attributes which map to the columns of the table. Attributes in classes can have visibility (public, private, protected). Protected attributes are primary keys. More on classes later.&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_component.png&#34; alt=&#34;&#34; /&gt;
-&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_component.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
 &lt;td&gt;Component is a special object that lets you define a list of default values to be inserted into a table. These are equivalent to hard coding &amp;ldquo;insert into ..&amp;rdquo; statements in your SQL files.&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_small_package.png&#34; alt=&#34;&#34; /&gt;
-&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_small_package.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
 &lt;td&gt;Small Package represents a typemap. Typemaps are used for adding custom SQL types such as MySQL tinyint.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
@@ -211,28 +208,28 @@ add in &amp;ldquo;not null&amp;rdquo;. If the column your adding is a primary ke
 Not null will automatically get added to all primary keys on output generation.
 The screen shot below is an example of the Class property editor window.&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/dia_attributes.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;Next, repeat the process for as many tables as you need in your database. For
 this example, create two tables &amp;ldquo;employee&amp;rdquo; and &amp;ldquo;department&amp;rdquo; with the columns as
 shown in the screenshot below (note the &amp;lsquo;#&amp;rsquo; in front of an attribute indicates
 that it&amp;rsquo;s visibility is &amp;ldquo;Protected&amp;rdquo; thus making it a Primary Key):&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/dia_employee.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;This is a simple example of a database which stores employee data along with
 the department they belong to. Now suppose we have a default list of
@@ -241,38 +238,38 @@ is created. To do this we&amp;rsquo;ll use the &amp;ldquo;Component&amp;rdquo; o
 Select the &amp;ldquo;Component&amp;rdquo; object and add it to your diagram editor window. Right
 click and select &amp;ldquo;Properties&amp;rdquo;.&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/dia_comp_prop.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;In the &amp;ldquo;Stereotype: &amp;ldquo; field you basically enter in the first part of an &amp;ldquo;insert
 into ..&amp;rdquo; SQL statement. For this example, to insert a default list of
 departments we&amp;rsquo;d normally write the following SQL:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Marketing&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Marketing&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Production&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Design&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;So in this case, for the &amp;ldquo;Stereotype: &amp;ldquo; field we&amp;rsquo;d enter in &amp;ldquo;department
 (department_id, name)&amp;ldquo;. Click OK to close the properties dialog. Now in the
 Component object box enter in the values you&amp;rsquo;d like to insert, one per line.
 Here&amp;rsquo;s what our diagram should look like now:&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/dia_employee2.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;Now lets add in a typemap. Typemaps are used for when you&amp;rsquo;d like to configure
 custom types which are specific to a database platform. A good example of this
@@ -285,14 +282,14 @@ we&amp;rsquo;ll create a custom typemap and define the specific SQL for each tar
 &lt;p&gt;Typemaps are created using a Small Package so select the &amp;ldquo;Small Package&amp;rdquo; object
 and add it to your diagram editor window. Right click and select &amp;ldquo;Properties&amp;rdquo;.&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/dia_type_prop.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;In the &amp;ldquo;Stereotype: &amp;ldquo; field you enter in the target database. So for example
 &amp;ldquo;mysql: typemap&amp;rdquo;.  For a list of supported target databases see tedia2sql
@@ -331,14 +328,14 @@ table. Now these columns will be auto incrementing columns and depending on
 which target database we select on output the correct SQL will be generated.
 Our diagram should now look like this:&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/dia_employee3.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;At this point we have created our database schema and defined a default list of
 departments to be inserted. We also created a typemap called &amp;ldquo;identity&amp;rdquo; which
@@ -349,11 +346,11 @@ very small formatting issue in tedia2sql related to the typemaps we created.
 Edit the tedia2sql script (/usr/bin/tedia2sql) and comment out the line inside
 the parseTypeMap(..) subroutine that looks like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$defStr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=~&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;s/s//g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# ignore spaces&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-perl&#34; data-lang=&#34;perl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$defStr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=~&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;s/s//g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# ignore spaces&lt;/span&gt;
      &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;change&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;#   $defStr =~ s/s//g; # ignore spaces&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;or just apply the patch I created
 &lt;a href=&#34;http://qnot.org/data/tedia2sql-typemap-1.2.12.patch&#34;&gt;here&lt;/a&gt; (works for version 1.2.12):&lt;/p&gt;
@@ -372,7 +369,7 @@ Apache derby. If you view these files you can see how tedia2sql handled our
 typemaps for the auto incrementing columns in each target database:&lt;/p&gt;
 
 &lt;p&gt;MySQL
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c1&#34;&gt;-- employee&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- employee&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;create&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;table&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;employee&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;auto_increment&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;             &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -381,11 +378,11 @@ typemaps for the auto incrementing columns in each target database:&lt;/p&gt;
   &lt;span class=&#34;n&#34;&gt;start_date&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;k&#34;&gt;constraint&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pk_Employee&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
 &lt;p&gt;Apache Derby
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c1&#34;&gt;-- employee&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- employee&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;create&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;table&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;employee&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;generated&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;by&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;identity&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;             &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -394,7 +391,7 @@ typemaps for the auto incrementing columns in each target database:&lt;/p&gt;
   &lt;span class=&#34;n&#34;&gt;start_date&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;k&#34;&gt;constraint&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pk_Employee&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
 &lt;p&gt;You can download the files generated as well as the employee.dia file I used in
@@ -425,12 +422,12 @@ database as follows:&lt;/p&gt;
 
 &lt;p&gt;A quick Makefile will help out a lot in testing out your database schema:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nf&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
       tedia2sql -i employee.dia -o employee-mysql.sql -t mysql -d
       tedia2sql -i employee.dia -o employee-derby.sql -t db2 -d
 &lt;span class=&#34;nf&#34;&gt;clean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
       rm -f *.sql
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;ve found that for small to moderate size projects creating database schemas
@@ -459,38 +456,38 @@ to download the latest &lt;a href=&#34;http://xplanet.sourceforge.net/clouds.php
 and watch the path of the storm. Here&amp;rsquo;s a screenshot of my desktop showing
 &lt;a href=&#34;http://en.wikipedia.org/wiki/Hurricane_Dean_(2007&#34;&gt;hurricane dean&lt;/a&gt;):&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/dean_xplanet_large.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;I cron a script to download the latest cloud maps every 4 hours or so. The
 xplanet command I run is as follows:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;xplanet -origin sun -north orbit &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;xplanet -origin sun -north orbit &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
         -config xplanet.conf -label &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
         -marker_file brightStars &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
         -target earth &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -latitude 22 &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+        -latitude &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
         -longitude -78 &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -radius 30 &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+        -radius &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
         -labelpos +30+30
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;Here&amp;rsquo;s my xplanet.conf:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;earth&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;earth&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;cloud_map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clouds_2048.jpg
 &lt;span class=&#34;nv&#34;&gt;magnify&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;20
 
 &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;moon&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;magnify&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;20
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 </description>
     </item>
@@ -549,7 +546,7 @@ introduction to styles and themes in GTK+.&lt;/p&gt;
 &lt;p&gt;To customize the colors in your chat windows edit your &lt;code&gt;~/.gaim/gtkrc-2.0&lt;/code&gt; file
 or create if it doesn&amp;rsquo;t exist and add the following lines:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nt&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;gaim-dark&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;nt&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;gaim-dark&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;base&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NORMAL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;#000000&amp;quot;&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NORMAL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;#00FF00&amp;quot;&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;GtkIMHtml&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hyperlink&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;#007FFF&amp;quot;&lt;/span&gt;
@@ -558,8 +555,8 @@ or create if it doesn&amp;rsquo;t exist and add the following lines:&lt;/p&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;widget&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;*gaim_gtkconv_imhtml&amp;quot;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;gaim-dark&amp;quot;&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;widget&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;*gaim_gtkconv_entry&amp;quot;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;gaim-dark&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;&lt;code&gt;base[NORMAL]&lt;/code&gt; sets the background color and &lt;code&gt;text[NORMAL]&lt;/code&gt; sets the color of
 the text. You can tweak the colors to your liking restart Gaim and your chat

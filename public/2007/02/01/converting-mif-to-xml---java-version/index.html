@@ -47,19 +47,19 @@ use <a href="http://ant.apache.org/">ant</a> but integrating JFlex into another 
 environment should be straightforward. I created the following
 directory structure:</p>
 
-<p><div class="highlight"><pre>--/
-  |-- src/main/jflex/               - JFlex lexical specifications
-  |-- src/main/resources/MANIFEST   - Defines main class <span class="k">for </span>executable jar
-  |-- src/main/java/                - Java <span class="nb">source</span>
-  |-- lib/                          - 3rd party libraries <span class="o">(</span>JFlex.jar<span class="o">)</span>
-  |-- build.xml                     - Ant build file
-</pre></div>
-</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">--/
+  <span class="p">|</span>-- src/main/jflex/               - JFlex lexical specifications
+  <span class="p">|</span>-- src/main/resources/MANIFEST   - Defines main class <span class="k">for</span> executable jar
+  <span class="p">|</span>-- src/main/java/                - Java <span class="nb">source</span>
+  <span class="p">|</span>-- lib/                          - 3rd party libraries <span class="o">(</span>JFlex.jar<span class="o">)</span>
+  <span class="p">|</span>-- build.xml                     - Ant build file
+</code></pre></div>
+
 
 <p>JFlex comes bundled with a <code>JFlexAntTask</code> which provides a very convenient
 <code>&lt;jflex/&gt;</code> task. Here&rsquo;s a snippet of the ant build file I created which shows
 how to set it up:
-<div class="highlight"><pre><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;src&quot;</span>   <span class="na">location=</span><span class="s">&quot;${basedir}/src/main/java&quot;</span> <span class="nt">/&gt;</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;src&quot;</span>   <span class="na">location=</span><span class="s">&quot;${basedir}/src/main/java&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;lib&quot;</span> <span class="na">location=</span><span class="s">&quot;${basedir}/lib&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;scanner-file&quot;</span> <span class="na">value=</span><span class="s">&quot;${basedir}/src/main/jflex/mif.jflex&quot;</span> <span class="nt">/&gt;</span>
 
@@ -76,19 +76,19 @@ how to set it up:
     <span class="nt">&lt;echo</span> <span class="na">message=</span><span class="s">&quot;Generating the MIF Lexer&quot;</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;jflex</span> <span class="na">file=</span><span class="s">&quot;${scanner-file}&quot;</span> <span class="na">destdir=</span><span class="s">&quot;${src}&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/target&gt;</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>I found writing the lexical specification in JFlex and flex to be very similar.
 JFlex has a great <a href="http://www.jflex.de/manual.html">user manual</a> which contains
 a lot of useful info. Here&rsquo;s the <code>mif.jflex</code> file:</p>
 
-<p><div class="highlight"><pre><span class="cm">/*</span>
+<p><div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/*</span>
 <span class="cm"> * Copyright 2007 Andrew Bruno &lt;aeb@qnot.org&gt;</span>
 <span class="cm"> * Licensed under the Apache License, Version 2.0</span>
 <span class="cm"> */</span>
 
-<span class="kn">package</span> <span class="n">org</span><span class="o">.</span><span class="na">qnot</span><span class="o">.</span><span class="na">mif2xml</span><span class="o">;</span>
+<span class="kn">package</span> <span class="nn">org.qnot.mif2xml</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Stack</span><span class="o">;</span>
 
 <span class="o">%%</span>
@@ -213,19 +213,19 @@ a lot of useful info. Here&rsquo;s the <code>mif.jflex</code> file:</p>
         <span class="n">facet</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">yytext</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>I created a simple <code>Tag</code> class to encapsulate a MIF XML tag and handle writing
 out each tag. The <code>MifLexer</code> keeps a stack of <code>Tag</code> instances while it&rsquo;s
 processing the input file:</p>
 
-<p><div class="highlight"><pre><span class="cm">/*</span>
+<p><div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/*</span>
 <span class="cm"> * Copyright 2007 Andrew Bruno &lt;aeb@qnot.org&gt;</span>
 <span class="cm"> * Licensed under the Apache License, Version 2.0</span>
 <span class="cm"> */</span>
 
-<span class="kn">package</span> <span class="n">org</span><span class="o">.</span><span class="na">qnot</span><span class="o">.</span><span class="na">mif2xml</span><span class="o">;</span>
+<span class="kn">package</span> <span class="nn">org.qnot.mif2xml</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tag</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
@@ -276,7 +276,7 @@ processing the input file:</p>
         <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>There&rsquo;s a separate <code>Main</code> class which creates a new instance of the <code>MifLexer</code>
@@ -284,12 +284,12 @@ class for processing the file passed in on the command line. I&rsquo;d like to
 eventually extend this class so that it handles command line options and
 possibly even runs some XSLT&rsquo;s over the generated MIF XML.</p>
 
-<p><div class="highlight"><pre><span class="cm">/*</span>
+<p><div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/*</span>
 <span class="cm"> * Copyright 2007 Andrew Bruno &lt;aeb@qnot.org&gt;</span>
 <span class="cm"> * Licensed under the Apache License, Version 2.0</span>
 <span class="cm"> */</span>
 
-<span class="kn">package</span> <span class="n">org</span><span class="o">.</span><span class="na">qnot</span><span class="o">.</span><span class="na">mif2xml</span><span class="o">;</span>
+<span class="kn">package</span> <span class="nn">org.qnot.mif2xml</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
@@ -317,13 +317,13 @@ possibly even runs some XSLT&rsquo;s over the generated MIF XML.</p>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>To run the code download the <a href="https://github.com/downloads/aebruno/mif2xml-j/mif2xml-0.3.jar">executable
 jar</a> and run
-<div class="highlight"><pre><span class="nv">$ </span>java -jar mif2xml-0.1.jar myfile.mif
-</pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>java -jar mif2xml-0.1.jar myfile.mif
+</code></pre></div>
 </p>
 
 <p>The MIF XML will be printed to stdout.</p>

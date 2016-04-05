@@ -60,7 +60,7 @@ such as XSLT and XQuery. From this intermediate XML format we can transform to
 DocBook, WordML, or even convert back to MIF again for later importing into
 FrameMaker. This approach was very appealing as it can greatly reduce the
 number of one off scripts and allow us to benefit from the wide variety of
-libraries for parsing and transforming XML.&lt;!&ndash; more &ndash;&gt;</p>
+libraries for parsing and transforming XML.<!-- more --></p>
 
 <p>For example, the following snippet from a MIF file:</p>
 
@@ -78,7 +78,7 @@ libraries for parsing and transforming XML.&lt;!&ndash; more &ndash;&gt;</p>
 
 <p>Would get converted to this XML:</p>
 
-<p><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="c">&lt;!--</span>
 <span class="c"> Example XML from MIF</span>
 <span class="c">--&gt;</span>
@@ -91,8 +91,8 @@ libraries for parsing and transforming XML.&lt;!&ndash; more &ndash;&gt;</p>
     <span class="nt">&lt;/Font&gt;</span>
   <span class="nt">&lt;/FontCatalog&gt;</span>
 <span class="nt">&lt;/mif&gt;</span>
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p>This is not a new idea and one tool I know of which seems to do a similar task
 is called <a href="http://www.leximation.com/tools/mifml/">MIFML</a> written by Leximation
@@ -111,7 +111,7 @@ out MIF XML tags.  I chose to create a <code>c++</code> lexer so I could make us
 STL <code>stack</code> and <code>string</code> classes. Here&rsquo;s the <code>mif.ll</code> file which gets run
 through flex to generate the lexer:</p>
 
-<p><div class="highlight"><pre><span class="cm">/** </span>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** </span>
 <span class="cm"> * Copyright (c) 2007 Andrew Bruno &lt;aeb@qnot.org&gt;</span>
 <span class="cm"> * Licensed under the GNU General Public License version 2</span>
 <span class="cm"> */</span>
@@ -237,15 +237,15 @@ through flex to generate the lexer:</p>
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&lt;/mif&gt;&quot;</span><span class="p">;</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p>Here&rsquo;s the <code>miftag.h</code> file which contains a helper class for writing out MIF
 XML tags. Rather than having a dependency on libxml or some other XML
 processing library I choose to just implement the XML output by hand. It&rsquo;s not
 nearly as robust but it worked out ok for a first pass.</p>
 
-<p><div class="highlight"><pre><span class="cm">/** </span>
+<p><div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** </span>
 <span class="cm"> * Copyright (c) 2007 Andrew Bruno &lt;aeb@qnot.org&gt;</span>
 <span class="cm"> * Licensed under the GNU General Public License version 2</span>
 <span class="cm"> */</span>
@@ -261,8 +261,8 @@ nearly as robust but it worked out ok for a first pass.</p>
         <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
         <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
 
-        <span class="kt">void</span> <span class="n">writeEnd</span><span class="p">();</span>
-        <span class="kt">void</span> <span class="n">writeStart</span><span class="p">();</span>
+        <span class="kt">void</span> <span class="nf">writeEnd</span><span class="p">();</span>
+        <span class="kt">void</span> <span class="nf">writeStart</span><span class="p">();</span>
 <span class="p">};</span>
 
 <span class="kt">void</span> <span class="n">Tag</span><span class="o">::</span><span class="n">writeEnd</span><span class="p">()</span> <span class="p">{</span>
@@ -316,18 +316,18 @@ nearly as robust but it worked out ok for a first pass.</p>
 <span class="p">}</span>
 
 <span class="cp">#endif</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>Finally a quick and dirty Makefile:</p>
 
-<p><div class="highlight"><pre><span class="nf">all</span><span class="o">:</span>
+<p><div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nf">all</span><span class="o">:</span>
 	flex++ mif.ll
 	g++ -I. -o mif2xml lex.yy.cc -lfl
 
 <span class="nf">clean</span><span class="o">:</span>
 	rm -f lex.yy.cc *.o mif2xml
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>The code above has not been thoroughly tested on all possible MIF files so your
