@@ -23,7 +23,7 @@ here&amp;rsquo;s some code that generates the &lt;a href=&#34;http://www.sabres.
 spreadsheet available &lt;a href=&#34;http://www.sabres.com/downloads_html.cfm&#34;&gt;here&lt;/a&gt; which
 gets converted to CSV before running through the script.&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;require&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;rubygems&amp;#39;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;nb&#34;&gt;require&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;rubygems&amp;#39;&lt;/span&gt;
 &lt;span class=&#34;nb&#34;&gt;require&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;icalendar&amp;#39;&lt;/span&gt;
 &lt;span class=&#34;nb&#34;&gt;require&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;csv&amp;#39;&lt;/span&gt;
 
@@ -54,8 +54,8 @@ gets converted to CSV before running through the script.&lt;/p&gt;
 &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
 
 &lt;span class=&#34;nb&#34;&gt;puts&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to_ical&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;Here&amp;rsquo;s an example of the output which is sent to stdout:&lt;/p&gt;
 

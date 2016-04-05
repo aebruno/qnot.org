@@ -39,38 +39,38 @@ to download the latest <a href="http://xplanet.sourceforge.net/clouds.php">cloud
 and watch the path of the storm. Here&rsquo;s a screenshot of my desktop showing
 <a href="http://en.wikipedia.org/wiki/Hurricane_Dean_(2007">hurricane dean</a>):</p>
 
-<p>
+
 <figure >
     
         <img src="/media/dean_xplanet_large.jpg" />
     
     
 </figure>
-</p>
+
 
 <p>I cron a script to download the latest cloud maps every 4 hours or so. The
 xplanet command I run is as follows:</p>
 
-<p><div class="highlight"><pre>xplanet -origin sun -north orbit <span class="se">\</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">xplanet -origin sun -north orbit <span class="se">\</span>
         -config xplanet.conf -label <span class="se">\</span>
         -marker_file brightStars <span class="se">\</span>
         -target earth <span class="se">\</span>
-        -latitude 22 <span class="se">\</span>
+        -latitude <span class="m">22</span> <span class="se">\</span>
         -longitude -78 <span class="se">\</span>
-        -radius 30 <span class="se">\</span>
+        -radius <span class="m">30</span> <span class="se">\</span>
         -labelpos +30+30
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p>Here&rsquo;s my xplanet.conf:</p>
 
-<p><div class="highlight"><pre><span class="o">[</span>earth<span class="o">]</span>
+<p><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span>earth<span class="o">]</span>
 <span class="nv">cloud_map</span><span class="o">=</span>clouds_2048.jpg
 <span class="nv">magnify</span><span class="o">=</span>20
 
 <span class="o">[</span>moon<span class="o">]</span>
 <span class="nv">magnify</span><span class="o">=</span>20
-</pre></div>
+</code></pre></div>
 </p>
 
 </div>

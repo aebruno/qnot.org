@@ -41,12 +41,12 @@ address of the Freerunner is 192.168.0.202. On the desktop side you first have
 to ifconfig the usb0 interface and setup the correct routes. Here&amp;rsquo;s the script
 I run on my desktop after connecting the Freerunner:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/bash&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/bash&lt;/span&gt;
 
 /sbin/ifconfig usb0 192.168.0.200 netmask 255.255.255.0
 /sbin/route add -host 192.168.0.202/32 dev usb0
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;One extra step I had to do was configure my firewall to allow connections
 to/from usb0. I&amp;rsquo;m running Ubuntu hardy 8.04 and using Firestarter. Open up
@@ -75,14 +75,14 @@ for customizing the today page (run these commands on the Neo):&lt;/p&gt;
 
 &lt;p&gt;Here&amp;rsquo;s a screenshot of the home screen:&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/neo-clock.png&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;&lt;strong&gt;Upgrade Software&lt;/strong&gt;&lt;/p&gt;
 
@@ -127,15 +127,15 @@ seemed to be by default when you first boot. You can check this by holding down
 the power button for a few seconds which should pop up a menu showing the state
 of the various devices. Here&amp;rsquo;s the script I use to connect the Neo to my WLAN:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
 
 /sbin/ifconfig eth0 down
 /sbin/ifconfig eth0 up
 /sbin/iwconfig eth0 key restricted &lt;span class=&#34;s1&#34;&gt;&amp;#39;xxxxx&amp;#39;&lt;/span&gt;
 /sbin/iwconfig eth0 essid &lt;span class=&#34;s1&#34;&gt;&amp;#39;xxxx&amp;#39;&lt;/span&gt;
 /sbin/udhcpc eth0
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;&lt;strong&gt;GPS&lt;/strong&gt;&lt;/p&gt;
 
@@ -148,46 +148,46 @@ card installed but by the time I tried this out they already had a kernel
 update which fixed the issue. I had no problem getting a fix and my TTFF was
 35s with the SD card in. Here&amp;rsquo;s some screenshots of tangoGPS in action:&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/screenshot-1.png&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
 
-&lt;p&gt;
+
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/screenshot-2.png&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;I also installed and ran &lt;a href=&#34;http://wiki.openmoko.org/wiki/Howto_Test_Your_GPS_with_agpsui&#34;&gt;AGPS
 Test&lt;/a&gt; which is a
 program for testing out GPS on the Neo. It shows some nice graphs of the
 various satellites you&amp;rsquo;re currently connected to and their signal strengths:&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/screenshot-4.png&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
 
-&lt;p&gt;
+
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/screenshot-5.png&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;&lt;strong&gt;Bugs/Issues&lt;/strong&gt;&lt;/p&gt;
 
@@ -247,49 +247,49 @@ picking up a FreeRunner instead.&lt;/p&gt;
 
 &lt;p&gt;Here&amp;rsquo;s a few pics of what the Neo looks like all boxed up..&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/neo-box.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
 
-&lt;p&gt;
+
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/neo-box2.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;The Neo came bundled with a USB cable, a nifty stylus + laser pen, AC adapter,
 battery, and a 512mb microSD card.&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/neo-accessories.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;The &lt;a href=&#34;http://wiki.openmoko.org/wiki/Neo_FreeRunner_GTA02_Hardware&#34;&gt;hardware
 specs&lt;/a&gt; for the Neo
 (GTA02) are impressive, GSM, WiFi, Bluetooth, GPS. All that packed into a full
 blown Linux distro that fits in the palm of your hand.&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;http://qnot.org/media/neo-hand.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;
 &lt;figure &gt;

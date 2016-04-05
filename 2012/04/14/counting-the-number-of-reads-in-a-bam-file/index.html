@@ -121,7 +121,7 @@ object or similar. Here&rsquo;s a function I wrote to calcuate the total mapped 
 from a BAM file. This makes use of the BAM index for speed and obviously
 requires you to first index your BAM file:</p>
 
-<p><div class="highlight"><pre><span class="kd">public</span> <span class="kt">int</span> <span class="nf">getTotalReadCount</span><span class="o">(</span><span class="n">SAMFileReader</span> <span class="n">sam</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">getTotalReadCount</span><span class="o">(</span><span class="n">SAMFileReader</span> <span class="n">sam</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
 
     <span class="n">AbstractBAMFileIndex</span> <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractBAMFileIndex</span><span class="o">)</span> <span class="n">sam</span><span class="o">.</span><span class="na">getIndex</span><span class="o">();</span>
@@ -133,13 +133,13 @@ requires you to first index your BAM file:</p>
 
     <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
 <span class="o">}</span>
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p>This uses the BAMIndex to loop through each reference and sum the total mapped
 reads. A complete working example is included below:</p>
 
-<p><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+<p><div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">net.sf.samtools.AbstractBAMFileIndex</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">net.sf.samtools.BAMIndexMetaData</span><span class="o">;</span>
@@ -151,7 +151,7 @@ reads. A complete working example is included below:</p>
         <span class="n">File</span> <span class="n">bamFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
 
         <span class="n">SAMFileReader</span> <span class="n">sam</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SAMFileReader</span><span class="o">(</span><span class="n">bamFile</span><span class="o">,</span> 
-                                 <span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="n">bamFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;.bai&quot;</span><span class="o">));</span>
+                                 <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">bamFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;.bai&quot;</span><span class="o">));</span>
 
         <span class="n">AbstractBAMFileIndex</span> <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractBAMFileIndex</span><span class="o">)</span> <span class="n">sam</span><span class="o">.</span><span class="na">getIndex</span><span class="o">();</span>
 
@@ -165,7 +165,7 @@ reads. A complete working example is included below:</p>
     <span class="o">}</span>
 
 <span class="o">}</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>Requires the Picard Java library. To compile/run:</p>

@@ -59,12 +59,12 @@ address of the Freerunner is 192.168.0.202. On the desktop side you first have
 to ifconfig the usb0 interface and setup the correct routes. Here&rsquo;s the script
 I run on my desktop after connecting the Freerunner:</p>
 
-<p><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
 /sbin/ifconfig usb0 192.168.0.200 netmask 255.255.255.0
 /sbin/route add -host 192.168.0.202/32 dev usb0
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p>One extra step I had to do was configure my firewall to allow connections
 to/from usb0. I&rsquo;m running Ubuntu hardy 8.04 and using Firestarter. Open up
@@ -93,14 +93,14 @@ for customizing the today page (run these commands on the Neo):</p>
 
 <p>Here&rsquo;s a screenshot of the home screen:</p>
 
-<p>
+
 <figure >
     
         <img src="/media/neo-clock.png" />
     
     
 </figure>
-</p>
+
 
 <p><strong>Upgrade Software</strong></p>
 
@@ -145,15 +145,15 @@ seemed to be by default when you first boot. You can check this by holding down
 the power button for a few seconds which should pop up a menu showing the state
 of the various devices. Here&rsquo;s the script I use to connect the Neo to my WLAN:</p>
 
-<p><div class="highlight"><pre><span class="c">#!/bin/sh</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/sh</span>
 
 /sbin/ifconfig eth0 down
 /sbin/ifconfig eth0 up
 /sbin/iwconfig eth0 key restricted <span class="s1">&#39;xxxxx&#39;</span>
 /sbin/iwconfig eth0 essid <span class="s1">&#39;xxxx&#39;</span>
 /sbin/udhcpc eth0
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p><strong>GPS</strong></p>
 
@@ -166,46 +166,46 @@ card installed but by the time I tried this out they already had a kernel
 update which fixed the issue. I had no problem getting a fix and my TTFF was
 35s with the SD card in. Here&rsquo;s some screenshots of tangoGPS in action:</p>
 
-<p>
+
 <figure >
     
         <img src="/media/screenshot-1.png" />
     
     
 </figure>
-</p>
 
-<p>
+
+
 <figure >
     
         <img src="/media/screenshot-2.png" />
     
     
 </figure>
-</p>
+
 
 <p>I also installed and ran <a href="http://wiki.openmoko.org/wiki/Howto_Test_Your_GPS_with_agpsui">AGPS
 Test</a> which is a
 program for testing out GPS on the Neo. It shows some nice graphs of the
 various satellites you&rsquo;re currently connected to and their signal strengths:</p>
 
-<p>
+
 <figure >
     
         <img src="/media/screenshot-4.png" />
     
     
 </figure>
-</p>
 
-<p>
+
+
 <figure >
     
         <img src="/media/screenshot-5.png" />
     
     
 </figure>
-</p>
+
 
 <p><strong>Bugs/Issues</strong></p>
 

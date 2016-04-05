@@ -53,7 +53,7 @@ introduction to styles and themes in GTK+.</p>
 <p>To customize the colors in your chat windows edit your <code>~/.gaim/gtkrc-2.0</code> file
 or create if it doesn&rsquo;t exist and add the following lines:</p>
 
-<p><div class="highlight"><pre><span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span> <span class="p">{</span>
     <span class="n">base</span><span class="p">[</span><span class="n">NORMAL</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span>
     <span class="k">text</span><span class="p">[</span><span class="n">NORMAL</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;#00FF00&quot;</span>
     <span class="n">GtkIMHtml</span><span class="o">::</span><span class="n">hyperlink</span><span class="o">-</span><span class="k">color</span><span class="o">=</span><span class="s2">&quot;#007FFF&quot;</span>
@@ -62,8 +62,8 @@ or create if it doesn&rsquo;t exist and add the following lines:</p>
 <span class="p">}</span>
 <span class="nt">widget</span> <span class="s2">&quot;*gaim_gtkconv_imhtml&quot;</span> <span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span>
 <span class="nt">widget</span> <span class="s2">&quot;*gaim_gtkconv_entry&quot;</span> <span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span>
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p><code>base[NORMAL]</code> sets the background color and <code>text[NORMAL]</code> sets the color of
 the text. You can tweak the colors to your liking restart Gaim and your chat

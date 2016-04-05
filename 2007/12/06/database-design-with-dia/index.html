@@ -61,14 +61,14 @@ sheet from the drop down list. We&rsquo;ll be using various UML objects to repre
 tables and definitions that make up our database. Here&rsquo;s a quick overview of
 the main UML objects and their usage:</p>
 
-<p>
+
 <figure >
     
         <img src="/media/dia_menu.jpg" />
     
     
 </figure>
-</p>
+
 
 <table>
 <thead>
@@ -80,20 +80,17 @@ the main UML objects and their usage:</p>
 
 <tbody>
 <tr>
-<td><img src="/media/dia_class.png" alt="" />
-</td>
+<td><img src="/media/dia_class.png" alt="" /></td>
 <td>Class represents a table in the database. A Class has a name which corresponds to the name of the table and attributes which map to the columns of the table. Attributes in classes can have visibility (public, private, protected). Protected attributes are primary keys. More on classes later.</td>
 </tr>
 
 <tr>
-<td><img src="/media/dia_component.png" alt="" />
-</td>
+<td><img src="/media/dia_component.png" alt="" /></td>
 <td>Component is a special object that lets you define a list of default values to be inserted into a table. These are equivalent to hard coding &ldquo;insert into ..&rdquo; statements in your SQL files.</td>
 </tr>
 
 <tr>
-<td><img src="/media/dia_small_package.png" alt="" />
-</td>
+<td><img src="/media/dia_small_package.png" alt="" /></td>
 <td>Small Package represents a typemap. Typemaps are used for adding custom SQL types such as MySQL tinyint.</td>
 </tr>
 </tbody>
@@ -118,28 +115,28 @@ add in &ldquo;not null&rdquo;. If the column your adding is a primary key then d
 Not null will automatically get added to all primary keys on output generation.
 The screen shot below is an example of the Class property editor window.</p>
 
-<p>
+
 <figure >
     
         <img src="/media/dia_attributes.jpg" />
     
     
 </figure>
-</p>
+
 
 <p>Next, repeat the process for as many tables as you need in your database. For
 this example, create two tables &ldquo;employee&rdquo; and &ldquo;department&rdquo; with the columns as
 shown in the screenshot below (note the &lsquo;#&rsquo; in front of an attribute indicates
 that it&rsquo;s visibility is &ldquo;Protected&rdquo; thus making it a Primary Key):</p>
 
-<p>
+
 <figure >
     
         <img src="/media/dia_employee.jpg" />
     
     
 </figure>
-</p>
+
 
 <p>This is a simple example of a database which stores employee data along with
 the department they belong to. Now suppose we have a default list of
@@ -148,38 +145,38 @@ is created. To do this we&rsquo;ll use the &ldquo;Component&rdquo; object from t
 Select the &ldquo;Component&rdquo; object and add it to your diagram editor window. Right
 click and select &ldquo;Properties&rdquo;.</p>
 
-<p>
+
 <figure >
     
         <img src="/media/dia_comp_prop.jpg" />
     
     
 </figure>
-</p>
+
 
 <p>In the &ldquo;Stereotype: &ldquo; field you basically enter in the first part of an &ldquo;insert
 into ..&rdquo; SQL statement. For this example, to insert a default list of
 departments we&rsquo;d normally write the following SQL:</p>
 
-<p><div class="highlight"><pre><span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">);</span>
 <span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Production&#39;</span><span class="p">);</span>
 <span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Design&#39;</span><span class="p">);</span>
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p>So in this case, for the &ldquo;Stereotype: &ldquo; field we&rsquo;d enter in &ldquo;department
 (department_id, name)&ldquo;. Click OK to close the properties dialog. Now in the
 Component object box enter in the values you&rsquo;d like to insert, one per line.
 Here&rsquo;s what our diagram should look like now:</p>
 
-<p>
+
 <figure >
     
         <img src="/media/dia_employee2.jpg" />
     
     
 </figure>
-</p>
+
 
 <p>Now lets add in a typemap. Typemaps are used for when you&rsquo;d like to configure
 custom types which are specific to a database platform. A good example of this
@@ -192,14 +189,14 @@ we&rsquo;ll create a custom typemap and define the specific SQL for each target 
 <p>Typemaps are created using a Small Package so select the &ldquo;Small Package&rdquo; object
 and add it to your diagram editor window. Right click and select &ldquo;Properties&rdquo;.</p>
 
-<p>
+
 <figure >
     
         <img src="/media/dia_type_prop.jpg" />
     
     
 </figure>
-</p>
+
 
 <p>In the &ldquo;Stereotype: &ldquo; field you enter in the target database. So for example
 &ldquo;mysql: typemap&rdquo;.  For a list of supported target databases see tedia2sql
@@ -238,14 +235,14 @@ table. Now these columns will be auto incrementing columns and depending on
 which target database we select on output the correct SQL will be generated.
 Our diagram should now look like this:</p>
 
-<p>
+
 <figure >
     
         <img src="/media/dia_employee3.jpg" />
     
     
 </figure>
-</p>
+
 
 <p>At this point we have created our database schema and defined a default list of
 departments to be inserted. We also created a typemap called &ldquo;identity&rdquo; which
@@ -256,11 +253,11 @@ very small formatting issue in tedia2sql related to the typemaps we created.
 Edit the tedia2sql script (/usr/bin/tedia2sql) and comment out the line inside
 the parseTypeMap(..) subroutine that looks like this:</p>
 
-<p><div class="highlight"><pre><span class="nv">$defStr</span> <span class="o">=~</span> <span class="sr">s/s//g</span><span class="p">;</span> <span class="c1"># ignore spaces</span>
+<div class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="nv">$defStr</span> <span class="o">=~</span> <span class="sr">s/s//g</span><span class="p">;</span> <span class="c1"># ignore spaces</span>
      <span class="o">--</span> <span class="n">change</span> <span class="n">to</span> <span class="o">--</span>
 <span class="c1">#   $defStr =~ s/s//g; # ignore spaces</span>
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p>or just apply the patch I created
 <a href="/data/tedia2sql-typemap-1.2.12.patch">here</a> (works for version 1.2.12):</p>
@@ -279,7 +276,7 @@ Apache derby. If you view these files you can see how tedia2sql handled our
 typemaps for the auto incrementing columns in each target database:</p>
 
 <p>MySQL
-<div class="highlight"><pre><span class="c1">-- employee</span>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- employee</span>
 <span class="k">create</span> <span class="k">table</span> <span class="n">employee</span> <span class="p">(</span>
   <span class="n">employee_id</span>                <span class="nb">int</span> <span class="n">unsigned</span> <span class="n">auto_increment</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
   <span class="n">department_id</span>             <span class="nb">int</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
@@ -288,11 +285,11 @@ typemaps for the auto incrementing columns in each target database:</p>
   <span class="n">start_date</span>                <span class="nb">date</span><span class="p">,</span>
   <span class="k">constraint</span> <span class="n">pk_Employee</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">employee_id</span><span class="p">)</span>
 <span class="p">)</span> <span class="p">;</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>Apache Derby
-<div class="highlight"><pre><span class="c1">-- employee</span>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- employee</span>
 <span class="k">create</span> <span class="k">table</span> <span class="n">employee</span> <span class="p">(</span>
   <span class="n">employee_id</span>                <span class="nb">int</span> <span class="k">generated</span> <span class="k">by</span> <span class="k">default</span> <span class="k">as</span> <span class="k">identity</span>  <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
   <span class="n">department_id</span>             <span class="nb">int</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
@@ -301,7 +298,7 @@ typemaps for the auto incrementing columns in each target database:</p>
   <span class="n">start_date</span>                <span class="nb">date</span><span class="p">,</span>
   <span class="k">constraint</span> <span class="n">pk_Employee</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">employee_id</span><span class="p">)</span>
 <span class="p">)</span> <span class="p">;</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>You can download the files generated as well as the employee.dia file I used in
@@ -332,12 +329,12 @@ database as follows:</p>
 
 <p>A quick Makefile will help out a lot in testing out your database schema:</p>
 
-<p><div class="highlight"><pre><span class="nf">all</span><span class="o">:</span>
+<p><div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nf">all</span><span class="o">:</span>
       tedia2sql -i employee.dia -o employee-mysql.sql -t mysql -d
       tedia2sql -i employee.dia -o employee-derby.sql -t db2 -d
 <span class="nf">clean</span><span class="o">:</span>
       rm -f *.sql
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>I&rsquo;ve found that for small to moderate size projects creating database schemas
