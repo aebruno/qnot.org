@@ -312,6 +312,6 @@ generated from `mif2xml` is then run through a set of custom transforms written
 in XSLT 2.0 which transform the MIF XML to DocBook, WordML, and various other
 formats.
 
-In my [next post]({{< ref "blog/converting-mif-to-xml-java-version.md" >}})
+In my [next post]({{< ref "converting-mif-to-xml-java-version.md" >}})
 I'll discuss a pure Java version of `mif2xml` which uses a great library called
 [JFlex](http://www.jflex.de/) for generating the MIF lexer.

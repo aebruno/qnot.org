@@ -7,7 +7,7 @@ categories:
   - XML
 ---
 
-In my [previous post]({{< ref "blog/converting-mif-to-xml.md" >}}) I discussed a
+In my [previous post]({{< ref "converting-mif-to-xml.md" >}}) I discussed a
 tool called `mif2xml` for converting MIF files to an intermediate XML dialect.
 In this post I'll talk about the Java port of `mif2xml` called `mif2xml-j`
 which you can download [here](https://github.com/aebruno/mif2xml-j) including

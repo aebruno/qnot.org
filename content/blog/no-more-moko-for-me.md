@@ -10,8 +10,8 @@ Well it's been just over 2 years now since I picked up my [Neo
 Freerunner](http://wiki.openmoko.org/wiki/Neo_FreeRunner) and unfortunately I
 have nothing good to report back. When I first got my hands on the Freerunner I
 had great expectations as can be seen in my
-[previous]({{< ref "blog/neo-freerunner-freedom.md" >}})
-[posts]({{< ref "blog/freerunner-first-boot.md" >}}) however it
+[previous]({{< ref "neo-freerunner-freedom.md" >}})
+[posts]({{< ref "freerunner-first-boot.md" >}}) however it
 turns out I was little too optimistic. <!--more-->
 
 My hope was to write about my experience developing applications for the device

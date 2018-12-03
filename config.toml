@@ -1,0 +1,14 @@
+baseURL = "http://qnot.org/"
+languageCode = "en-us"
+pygmentsStyle = "monokai"
+pygmentsUseClasses = true
+
+[permalinks]
+  blog = "/:year/:month/:title/"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[params]
+  Author = "Andrew E. Bruno"

@@ -11,6 +11,6 @@ categories:
 [posts](http://kfahlgren.com/blog/?p=34) on how O'Reilly has been making use of
 MIF XML (MX). Keith gives some background and example uses as a follow up to my
 previous posts on [converting MIF to
-XML]({{< ref "blog/converting-mif-to-xml.md" >}}). He also posted
+XML]({{< ref "converting-mif-to-xml.md" >}}). He also posted
 some [XSLT](http://kfahlgren.com/blog/?p=35) for round-tripping the XML back
 into MIF.

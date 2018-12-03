@@ -7,7 +7,7 @@ categories:
   - Linux
 ---
 
-In my [previous post]({{< ref "blog/customizing-gaim-chat-windows.md" >}}) I discussed
+In my [previous post]({{< ref "customizing-gaim-chat-windows.md" >}}) I discussed
 customizing Gaim chat windows. Since then Gaim has formally changed it's name
 to [Pidgin](http://pidgin.im/pidgin/home/) due to [legal issues with
 AOL](http://pidgin.im/~elb/cgi-bin/pyblosxom.cgi/going_public.html). I finally

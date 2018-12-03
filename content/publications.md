@@ -4,6 +4,19 @@ slug: publications
 title: Publications
 ---
 
+1. **Andrew E. Bruno**, Patrick Charbonneau, Janet Newman, Edward H. Snell, David
+   R. So, Vincent Vanhoucke, Christopher J. Watkins, Shawn Williams, Julie Wilson.
+   Classification of crystallization outcomes using deep convolutional neural
+   networks. *PLoS ONE*, 2018. [`doi:10.1371/journal.pone.0198883`](https://doi.org/10.1371/journal.pone.0198883)
+1. Rachel M. Simpson, **Andrew E. Bruno**, Runpu Chen, Kaylen Lott, Brianna L.
+   Tylec, Jonathan E. Bard, Yijun Sun, Michael J. Buck, Laurie K. Read.
+   Trypanosome RNA Editing Mediator Complex proteins have distinct functions in
+   gRNA utilization. *Nucleic Acids Research*, 2017.
+   [`doi:10.1093/nar/gkx458`](https://doi.org/10.1093/nar/gkx458)
+1. **Andrew E. Bruno**, Alexei S. Soares, Robin L. Owen and Edward H. Snell. The
+   use of haptic interfaces and web services in crystallography: an application
+   for a 'screen to beam' interface. *Journal of Applied Crystallography*, 2016.
+   [`doi:10.1107/S160057671601431X`](https://doi.org/10.1107/S160057671601431X)
 1. Rachel M. Simpson, **Andrew E. Bruno**, Jonathan E. Bard, Michael J. Buck and
    Laurie K. Read. High-throughput sequencing of partially edited trypanosome
    mRNAs reveals barriers to editing progression and evidence for alternative
