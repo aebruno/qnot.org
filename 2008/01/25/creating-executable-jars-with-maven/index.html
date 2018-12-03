@@ -7,9 +7,8 @@
     <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
     <meta name="author" content="Andrew E. Bruno">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="" rel="alternate" type="application/rss+xml" title="">
     <title>  Creating executable jars with Maven &middot;  qnot.org</title>
-    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://qnot.org/css/syntax.css">
     <link rel="stylesheet" href="http://qnot.org/css/styles.css">
@@ -37,7 +36,9 @@
 assemblies</a> for while I
 finally figured out how to build executable jars. The Maven assembly plugin
 allows you to define ways to package up your project for distribution by
-creating various assembly descriptor files. Here&rsquo;s a quick example of a Maven
+creating various assembly descriptor files.</p>
+
+<p>Here&rsquo;s a quick example of a Maven
 assembly for building an executable jar (uberjar). For this example we&rsquo;ll
 create a brand new project from scratch but it should be easy to see how to
 integrate into an existing project.</p>
@@ -52,7 +53,7 @@ $ cd hello-world
 libraries from jakarta commons. The <dependencies/> section in the pom.xml
 should now look like this:</p>
 
-<div class="highlight"><pre><code class="language-xml" data-lang="xml">  <span class="nt">&lt;dependencies&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">  <span class="nt">&lt;dependencies&gt;</span>
     <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
@@ -69,9 +70,7 @@ should now look like this:</p>
       <span class="nt">&lt;artifactId&gt;</span>commons-lang<span class="nt">&lt;/artifactId&gt;</span>
       <span class="nt">&lt;version&gt;</span>2.3<span class="nt">&lt;/version&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-  <span class="nt">&lt;/dependencies&gt;</span>
-</code></pre></div>
-
+  <span class="nt">&lt;/dependencies&gt;</span></code></pre></div>
 
 <p>Create a META-INF/ directory to store the MANIFEST.MF file which defines the
 main class in the executable jar.</p>
@@ -89,7 +88,7 @@ $ echo 'Main-Class: org.qnot.example.App' &gt; MANIFEST.MF
 package up the jar. Create the file src/assemble/exe.xml with the following
 xml:</p>
 
-<p><div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;assembly&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;assembly&gt;</span>
   <span class="nt">&lt;id&gt;</span>exe<span class="nt">&lt;/id&gt;</span>
   <span class="nt">&lt;formats&gt;</span>
     <span class="nt">&lt;format&gt;</span>jar<span class="nt">&lt;/format&gt;</span>
@@ -113,15 +112,13 @@ xml:</p>
       <span class="nt">&lt;outputDirectory&gt;&lt;/outputDirectory&gt;</span>
     <span class="nt">&lt;/fileSet&gt;</span>
   <span class="nt">&lt;/fileSets&gt;</span>
-<span class="nt">&lt;/assembly&gt;</span>
-</code></pre></div>
-</p>
+<span class="nt">&lt;/assembly&gt;</span></code></pre></div>
 
 <p>Inside the <code>&lt;dependecySets/&gt;</code> is where you can add all the libraries you&rsquo;d like
 to include in the uberjar. These must also be defined in your pom.</p>
 
 <p>Finally, add the maven-assembly-plugin to the pom:
-<div class="highlight"><pre><code class="language-xml" data-lang="xml">  <span class="nt">&lt;build&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">  <span class="nt">&lt;build&gt;</span>
     <span class="nt">&lt;finalName&gt;</span>hello-world<span class="nt">&lt;/finalName&gt;</span>
     <span class="nt">&lt;plugins&gt;</span>
       <span class="nt">&lt;plugin&gt;</span>
@@ -136,9 +133,7 @@ to include in the uberjar. These must also be defined in your pom.</p>
         <span class="nt">&lt;/configuration&gt;</span>
       <span class="nt">&lt;/plugin&gt;</span>
     <span class="nt">&lt;/plugins&gt;</span>
-  <span class="nt">&lt;/build&gt;</span>
-</code></pre></div>
-</p>
+  <span class="nt">&lt;/build&gt;</span></code></pre></div></p>
 
 <p>To run the assembly and build the executable jar:</p>
 
@@ -156,7 +151,6 @@ your Maven plugins by running:</p>
 
 <p>You can download the example hello-world project
 <a href="/data/hello-world.tar.gz">here</a>.</p>
-
 </div>
 
 </div>

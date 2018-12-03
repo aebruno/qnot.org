@@ -7,9 +7,8 @@
     <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
     <meta name="author" content="Andrew E. Bruno">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="" rel="alternate" type="application/rss+xml" title="">
     <title>  phpLDAPadmin and Kerberos &middot;  qnot.org</title>
-    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://qnot.org/css/syntax.css">
     <link rel="stylesheet" href="http://qnot.org/css/styles.css">
@@ -48,35 +47,31 @@ an LDAP/Kerberos setup working and are using Apache as your web server.</p>
 <a href="http://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer">SASL</a>
 support compiled into the LDAP PHP extension <code>--with-ldap-sasl</code>. Check out
 phpinfo() and make sure you see <code>SASL Support   Enabled</code> under the LDAP
-extension. If not re-compile PHP.<br />
+extension. If not re-compile PHP.  <!--more-->
 Grab a copy of phpLDAPadmin
 <a href="http://phpldapadmin.sourceforge.net/download.php">here</a> and untar into a
 directory of your choice (/usr/local). Copy the config.php.example to
 config.php:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>tar -xvxf phpldapadmin-x.x.x.tar.gz
-<span class="nv">$ </span>ln -s phpldapadmin-x.x.x phpldapadmin
-<span class="nv">$ </span><span class="nb">cd </span>phpldapadmin
-<span class="nv">$ </span>cp config/config.php.example config/config.php
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ tar -xvxf phpldapadmin-x.x.x.tar.gz
+$ ln -s phpldapadmin-x.x.x phpldapadmin
+$ <span class="nb">cd</span> phpldapadmin
+$ cp config/config.php.example config/config.php</code></pre></div>
 
 <p>Edit config/config.php. A few options to define are as follows:</p>
 
-<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;name&#39;,&#39;My LDAP Server&#39;);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;host&#39;,&#39;ldap.host.com&#39;);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;port&#39;,&#39;389&#39;);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;auth_type&#39;,&#39;config&#39;);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;login&#39;,&#39;dn&#39;,&#39;&#39;);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;login&#39;,&#39;pass&#39;,&#39;&#39;);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;tls&#39;,false);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_auth&#39;,true);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_mech&#39;,&#39;GSSAPI&#39;);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_authz_id_regex&#39;,&#39;/^uid=([^,]+)(.+)/i&#39;);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_authz_id_replacement&#39;,&#39;$1&#39;);</span>
-<span class="x">$ldapservers-&gt;SetValue($i,&#39;login&#39;,&#39;anon_bind&#39;,false); </span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;name&#39;,&#39;My LDAP Server&#39;);
+$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;host&#39;,&#39;ldap.host.com&#39;);
+$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;port&#39;,&#39;389&#39;);
+$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;auth_type&#39;,&#39;config&#39;);
+$ldapservers-&gt;SetValue($i,&#39;login&#39;,&#39;dn&#39;,&#39;&#39;);
+$ldapservers-&gt;SetValue($i,&#39;login&#39;,&#39;pass&#39;,&#39;&#39;);
+$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;tls&#39;,false);
+$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_auth&#39;,true);
+$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_mech&#39;,&#39;GSSAPI&#39;);
+$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_authz_id_regex&#39;,&#39;/^uid=([^,]+)(.+)/i&#39;);
+$ldapservers-&gt;SetValue($i,&#39;server&#39;,&#39;sasl_authz_id_replacement&#39;,&#39;$1&#39;);
+$ldapservers-&gt;SetValue($i,&#39;login&#39;,&#39;anon_bind&#39;,false); </code></pre></div>
 
 <p>Basically, we&rsquo;re configuring phpLDAPadmin with <code>auth_type = config</code> which means
 that the user/pass used to bind to the LDAP server is hard coded in the
@@ -94,19 +89,17 @@ usually create a file in /etc/httpd/conf.d or on Debian
 vhost to ensure your username/passwords are transmitted over a secure
 connection.</p>
 
-<p><div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nb">Alias</span> <span class="sx">/ldapadmin</span> <span class="sx">/usr/local/phpldapadmin/htdocs/</span>
+<div class="highlight"><pre class="chroma"><code class="language-apache" data-lang="apache"><span class="nb">Alias</span> <span class="sx">/ldapadmin</span> <span class="sx">/usr/local/phpldapadmin/htdocs/</span>
 <span class="nt">&lt;Location</span> <span class="s">/ldapadmin</span><span class="nt">&gt;</span>
     <span class="nb">AuthType</span> Kerberos
-    <span class="nb">AuthName</span> <span class="s2">&quot;LDAP Admin&quot;</span>
+    <span class="nb">AuthName</span> <span class="s2">&#34;LDAP Admin&#34;</span>
     <span class="nb">KrbAuthRealms</span> kerb.yourhost.com
     <span class="nb">KrbVerifyKDC</span> <span class="k">off</span>
     <span class="nb">KrbServiceName</span> HTTP
     <span class="nb">Krb5KeyTab</span> <span class="sx">/path/to/your/httpd.keytab</span>
     <span class="nb">KrbSaveCredentials</span> <span class="k">on</span>
     <span class="nb">require</span> valid-user
-<span class="nt">&lt;/Location&gt;</span>
-</code></pre></div>
-</p>
+<span class="nt">&lt;/Location&gt;</span></code></pre></div>
 
 <p>In order to authenticate users against Kerberos and obtain the necessary
 Kerberos tickets we use the apache module
@@ -123,16 +116,13 @@ credential cache. To expose this environment variable to the phpLDAPadmin code
 edit the file <code>[phpLDAPadmin_install]/lib/common.php</code> and add this line to the
 very top:</p>
 
-<p><div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">putenv(&quot;KRB5CCNAME={$_SERVER[&#39;KRB5CCNAME&#39;]}&quot;); </span>
-</code></pre></div>
-</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">putenv(&#34;KRB5CCNAME={$_SERVER[&#39;KRB5CCNAME&#39;]}&#34;); </code></pre></div>
 
 <p>That should do it. Now when you access <a href="http://yourserver.com/ldapadmin">http://yourserver.com/ldapadmin</a> you
 should be challenged with HTTP basic auth, which authenticates against Kerberos
 and uses the Kerberos credentials to bind to your LDAP server. There might be
 an easier way to go about doing this but I wasn&rsquo;t able to turn much up on
 google so I thought I&rsquo;d share one way I was able to get things working.</p>
-
 </div>
 
 </div>

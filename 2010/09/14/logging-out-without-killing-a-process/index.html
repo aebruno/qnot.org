@@ -7,9 +7,8 @@
     <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
     <meta name="author" content="Andrew E. Bruno">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="" rel="alternate" type="application/rss+xml" title="">
     <title>  Logging out without killing a process &middot;  qnot.org</title>
-    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://qnot.org/css/syntax.css">
     <link rel="stylesheet" href="http://qnot.org/css/styles.css">
@@ -36,7 +35,9 @@
       <p>Here&rsquo;s the scenario, you&rsquo;re logged into your favorite *nix box and are using
 bash as your shell. You fired off some process which is going to take a while
 to run (and forgot to run <a href="http://www.gnu.org/software/screen/">screen</a>) and
-you want to logout without killing that process. The command to use is
+you want to logout without killing that process.</p>
+
+<p>The command to use is
 <a href="http://www.gnu.org/software/bash/manual/bashref.html#Job-Control-Builtins">disown</a>.
 Here&rsquo;s a really simple example:</p>
 
@@ -56,7 +57,6 @@ associated with your login shell. Here&rsquo;s an excerpt from the bash man page
 the <code>-h</code> option is given, the job is not removed from the table, but is marked
 so that <code>SIGHUP</code> is not sent to the job if the shell receives a <code>SIGHUP</code>.</p>
 </blockquote>
-
 </div>
 
 </div>

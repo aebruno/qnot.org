@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 14 Apr 2012 02:31:54 +0000</lastBuildDate>
-    <atom:link href="http://qnot.org/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://qnot.org/blog/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Counting the number of reads in a BAM file</title>
@@ -21,142 +23,7 @@
 &lt;a href=&#34;http://samtools.sourceforge.net/&#34;&gt;SAM/BAM&lt;/a&gt; format. When presented with one of
 these files a common first task is to calculate the total number of alignments
 (reads) captured in the file. In this post I show some examples for finding the
-total number of reads using samtools and directly from Java code.  For the
-examples below, I use the HG00173.chrom11 BAM file from the 1000 genomes
-project which can be downloaded
-&lt;a href=&#34;ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/data/HG00173/alignment/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;First, we look at using the samtools command directly. One way to get the total
-number of alignments is to simply dump the entire SAM file and tell samtools to
-count instead of print (&lt;code&gt;-c&lt;/code&gt; option):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ samtools view -c HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
-5218322
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If we&amp;rsquo;re only interested in counting the total number of mapped reads we can
-add the &lt;code&gt;-F 4&lt;/code&gt; flag. Alternativley, we can count only the unmapped reads with
-&lt;code&gt;-f 4&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# Mapped reads only
-$ samtools view -c -F 4 HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
-5068340
-
-# Unmapped reads only
-$ samtools view -c -f 4 HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
-149982
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To understand how this works we first need to inspect the SAM format. The SAM
-format includes a bitwise FLAG field described
-&lt;a href=&#34;http://samtools.sourceforge.net/samtools.shtml#5&#34;&gt;here&lt;/a&gt;. The &lt;code&gt;-f/-F&lt;/code&gt; options
-to the samtools command allow us to query based on the presense/absence of bits
-in the FLAG field. So &lt;code&gt;-f 4&lt;/code&gt; only output alignments that are unmapped (flag
-0x0004 is set) and &lt;code&gt;-F 4&lt;/code&gt; only output alignments that are &lt;em&gt;not&lt;/em&gt; unmapped (i.e.
-flag 0x0004 is not set), hence these would only include mapped alignments.&lt;/p&gt;
-
-&lt;p&gt;An example for paired end reads you could do the following. To count the number
-of reads having both itself and it&amp;rsquo;s mate mapped:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ samtools view -c -f 1 -F 12 HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
-4906035
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;-f 1&lt;/code&gt; switch only includes reads that are paired in sequencing and &lt;code&gt;-F 12&lt;/code&gt;
-only includes reads that are &lt;em&gt;not&lt;/em&gt; unmapped (flag 0x0004 is not set) and where
-the mate is &lt;em&gt;not&lt;/em&gt; unmapped (flag 0x0008 is not set). Here we add &lt;code&gt;0x0004 +
-0x0008 = 12&lt;/code&gt; and use the &lt;code&gt;-F&lt;/code&gt; (bits not set), meaning you want to include all
-reads where neither flag 0x0004 or 0x0008 is set. For help understanding the
-values for the SAM FLAG field there&amp;rsquo;s a handy web tool
-&lt;a href=&#34;http://picard.sourceforge.net/explain-flags.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;There&amp;rsquo;s also a nice command included in samtools called &lt;code&gt;flagstat&lt;/code&gt; which
-computes various summary statistics. However, I wasn&amp;rsquo;t able to find much
-documentation describing the output and it&amp;rsquo;s not mentioned anywhere in the man
-page. This
-&lt;a href=&#34;http://biostar.stackexchange.com/questions/12502/what-does-samtools-flagstat-results-mean&#34;&gt;post&lt;/a&gt;
-examines the C code for the flagstat command which provides some insight into
-the output.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ samtools flagstat HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
-5218322 + 0 in total (QC-passed reads + QC-failed reads)
-273531 + 0 duplicates
-5068340 + 0 mapped (97.13%:-nan%)
-5205999 + 0 paired in sequencing
-2603248 + 0 read1
-2602751 + 0 read2
-4881994 + 0 properly paired (93.78%:-nan%)
-4906035 + 0 with itself and mate mapped
-149982 + 0 singletons (2.88%:-nan%)
-19869 + 0 with mate mapped to a different chr
-15271 + 0 with mate mapped to a different chr (mapQ&amp;gt;=5)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The above shows a few simple examples using the samtools command but what if
-you wanted to count the total number of reads in code? I&amp;rsquo;ve been using the
-excellent &lt;a href=&#34;http://picard.sourceforge.net/&#34;&gt;Picard&lt;/a&gt; Java library as of late and
-haven&amp;rsquo;t found a simple way to do this via the API. I was looking for a fast way
-to compute this without having to scan the entire BAM file each time. Would
-love to see this added as a public function to the
-&lt;a href=&#34;http://picard.sourceforge.net/javadoc/net/sf/samtools/BAMIndexMetaData.html&#34;&gt;BAMIndexMetaData&lt;/a&gt;
-object or similar. Here&amp;rsquo;s a function I wrote to calcuate the total mapped reads
-from a BAM file. This makes use of the BAM index for speed and obviously
-requires you to first index your BAM file:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getTotalReadCount&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SAMFileReader&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sam&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-    &lt;span class=&#34;n&#34;&gt;AbstractBAMFileIndex&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AbstractBAMFileIndex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sam&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getIndex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nRefs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getNumberOfReferences&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nRefs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;BAMIndexMetaData&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMetaData&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;meta&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAlignedRecordCount&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;This uses the BAMIndex to loop through each reference and sum the total mapped
-reads. A complete working example is included below:&lt;/p&gt;
-
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.io.File&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;net.sf.samtools.AbstractBAMFileIndex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;net.sf.samtools.BAMIndexMetaData&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;net.sf.samtools.SAMFileReader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;CountMapped&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;File&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bamFile&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]);&lt;/span&gt;
-
-        &lt;span class=&#34;n&#34;&gt;SAMFileReader&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sam&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SAMFileReader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bamFile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; 
-                                 &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bamFile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAbsolutePath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;.bai&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-
-        &lt;span class=&#34;n&#34;&gt;AbstractBAMFileIndex&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AbstractBAMFileIndex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sam&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getIndex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-        &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getNumberOfReferences&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;BAMIndexMetaData&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMetaData&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;meta&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAlignedRecordCount&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;Total mapped reads: &amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Requires the Picard Java library. To compile/run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ javac -cp samtools.jar CountMapped.java
-$ java -cp samtools.jar:. CountMapped HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
-Total mapped reads: 5068340
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+total number of reads using samtools and directly from Java code.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -169,111 +36,15 @@ Total mapped reads: 5068340
 student at RIT who interviewed me for an introductory course he was taking. The
 interview consisted of questions regarding software engineering and my
 experience working in the field and at the &lt;a href=&#34;http://www.ccr.buffalo.edu&#34;&gt;Center for Computational
-Research&lt;/a&gt;. The questions were good and made me
-think back through my career about some things I&amp;rsquo;ve learned along the way. I
-thought a few of them were worth sharing and if you&amp;rsquo;re so inclined, feel free
-to leave how you might have answered the questions in the comments. Here&amp;rsquo;s an
-excerpt of the interview with a few questions and my responses:&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Q: What skills are important for your job?&lt;/em&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;I think having a strong foundation in computer science is important. We work
-across several disciplines and being able to apply computer science concepts
-to help solve the various problems in a particular research area is
-important.&lt;/p&gt;
-
-&lt;p&gt;Managing expectations. It&amp;rsquo;s often the case that you work with users who don&amp;rsquo;t
-have a firm grasp of the technology and being able to explain the various
-components of a system in such a way that they understand both the
-capabilities and limitations is an important skill.&lt;/p&gt;
-
-&lt;p&gt;Problem solving. I think as a programmer you&amp;rsquo;re often confronted with a vast
-array of problems, whether they be bugs in code, design choices (what
-implications does a particular design choice have on the overall system?),
-reverse engineering legacy systems, data processing (how do you efficiently
-process terabytes of data?). Your ability to adapt to these problems and come
-up with effective solutions is a very important skill to develop. I&amp;rsquo;m not
-sure it&amp;rsquo;s a skill you ever really master but one that you are constantly fine
-tuning.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;em&gt;Q: What is your typical process for designing and developing software?&lt;/em&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;We tend to follow an Agile approach to software development (iterative
-approach: design, code, test, feedback, repeat). For any given project we
-first start with a requirements gathering phase. This includes meeting with
-the various groups involved in the project and getting a solid understanding
-of the scope. We then meet internally and come up with an initial design and
-set various milestones for the project. The next phase depends on the main
-focus of the project, because we are a research focused group we are often
-times working on a grant application or an already funded grant. In the first
-case we usually build a prototype of the system which serves as proof of
-concept should the grant get funded. In the case of an already funded project
-we follow a more rigorous development cycle involving a more formal design
-specification and development/staging/production environments for releasing
-versions of the system.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;em&gt;Q: What makes working for a university unique (as opposed to a private company)?&lt;/em&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;In a university setting (specifically research) there&amp;rsquo;s obviously more focus
-on cutting edge research areas. We&amp;rsquo;re exploring new topics that aren&amp;rsquo;t always
-well defined so there&amp;rsquo;s quite a bit of room for creativity. We also support
-researchers across many disciplines and sometimes you work on a project that
-doesn&amp;rsquo;t always end up getting funded. So there&amp;rsquo;s times when you put quite a
-bit of work into something that never gets off the ground.&lt;/p&gt;
-
-&lt;p&gt;In contrast, working for a private company ultimately comes down to being
-profitable. So design decisions tend to be heavily influenced by
-customers/investors and what effects the bottom line. In my experience the
-private sector is much more deadline driven as well. Usually there&amp;rsquo;s a strict
-release schedule to meet and a never ending list of features to be
-implemented.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;em&gt;Q: What do you like most and like least about your job?&lt;/em&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;I very much enjoy the problem solving aspects of programming. Tackling hard
-problems is something I enjoy and in this field there&amp;rsquo;s definitely no
-shortage of them. I would have to say the thing I like least about my job is
-having to occasionally work with Microsoft technologies :) I&amp;rsquo;m a big advocate
-of free software and I cringe at the thought of having to implement a piece
-of JavaScript code so that it works in I.E.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;em&gt;Q: What skills have you learned from being a software engineer? What has the job taught you?&lt;/em&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;I think one of the best skills I&amp;rsquo;ve learned from being a software engineer is
-system administration. I&amp;rsquo;ve always had a passion for tinkering around with
-different technologies and in doing so spent quite a bit of time building
-systems so that I could develop on. In the process I&amp;rsquo;ve learned a lot about
-system administration which has helped me out tremendously in various
-projects throughout my career. As a programmer it helps to know more than
-just how to write code.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;em&gt;Q: Any additional thoughts or comments?&lt;/em&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Random advice: One of the most important tools for a programmer is a good
-editor. There&amp;rsquo;s a lengthy debate as to which editor is the best (I personally
-prefer Vim) but whatever one works for you, learn it inside and
-out.&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
+Research&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>passtab - store passwords in your wallet</title>
-      <link>http://qnot.org/2011/07/01/passtab---store-passwords-in-your-wallet/</link>
+      <link>http://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</link>
       <pubDate>Fri, 01 Jul 2011 04:15:21 +0000</pubDate>
       
-      <guid>http://qnot.org/2011/07/01/passtab---store-passwords-in-your-wallet/</guid>
+      <guid>http://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</guid>
       <description>&lt;p&gt;Here&amp;rsquo;s a quote from &lt;a href=&#34;http://www.schneier.com/blog/archives/2005/06/write_down_your.html&#34;&gt;Bruce
 Schneier&lt;/a&gt;
 that essentially sums up the motivation for this post:&lt;/p&gt;
@@ -290,254 +61,15 @@ Graham-Cumming in which he presents a elegant system for writing down your
 passwords using a &lt;a href=&#34;http://en.wikipedia.org/wiki/Tabula_recta&#34;&gt;Tabula Recta&lt;/a&gt;. I
 was inspired by this concept so I created a tool called
 &lt;a href=&#34;https://github.com/aebruno/passtab&#34;&gt;passtab&lt;/a&gt; which aims to provide a
-light-weight system for managing passwords based on his idea. This post is
-about the general usage of passtab and presents some of the password management
-capabilities. This is not your grandmothers password manager so if you&amp;rsquo;re
-looking for a nice GUI point and click application that&amp;rsquo;s easy to use you can
-stop reading right here. This is for hardcore folks who enjoy looking up their
-passwords in archaic
-&lt;a href=&#34;https://secure.wikimedia.org/wikipedia/en/wiki/Tabula_recta&#34;&gt;tablets&lt;/a&gt; invented
-by ancient cryptographers with last names like
-&lt;a href=&#34;https://secure.wikimedia.org/wikipedia/en/wiki/Johannes_Trithemius&#34;&gt;Trithemius&lt;/a&gt;.
-For the impatient, you can grab a copy of the latest version on
-&lt;a href=&#34;https://github.com/aebruno/passtab/archives/master&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Introducing passtab&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/aebruno/passtab&#34;&gt;passtab&lt;/a&gt; is a light-weight system for
-managing passwords using a Tabula Recta. passtab has two main features: 1.
-generating random Tabula Recta&amp;rsquo;s in PDF format for printing and storing in your
-wallet 2. fetching passwords from the Tabula Recta (password managment). These
-features are independent and you can use passtab to only generate PDFs or
-optionally make use of the password management features. One unique benefit is
-the ability to have both an electronic and paper copy of your passwords. You
-can download the binary release of passtab at github
-&lt;a href=&#34;https://github.com/aebruno/passtab/archives/master&#34;&gt;here&lt;/a&gt;. Unpack the
-distribution and run &lt;code&gt;./bin/passtab --help&lt;/code&gt; for a list of options. If the
-startup shell script doesn&amp;rsquo;t work you can run &lt;code&gt;java -jar lib/passtab-uber.jar
---help&lt;/code&gt;. The following sections illustrate some use cases of passtab.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Generate a random Tabula Recta in PDF&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;passtab can generate random Tabula Recta&amp;rsquo;s in PDF format.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ./bin/passtab --format pdf --output passtab.pdf
-Jun 12, 2011 11:16:29 AM org.qnot.passtab.PassTab generate
-INFO: Generating a random Tabula Recta (might take a while)...
-$ ls *.pdf
-passtab.pdf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Here&amp;rsquo;s an &lt;a href=&#34;http://qnot.org/media/passtab.pdf&#34;&gt;example PDF&lt;/a&gt; generated from passtab. You can now
-print this PDF out and store in your wallet!&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;How to use the Tabula Recta&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s a simple example (taken directly from the
-&lt;a href=&#34;https://github.com/aebruno/passtab/blob/master/README&#34;&gt;README&lt;/a&gt;), suppose we
-have the following Tabula Recta:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;     | A B C D E F G H I J K L M N 
-   --|----------------------------
-   A | _ u } I ` } R ) a &amp;lt; L : a A 
-   B | - o ( : p # O % . _ ; &#39; j L 
-   C | w c ( c y 2 h y ~ N O * &amp;gt; w 
-   D | o : R m L % V , d H r Y B j 
-   E | 9 , &amp;lt; 0 J p a o ) O w 0 w # 
-   F | C j i } i z 2 $ O R 5 @ T I 
-   G | Q - E m 8 N c / + u W Y V &amp;gt; 
-   H | , y } U Y i j i q w q c - 4 
-   I | K j W H e ; I ? E 7 H v 2 + 
-   J | g * 7 4 E } a h Y z &amp;lt; &amp;quot; : w 
-   K | . _ } I / J k 1 a D ^ ; p K 
-   L | ` &amp;lt; A L c z } } I P ? 4 y T 
-   M | F D &amp;lt; 8 &amp;lt; 0 R B t 9 X o B 2 
-   N | I r O E m o a + Y W w ; : 7
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And suppose we want to get our password for logging into webmail at acme.com.
-We decide to use the first and last letter of the domain name as the start
-row/column of the password and we want a password 8 characters in length. So we
-start at the intersection of &amp;lsquo;A&amp;rsquo; and &amp;lsquo;E&amp;rsquo; and read off 8 characters diagonally
-resulting in the password: &lt;code&gt;&#39;#h,)RWc&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Defining a scheme for selecting the starting row/column for a given password is
-completely up to the user and can be as simple or as complex as one desires.
-The direction for reading the password is also up to the user to define (left,
-right, diagonally, etc.). See John Graham-Cumming&amp;rsquo;s excellent &lt;a href=&#34;http://blog.jgc.org/2010/12/write-your-passwords-down.html&#34;&gt;blog
-post&lt;/a&gt; for more
-examples.&lt;/p&gt;
-
-&lt;p&gt;This method is slightly more complex than just writing down your passwords on a
-sheet of paper but the added complexity offers some advantages:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Can store &lt;em&gt;all&lt;/em&gt; your passwords on a single sheet of paper&lt;/li&gt;
-&lt;li&gt;If someone steals this sheet of paper they&amp;rsquo;ll have a harder time figuring
-out what your passwords are&lt;/li&gt;
-&lt;li&gt;Allows you to use strong random passwords&lt;/li&gt;
-&lt;li&gt;If you want to change your passwords just re-generate a new Tabula Recta.
-Your scheme for selecting passwords can stay the same&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;passtab makes no assumptions about how passwords are read nor does it know
-anything about your scheme (unless you configure it). Now that you don&amp;rsquo;t have
-to remember long random passwords anymore what &lt;em&gt;do&lt;/em&gt; you need to remember when
-using a Tabula Recta? Well first, you need to come up with a method for finding
-the starting position for a given password. In the example above this can be as
-simple as using characters from a domain/host name. But the beauty is you can
-be as creative as you want. A scheme that works for most of your passwords
-would probably be ideal but you can certainly generate multiple Tabula Recta&amp;rsquo;s
-if you like. Once you have a way of coming up with a starting location you need
-to define a method for reading off the password. In passtab this is called a
-&lt;code&gt;sequence&lt;/code&gt;. In the example above we simply read 8 characters diagonally. But
-again you can be creative here. You could read 8 characters diagonally skipping
-every 3rd character, etc. Lastly, you&amp;rsquo;ll need to remember what to do if you hit
-the edge of the Tabula Recta before the end of the password. For example, if
-you start at Z:Z and want to read 8 characters diagonally you can&amp;rsquo;t because you
-reached the end of the Tabula Recta. In passtab this is called a &lt;code&gt;collision&lt;/code&gt;.
-In this case we could just continue reading following the edge.&lt;/p&gt;
-
-&lt;p&gt;Using the Tabula Recta allows you to make use of long secure random passwords
-and only have to remember three simple things. You also have &lt;em&gt;all&lt;/em&gt; your
-passwords on a single sheet of paper that fits in your wallet.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Custom Alphabets&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;In passtab, a Tabula Recta consists of two alphabets. The header alphabet and
-the data alphabet. The header alphabet is used for the row and column heading
-of the Tabula Recta and forms the basis for finding the starting location of
-the passwords. The data alphabet is used to generate the contents of the Tabula
-Recta and passtab will randomly pick characters from this alphabet using a
-cryptographically secure random number generator. By default, passtab uses a
-header alphabet of &lt;code&gt;0-9A-Z&lt;/code&gt; and a data alphabet consisting of all printable
-ASCII characters. It&amp;rsquo;s important to keep in mind that the data alphabet
-directly effects the
-&lt;a href=&#34;https://secure.wikimedia.org/wikipedia/en/wiki/Password_strength#Entropy_as_a_measure_of_password_strength&#34;&gt;entropy&lt;/a&gt;
-of your passwords. passtab allows you to customize these alphabets allowing you
-to generate any kind of Tabula Recta, for example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ./bin/passtab -b A,B,C,D -a &#39;a,b,c,d,1,2,3,4,!,@,#&#39;
-Jun 12, 2011 10:24:26 PM org.qnot.passtab.PassTab generate
-INFO: Generating a random Tabula Recta (might take a while)...
-  A B C D 
-A d 1 @ 4 
-B c 4 @ 2 
-C b 3 3 ! 
-D 1 a @ 4 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Here&amp;rsquo;s a Tabula Recta using greek symbols as the header alphabet (here&amp;rsquo;s the
-&lt;a href=&#34;http://qnot.org/media/passtab-greek.pdf&#34;&gt;example PDF&lt;/a&gt;):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ./bin/passtab -b &#39;Σ,Τ,Π,ρ,ϋ,ψ&#39; -a &#39;a,b,c,d,1,2,3,4,!,@,#&#39;
-Jun 12, 2011 11:26:00 PM org.qnot.passtab.PassTab generate
-INFO: Generating a random Tabula Recta (might take a while)...
-  Σ Τ Π ρ ϋ ψ 
-Σ 1 2 1 d d c 
-Τ 1 2 b b @ c 
-Π 1 # c 3 2 @ 
-ρ 4 2 d 2 @ 3 
-ϋ 2 3 b 1 ! b 
-ψ d @ # c ! a
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Password Management&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;So this is all well and great, but in reality it can be a huge pain to have to
-look up your webmail password in a Tabula Recta that&amp;rsquo;s on a sheet of paper in
-your wallet &lt;em&gt;every time you login&lt;/em&gt;. For this reason, passtab has some optional
-features to help read passwords from the Tabula Recta. This allows you to have
-both a hard copy of the Tabula Recta in your wallet and an electronic version
-stored on your hard drive for quick access to your passwords. This obviously
-comes with some security considerations and care must be taken to protect the
-passtab database as you would any ssh private key for example. If someone got a
-hold of the passtab database file they could brute force your Tabula Recta. I
-ended up creating an encrypted thumb drive and store my passtab configuration
-and database files on it. You could also use gpg to encrypt it or any other
-method to protect it from the bad guys. This next section discusses the
-password management features of passtab.&lt;/p&gt;
-
-&lt;p&gt;First some definitions:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Direction&lt;/strong&gt;: a &lt;code&gt;direction&lt;/code&gt; to move on the Tabula Recta. Valid values are
-&lt;code&gt;N,S,E,W,NE,NW,SE,SW&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Sequence Item&lt;/strong&gt;: a &lt;code&gt;sequence item&lt;/code&gt; consists of a &lt;code&gt;length&lt;/code&gt; and &lt;code&gt;direction&lt;/code&gt;.
-For example, &lt;code&gt;12:SE&lt;/code&gt; would mean move 12 characters in the SE direction
-(diagonally)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Sequence&lt;/strong&gt;: a &lt;code&gt;sequence&lt;/code&gt; is a list of &lt;code&gt;sequence items&lt;/code&gt;. This allows you to
-define arbitrary sequences for reading passwords. For example, &lt;code&gt;4:SE,3:N,1:S&lt;/code&gt;
-would mean read 4 characters SE (diagonally) followed by 3 characters N (up)
-followed by 1 character S (down)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Collision&lt;/strong&gt;: a &lt;code&gt;collision&lt;/code&gt; defines what directions to move if we hit the
-edge of the Tabula Recta before the end of the password. You can define more
-than one direction and they will be tried in order. For example,
-N,NE,E,SE,S,SW,W,NW would mean if we hit a wall try those directions in order
-until we&amp;rsquo;re able to move again&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Generate a Tabula Recta in PDF and save to a passtab database&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;passtab can generate a Tabula Recta in PDF along with storing it in a passtab
-database. The passtab database is stored in &lt;a href=&#34;http://json.org/&#34;&gt;JSON&lt;/a&gt; format and
-can be easily accessed outside of passtab (any language that can read JSON
-files). Again, you&amp;rsquo;ll want to store that JSON file someplace safe. For example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ./bin/passtab --dbsave --name mypasstab
-Jun 12, 2011 10:48:33 PM org.qnot.passtab.PassTab generate
-INFO: Generating a random Tabula Recta (might take a while)...
-$ ls mypasstab.*
-mypasstab.json  mypasstab.pdf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Reading passwords from the passtab database&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Once we&amp;rsquo;ve created our passtab database we can now fetch passwords by telling
-passtab the starting location and the sequence to read. For example, suppose we
-want to read a password starting at row &amp;lsquo;B&amp;rsquo; and column &amp;lsquo;N&amp;rsquo; and we want a
-password 10 characters in length reading diagonally:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ./bin/passtab -i mypasstab.json --getpass B:N --sequence 9:SE
-o6,ZzH{e$@
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Copy the password to the clipboard using xclip:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ./bin/passtab -i mypasstab.json --getpass B:N --sequence 9:SE --chomp | xclip
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We used &lt;code&gt;9:SE&lt;/code&gt; as our sequence because passtab includes the character at the
-start location in the password. If we didn&amp;rsquo;t want to include this character we
-can optionally skip it like so:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ./bin/passtab -i mypasstab.json --getpass B:N --sequence 10:SE --skipstart
-6,ZzH{e$@_
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Define a list of directions to try in the event of a collision. This will try
-the directions N,S,E,W in order until we can move again. Here we start at Z:Z
-and can&amp;rsquo;t move SE (diagonally) so we try N (up) which works so we move N (up)
-until we hit another collision:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ./bin/passtab -i mypasstab.json --getpass Z:Z --sequence 9:SE --collision N,S,E,W
-a((vy&amp;amp;0bV&amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;This post introduced a new tool called passtab for managing passwords using a
-Tabula Recta. I&amp;rsquo;m sure it has plenty of bugs so use at your own risk and if by
-chance you find it somewhat useful I&amp;rsquo;d be very interested in any feedback.&lt;/p&gt;
-</description>
+light-weight system for managing passwords based on his idea.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>WordPress Blog to Print Book - A Case Study</title>
-      <link>http://qnot.org/2011/04/09/wordpress-blog-to-print-book---a-case-study/</link>
+      <link>http://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</link>
       <pubDate>Sat, 09 Apr 2011 05:05:18 +0000</pubDate>
       
-      <guid>http://qnot.org/2011/04/09/wordpress-blog-to-print-book---a-case-study/</guid>
+      <guid>http://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</guid>
       <description>&lt;p&gt;In this post I discuss my experience converting a WordPress blog into a print
 book. This is by no means a generic how-to guide but more along the lines of a
 case study. There&amp;rsquo;s a number of ways one could tackle this problem however I
@@ -546,335 +78,7 @@ wanted to convert the content of a WordPress blog into a high quality print
 ready PDF book (complete with chapters, sections, table of contents, images,
 figures, page numbering, index, etc.) which could then be sent to various
 &lt;a href=&#34;http://en.wikipedia.org/wiki/Print_on_demand&#34;&gt;POD&lt;/a&gt; publishers such as
-&lt;a href=&#34;http://www.lulu.com/&#34;&gt;Lulu&lt;/a&gt; for printing. I wanted to streamline as much of
-the process as possible to allow for regenerating the PDF book as new posts are
-made. Ideally there would be a WordPress plugin for this but to make such a
-plugin generic enough would be tricky and require many assumptions to be made
-regarding the structure of your blog (i.e. what constitutes a chapter or a
-section?, etc.). In this post I describe how I ended up creating a PDF book
-from WordPress and discuss a few challenges I encountered along the way. A
-brief disclaimer: this post is intended for folks who are familiar with *nix
-command line and enjoy mucking around in code (and don&amp;rsquo;t mind slinging around
-some XML here and there). It&amp;rsquo;s not for the faint of heart but hopefully it will
-be useful to others interested in a similar outcome.&lt;/p&gt;
-
-&lt;p&gt;If you&amp;rsquo;d rather skip this epic post and dive right into the code you can browse
-it all over on &lt;a href=&#34;https://github.com/aebruno/wp2print&#34;&gt;github&lt;/a&gt;. There&amp;rsquo;s a
-&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/README&#34;&gt;README&lt;/a&gt; file and a
-&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/Makefile&#34;&gt;Makefile&lt;/a&gt; which
-details how to run wp2print and includes a simple example.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Background and Assumptions&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The idea for this project came about as my family has been writing a private
-blog that I want to be able to share with my children some day. I&amp;rsquo;ve often
-thought about giving them a copy of the blog when their much older and wondered
-what would be the best way to preserve the content ensuring it&amp;rsquo;s viewable years
-down the road. I thought by creating a physical copy of the blog I could have
-something tangible to pass down through the generations. Using the services
-provided by companies like Lulu and Blurb printing a book is as simple as
-uploading a PDF and designing a cover. Having &lt;a href=&#34;http://oreilly.com/&#34;&gt;worked&lt;/a&gt; in
-the publishing industry in a former life I had some experience generating PDF
-books so I looked forward to the challenge.&lt;/p&gt;
-
-&lt;p&gt;As my goal was to create a book I needed to convert the content of the blog
-into an intermediate format which represented the book and could then be used
-to generate a PDF file. As I had a good amount of experience slinging around
-&lt;a href=&#34;http://www.docbook.org/&#34;&gt;DocBook&lt;/a&gt;, my general idea was to export the content
-from WordPress and convert it into DocBook. Then converting DocBook into a PDF
-is fairly straightforward using the wonderful &lt;a href=&#34;http://docbook.sourceforge.net/&#34;&gt;DocBook
-stylesheets&lt;/a&gt; and &lt;a href=&#34;http://xmlgraphics.apache.org/fop/&#34;&gt;Apache
-FOP&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The first obvious challenge when converting a blog into a book is deciding how
-to go about organizing the blog posts into chapters and sections. Our family
-blog was authored in such a way that each post had only one tag (category) and
-most importantly all posts were tagged chronologically. Meaning that all posts
-in a given category were sequential. For example, posts 0-5 are all tagged with
-&amp;ldquo;tag1&amp;rdquo;, posts 6-10 are all tagged with &amp;ldquo;tag2&amp;rdquo;, and so on. You can probably see
-where this is going. Having authored the blog in this format allowed me to
-easily use each tag as a Chapter and each post appeared as a section within
-that chapter. If your unable to make these assumptions about your blog (and
-most likely you won&amp;rsquo;t be able to) just keep this in mind as we delve into the
-code later on. You would need to modify the script I wrote and add in the
-appropriate logic to slice your blog posts up into chapters/sections or however
-you&amp;rsquo;d like to structure your DocBook file. I experimented with just making each
-post a chapter (and even a series of DocBook
-&lt;a href=&#34;http://www.docbook.org/tdg5/en/html/article.html&#34;&gt;articles&lt;/a&gt;) which isn&amp;rsquo;t a bad
-option however depending on the number of posts you may want to consider
-omitting the table of contents.&lt;/p&gt;
-
-&lt;p&gt;A few other assumptions I made:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;All posts were written by the same author so I omitted displaying any author
-information. Easy enough to add in if needed&lt;/li&gt;
-&lt;li&gt;All comments were excluded from the book. Comments are an important part of
-any blog but in this case my blog didn&amp;rsquo;t have very many comments. I was most
-interested in the content of the post only and decided to omit any and all
-comments. These could certainly be added in but some thought would be needed
-on which DocBook element to use for structuring them within the book.&lt;/li&gt;
-&lt;li&gt;There was one page (not a post) with the title &amp;ldquo;About&amp;rdquo; that I used as the
-preface for the book. This can be any post/page or omitted completely if
-desired.&lt;/li&gt;
-&lt;li&gt;Access to the WordPress code that runs the blog. This won&amp;rsquo;t work if your blog
-is hosted for example at WordPress.com. You&amp;rsquo;ll need to export your blog and
-run it on your own server.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Here&amp;rsquo;s a brief outline of the entire process. I&amp;rsquo;ll go over each step in detail
-in the next section.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Convert WordPress content to DocBook using PHP and some XSLT&lt;/li&gt;
-&lt;li&gt;Convert DocBook to &lt;a href=&#34;https://secure.wikimedia.org/wikipedia/en/wiki/XSL_Formatting_Objects&#34;&gt;XSL-FO&lt;/a&gt;
-using DocBook stylesheets&lt;/li&gt;
-&lt;li&gt;Convert XSL-FO to PDF using Apache FOP&lt;/li&gt;
-&lt;li&gt;Upload PDF file to Lulu and order print book&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Convert WordPress content to DocBook&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;First step was to convert the blog into DocBook. This was by far the most
-challenging step. My first attempt was to use the
-&lt;a href=&#34;https://en.support.wordpress.com/export/&#34;&gt;Export&lt;/a&gt; feature in WordPress which
-dumps the entire contents of your blog in XML format (WordPress eXtended RSS)
-and write an XSLT to convert into DocBook. This turned out to be slightly
-harder than I anticipated because of how the content of each post was formatted
-in the WordPress XML dump. It appeared to be in the native format WordPress
-uses to store the post in the database and I didn&amp;rsquo;t want to have to write a
-custom WordPress post renderer for DocBook. I decided to instead write a fairly
-simple PHP script which used the WordPress API to render each post in HTML just
-like it normally would if someone visited the site, then convert the HTML to
-DocBook. I found converting the HTML to DocBook was slightly easier than having
-to parse the native WordPress format. I did this in two steps, first I wrote a
-PHP script to generate a quasi-DocBook file which uses the WordPress API to
-embed the HTML content of each post within a &lt;code&gt;&amp;lt;section/&amp;gt;&lt;/code&gt;. Then I wrote an XSLT
-which transforms the quasi-DocBook and embedded HTML into a final valid DocBook
-file. The main PHP code is
-&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/lib/export-docbook.php&#34;&gt;here&lt;/a&gt;.
-You&amp;rsquo;ll need to change the include paths in
-&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/lib/config.php&#34;&gt;config.php&lt;/a&gt; to
-point to your WordPress installation (see the
-&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/Makefile&#34;&gt;Makefile&lt;/a&gt; for a
-complete example).  The XSLT is
-&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/wp-html2docbook.xsl&#34;&gt;here&lt;/a&gt;. It
-looks for various HTML tags that appear in my blog and converts those to valid
-DocBook elements. I built up the XSLT by trial and error. I first just rendered
-the quasi-DocBook generated from the PHP script as PDF. The DocBook stylesheets
-have a nice feature in that any invalid DocBook elements it encounters are
-highlighted in red in the resulting PDF. By iterating through the invalid
-elements I was able to add the correct templates to my XSLT to account for all
-HTML tags found in my blog posts. You&amp;rsquo;ll most certainly need to modify this
-XSLT file to suite your specific needs but should serve as a decent starting
-point. Here&amp;rsquo;s an example of the HTML generated by WordPress for an image
-included in a blog post:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;attachment_155&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;wp-caption aligncenter&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;width: 310px&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;/wp-content/media/2008/11/image.jpg&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;size-medium wp-image-155&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;title=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;image title&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;/wp-content/media/2008/11/image-300x218.jpg&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;alt=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;image alt&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;width=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;300&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;height=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;218&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;wp-caption-text&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;This is a description of the image&lt;span class=&#34;nt&#34;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Which then gets converted to a DocBook &lt;a href=&#34;http://www.docbook.org/tdg5/en/html/mediaobject.html&#34;&gt;mediaobject&lt;/a&gt; element:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;para&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;mediaobject&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;imageobject&amp;gt;&lt;/span&gt;
-       &lt;span class=&#34;nt&#34;&gt;&amp;lt;imagedata&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;align=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;center&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;fileref=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;images/2008/11/image.jpg&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;width=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;4.0in&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;depth=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;3.0in&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;scalefit=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;1&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;format=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;JPG&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/imageobject&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;caption&amp;gt;&amp;lt;para&amp;gt;&lt;/span&gt;This is a description of the image&lt;span class=&#34;nt&#34;&gt;&amp;lt;/para&amp;gt;&amp;lt;/caption&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/mediaobject&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/para&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;strong&gt;A note about images&amp;hellip;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Care must be taken to ensure any images you want included in the book are print
-ready. I ended up having quite a few images in my blog that I wanted to include
-in the final PDF which required some extra work to get them ready for printing.
-For best results you&amp;rsquo;ll want make to be sure the resolution of your images are
-at least 300ppi (&lt;a href=&#34;https://secure.wikimedia.org/wikipedia/en/wiki/Dots_per_inch#DPI_or_PPI_in_digital_image_files&#34;&gt;pixels per
-inch&lt;/a&gt;).
-See &lt;a href=&#34;http://connect.lulu.com/t5/Interior-Formatting/What-resolution-DPI-should-my-images-have-to-achieve-optimum/ta-p/31434&#34;&gt;this post on
-Lulu&lt;/a&gt;.
-For example, if your image is 600x600px and you set the resolution to be
-300ppi, the printed image will be roughly 2x2in. In my case I was printing a
-6x9 book and after factoring in margins/spine/bleed etc. I calculated the
-maximum print size I wanted each image was 4x3in (as defined in the DocBook XML
-element &lt;code&gt;&amp;lt;imagedata width=&amp;quot;4.0in&amp;quot; height=&amp;quot;3.0in&amp;quot;/&amp;gt;&lt;/code&gt; in the above example). As
-most of the images were pictures, this print size ended up being large enough
-so the photo was still viewable but small enough to allow for 2 images per
-page. This meant that the minimum size (in pixels) each image had to be was
-1200x900px. The problem was when we uploaded pictures to our blog we had
-WordPress resize them to 500x400px (from their original size of 2816x2112px
-from the camera). Fortunately, I still had the original image files which I
-collected and used in the final PDF. Something to keep in mind if you have
-images (especially photographs) in your blog that you want printed. I ran into
-another edge case with the images which required a little bit of
-&lt;a href=&#34;http://www.imagemagick.org&#34;&gt;imagemagick&lt;/a&gt;. I had a few important pictures that
-were taken with photo booth on a mac in which the original size image was a
-mere 640x480px. I knew the print version of the images would look dreadful so
-my only option was to resample them to a higher resolution. This can easily be
-accomplished using imagemagick&amp;rsquo;s &lt;a href=&#34;http://www.imagemagick.org/script/command-line-options.php#resample&#34;&gt;convert
-command&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ convert -resample 300x orig.jpg hires.jpg
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In summary, be sure your images are high enough resolution for printing. It&amp;rsquo;s
-definitely worth the extra work. I had roughly 100 images in my blog and all of
-them turned out really nice in the final print book. I was quite impressed with
-the quality of Lulu&amp;rsquo;s printers.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;DocBook &amp;ndash;&amp;gt; XSL-FO &amp;ndash;&amp;gt; PDF&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Converting DocBook to PDF was fairly straightforward using two excellent
-projects &lt;a href=&#34;http://docbook.sourceforge.net/&#34;&gt;DocBook stylesheets&lt;/a&gt; and &lt;a href=&#34;http://xmlgraphics.apache.org/fop/&#34;&gt;Apache
-FOP&lt;/a&gt;. I won&amp;rsquo;t cover how to install them on
-your platform and refer you to the excellent INSTALL guides at the
-&lt;a href=&#34;http://docbook.sourceforge.net/release/xsl/current/INSTALL&#34;&gt;respective&lt;/a&gt;
-&lt;a href=&#34;http://xmlgraphics.apache.org/fop/quickstartguide.html&#34;&gt;sites&lt;/a&gt;. If you happen
-to be running Ubuntu using the stock packages should work fine. Simply run
-&lt;code&gt;aptitude install fop docbook-xsl&lt;/code&gt; and you should be all set. The basic goal
-for this step was to use the DocBook XSL FO stylesheets to convert the DocBook
-created from the previous step into XSL-FO which can be fed into Apache FOP for
-conversion into PDF. This step required that an XSLT processor be installed
-such as xsltproc (libXML), Saxon, Xalan, etc. I used xsltproc and can easily be
-installed on Ubuntu &lt;code&gt;aptitude install xsltproc&lt;/code&gt;. After running xsltproc I
-passed the resulting XSL-FO output into Apache FOP to generate the final PDF.
-For more details see the
-&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/Makefile&#34;&gt;Makefile&lt;/a&gt;. Here&amp;rsquo;s
-the basic commands:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ xsltproc /path/to/docbook-xsl/fo/docbook.xsl docbook-final.xml &amp;gt; book.fo
-$ fop book.fo book.pdf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The DocBook XSL FO stylesheets provide a &lt;a href=&#34;http://docbook.sourceforge.net/release/xsl/current/doc/fo/index.html&#34;&gt;generous number of
-parameters&lt;/a&gt;
-for customizing the resulting FO. The default parameter settings produce a very
-nice looking PDF but if you like to tweak things there&amp;rsquo;s no shortage of knobs
-to turn. As I ended up printing my book with Lulu there were a few specific
-customizations that were required. First I was interested in printing a US
-Trade 6x9 inch hard cover book so the default page
-&lt;a href=&#34;http://docbook.sourceforge.net/release/xsl/current/doc/fo/page.width.html&#34;&gt;width&lt;/a&gt;/&lt;a href=&#34;http://docbook.sourceforge.net/release/xsl/current/doc/fo/page.height.html&#34;&gt;height&lt;/a&gt;
-needed to be set accordingly. Some other tweaks I made included adjusting the
-&lt;a href=&#34;http://docbook.sourceforge.net/release/xsl/current/doc/fo/page.margin.inner.html&#34;&gt;margins&lt;/a&gt;
-slightly to provide some extra room on the &lt;a href=&#34;http://connect.lulu.com/t5/Interior-Formatting/How-big-should-my-margins-be/ta-p/31404&#34;&gt;spine
-edge&lt;/a&gt;
-of the book, customizing the &lt;a href=&#34;http://docbook.sourceforge.net/release/xsl/current/doc/fo/generate.toc.html&#34;&gt;table of
-contents&lt;/a&gt;
-to only include the chapter/sections, and &lt;a href=&#34;http://docbook.sourceforge.net/release/xsl/current/doc/fo/body.start.indent.html&#34;&gt;customizing the
-indentation&lt;/a&gt;
-of chapters and sections (in this case I didn&amp;rsquo;t want any indentation). Here&amp;rsquo;s
-the resulting xsltproc command with the custom parameter settings:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;xsltproc &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam page.width 6in &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam page.height 9in &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam page.margin.inner 1.0in &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam page.margin.outer 0.8in &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam body.start.indent 0pt &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam body.font.family  Times &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam title.font.family Times &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam dingbat.font.family Times &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam generate.toc &lt;span class=&#34;s1&#34;&gt;&amp;#39;book toc title&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    --stringparam hyphenate &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    /path/to/docbook-xsl/fo/docbook.xsl &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    docbook-final.xml &amp;gt; book.fo
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;strong&gt;A note about Fonts..&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The last and most important configuration I made was with fonts. Lulu requires
-fonts to be fully
-&lt;a href=&#34;https://secure.wikimedia.org/wikipedia/en/wiki/Portable_Document_Format#Fonts&#34;&gt;embedded&lt;/a&gt;
-which means any font you use in your PDF &lt;a href=&#34;http://www.lulu.com/help/embed_fonts&#34;&gt;must be
-embedded&lt;/a&gt; (the font files are included
-directly in the PDF file) or else they will reject the PDF. Embedding fonts is
-supported by Apache FOP but requires some custom configuration. First I had to
-decide which font to use. Fonts can be really tricky and I didn&amp;rsquo;t want to get
-too fancy. Using a single font for the entire book was fine with me and I
-decided to stick with a traditional Times New Roman font. I ended up using the
-FreeSerif TrueType font from &lt;a href=&#34;http://www.gnu.org/software/freefont/&#34;&gt;GNU
-FreeFont&lt;/a&gt;. It was already installed on
-my Ubuntu machine and very easy to embed with Apache FOP. By default these
-fonts are installed in &lt;code&gt;/usr/share/fonts/truetype/freefont/&lt;/code&gt;.There&amp;rsquo;s lots of
-other free fonts out there that you could use including the &lt;a href=&#34;https://fedorahosted.org/liberation-fonts/&#34;&gt;Liberation
-Fonts&lt;/a&gt; and even the &lt;a href=&#34;http://packages.ubuntu.com/lucid/ttf-mscorefonts-installer&#34;&gt;Micro$oft True
-Type Core Fonts&lt;/a&gt;
-which can be installed on Ubuntu by running &lt;code&gt;aptitude install msttcorefonts&lt;/code&gt;.
-To configure Apache FOP to use GNU Free Fonts and embed them into the final PDF
-I created a file called &lt;code&gt;userconf.xconf&lt;/code&gt; with the following lines:&lt;/p&gt;
-
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;fop&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;version=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;1.0&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;renderers&amp;gt;&lt;/span&gt;
-   &lt;span class=&#34;nt&#34;&gt;&amp;lt;renderer&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;mime=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;application/pdf&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- Full path to truetype fonts to be embedded in PDF file --&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;fonts&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;font&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;embed-url=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;file:///usr/share/fonts/truetype/freefont/FreeSerif.ttf&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;font-triplet&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;Times&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;weight=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/font&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;font&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;embed-url=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;file:///usr/share/fonts/truetype/freefont/FreeSerifBold.ttf&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;font-triplet&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;Times&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;weight=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;bold&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/font&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;font&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;embed-url=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;file:///usr/share/fonts/truetype/freefont/FreeSerifItalic.ttf&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;font-triplet&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;Times&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;italic&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;weight=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/font&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;font&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;embed-url=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;file:///usr/share/fonts/truetype/freefont/FreeSerifBoldItalic.ttf&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;font-triplet&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;Times&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;italic&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;weight=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;bold&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/font&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;/fonts&amp;gt;&lt;/span&gt;
-   &lt;span class=&#34;nt&#34;&gt;&amp;lt;/renderer&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/renderers&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/fop&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Then ran fop passing the -f option like so: &lt;code&gt;fop -f userconf.xconf book.fo
-book.pdf&lt;/code&gt;. Note the &lt;code&gt;&amp;lt;font-triplet **name=&amp;quot;Times&amp;quot;** /&amp;gt;&lt;/code&gt; attribute must match
-the &lt;code&gt;body.font.family Times&lt;/code&gt; XSLT parameter passed to xsltproc command.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Simple Example&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;All the code described in this post is available on
-&lt;a href=&#34;https://github.com/aebruno/wp2print&#34;&gt;github&lt;/a&gt;. I also include a simple example
-to demonstrate the entire conversion process and provide some sample PDFs to
-see how final book renders. I created a simple test blog consisting of
-Shakespeare&amp;rsquo;s Sonnets I thru X and exported the content in WordPress eXtended
-RSS so you can then import into a fresh install of WordPress. I tested using
-the latest version of WordPress at the time of this writing (v3.1). To try it
-out yourself download the code for wp2print and read thru the
-&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/README&#34;&gt;README&lt;/a&gt; file which
-outlines all the gory details. The
-&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/Makefile&#34;&gt;Makefile&lt;/a&gt; outlines
-the general process and should provide a good starting point for experimenting.
-Here&amp;rsquo;s some sample PDFs that were rendered from the example Shakespeare blog:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://qnot.org/media/book-with-chapters.pdf&#34;&gt;Book with Chapters and Sections&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://qnot.org/media/book-with-articles.pdf&#34;&gt;Book with all posts as DocBook Articles&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/aebruno/wp2print/blob/master/sample/sample-docbook.xml&#34;&gt;Raw DocBook output&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;With the help of a few simple scripts it&amp;rsquo;s possible to create a high quality
-print ready PDF book from a WordPress blog. Depending on the content of the
-blog you&amp;rsquo;ll most certainly need to tailor these scripts to suite your specific
-requirements. The main challenges are figuring out how you want to organize
-your blog posts into the framework of a book and then modifying the XSLT
-templates to convert the WordPress html markup of your blog into valid DocBook
-elements. The services offered by print on demand publishers such as Lulu
-provide an easy way to turn the resulting PDF into a high quality paper book.&lt;/p&gt;
-</description>
+&lt;a href=&#34;http://www.lulu.com/&#34;&gt;Lulu&lt;/a&gt; for printing.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -886,27 +90,7 @@ provide an easy way to turn the resulting PDF into a high quality paper book.&lt
       <description>&lt;p&gt;Here&amp;rsquo;s the scenario, you&amp;rsquo;re logged into your favorite *nix box and are using
 bash as your shell. You fired off some process which is going to take a while
 to run (and forgot to run &lt;a href=&#34;http://www.gnu.org/software/screen/&#34;&gt;screen&lt;/a&gt;) and
-you want to logout without killing that process. The command to use is
-&lt;a href=&#34;http://www.gnu.org/software/bash/manual/bashref.html#Job-Control-Builtins&#34;&gt;disown&lt;/a&gt;.
-Here&amp;rsquo;s a really simple example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ssh some-host
-$ perl script-that-chugs-along.pl
-$ Ctrl-Z (suspend)
-$ bg (put it in background)
-$ disown -h
-$ logout
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;disown&lt;/code&gt; command allows you to remove jobs from the list of active jobs
-associated with your login shell. Here&amp;rsquo;s an excerpt from the bash man page:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Without options, each &lt;em&gt;jobspec&lt;/em&gt; is removed from the table of active jobs. If
-the &lt;code&gt;-h&lt;/code&gt; option is given, the job is not removed from the table, but is marked
-so that &lt;code&gt;SIGHUP&lt;/code&gt; is not sent to the job if the shell receives a &lt;code&gt;SIGHUP&lt;/code&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
+you want to logout without killing that process.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -919,33 +103,9 @@ so that &lt;code&gt;SIGHUP&lt;/code&gt; is not sent to the job if the shell rece
 Freerunner&lt;/a&gt; and unfortunately I
 have nothing good to report back. When I first got my hands on the Freerunner I
 had great expectations as can be seen in my
-&lt;a href=&#34;http://qnot.org/2008/07/23/neo-freerunner--freedom/&#34;&gt;previous&lt;/a&gt;
+&lt;a href=&#34;http://qnot.org/2008/07/23/neo-freerunner-freedom/&#34;&gt;previous&lt;/a&gt;
 &lt;a href=&#34;http://qnot.org/2008/08/14/freerunner-first-boot/&#34;&gt;posts&lt;/a&gt; however it
-turns out I was little too optimistic.&lt;/p&gt;
-
-&lt;p&gt;My hope was to write about my experience developing applications for the device
-but it seems as though I was one of the unlucky users who suffered from the
-infamous &lt;a href=&#34;http://markmail.org/thread/vpq2onob27fsz4bc&#34;&gt;buzz&lt;/a&gt;. And I don&amp;rsquo;t mean
-buzz in a good way :) Apparently this didn&amp;rsquo;t effect every user and was more
-prevalent when using certain GSM bands. However random it may have been for
-some users it was an absolute show stopper for me and rendered the device
-pretty much unusable as a phone. Anytime I placed a call, the person on the
-other end heard a horrible loud buzzing sound. After a while Openmoko finally
-tracked down the &lt;a href=&#34;http://lists.openmoko.org/pipermail/hardware/2008-August/000415.html&#34;&gt;source of the
-buzzing&lt;/a&gt;
-to a hardware problem and &lt;a href=&#34;http://people.openmoko.org/joerg/GSM_EMI_noise/&#34;&gt;published some
-instructions&lt;/a&gt; on how to mod
-the device (known as the &lt;a href=&#34;http://people.openmoko.org/joerg/GSM_EMI_noise/big-C_rework_SOP_rc2.pdf&#34;&gt;big-C
-rework&lt;/a&gt;).
-Unfortunately it requires some fairly advanced SMD-soldering skills and is way
-out of my league. As far as I know, Openmoko never really offered much help in
-resolving the issue for people who had already purchased the device with the
-hardware flaw (rev A5/A6) and were unable to preform the necessary surgery.&lt;/p&gt;
-
-&lt;p&gt;Despite the lacking phone functionality the Freerunner itself is still pretty
-cool.  I&amp;rsquo;m sure I&amp;rsquo;ll be able to think of some other fun projects to use it for
-especially since it &lt;a href=&#34;http://wiki.openmoko.org/wiki/Debian&#34;&gt;runs Debian&lt;/a&gt;.&lt;/p&gt;
-</description>
+turns out I was little too optimistic.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -961,216 +121,15 @@ stuff but I&amp;rsquo;m posting it anyhow for reference. I purchased the Neo Fre
 fully aware that it was a developer phone but my hope was that I could at least
 ssh into the device and make/receive a few phone calls. I&amp;rsquo;m happy to report
 that after first booting I was able to get most things functioning within a few
-hours.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;First Boot&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;There&amp;rsquo;s several &lt;a href=&#34;http://wiki.openmoko.org/wiki/Distributions&#34;&gt;distributions&lt;/a&gt;
-for the Freerunner which can get quite confusing but the one that comes stock
-with the Freerunner is referred to as
-&lt;a href=&#34;http://wiki.openmoko.org/wiki/Om_2007.2&#34;&gt;2007.2&lt;/a&gt;. First time booting up the
-Freerunner you&amp;rsquo;re presented the home screen for 2007.2. You can also
-&lt;a href=&#34;http://wiki.openmoko.org/wiki/Boot&#34;&gt;boot&lt;/a&gt; into NAND and NOR flash which allows
-you to update the kernel, root filesystem and the boot loader (U-Boot).&lt;/p&gt;
-
-&lt;p&gt;My first mission was to ssh into the device. Followed the instructions on the
-wiki for setting up &lt;a href=&#34;http://wiki.openmoko.org/wiki/USB_Networking&#34;&gt;USB
-networking&lt;/a&gt;.  By default the IP
-address of the Freerunner is 192.168.0.202. On the desktop side you first have
-to ifconfig the usb0 interface and setup the correct routes. Here&amp;rsquo;s the script
-I run on my desktop after connecting the Freerunner:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/bash&lt;/span&gt;
-
-/sbin/ifconfig usb0 192.168.0.200 netmask 255.255.255.0
-/sbin/route add -host 192.168.0.202/32 dev usb0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;One extra step I had to do was configure my firewall to allow connections
-to/from usb0. I&amp;rsquo;m running Ubuntu hardy 8.04 and using Firestarter. Open up
-Firestarter:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Preferences -&amp;gt; Firewall -&amp;gt; Network Settings&lt;/li&gt;
-&lt;li&gt;Set &amp;lsquo;Local network connected device&amp;rsquo; to:  Unknown device (usb0)&lt;/li&gt;
-&lt;li&gt;Check &amp;lsquo;Enable internet connection sharing&amp;rsquo;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Verified usb0 network connections:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ping -I usb0 192.168.0.202
-$ ssh root@192.168.0.202
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Once connected to the Freerunner next step was to get the date to display on
-the home screen. To do this I just followed the &lt;a href=&#34;http://wiki.openmoko.org/wiki/Today/2007.2#Adjust_UI_components_at_runtime&#34;&gt;instructions on the
-wiki&lt;/a&gt;
-for customizing the today page (run these commands on the Neo):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# dbus-launch gconftool-2 -t boolean -s /desktop/poky/interface/reduced false
-# /etc/init.d/xserver-nodm restart
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Here&amp;rsquo;s a screenshot of the home screen:&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-clock.png&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;&lt;strong&gt;Upgrade Software&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Once I was able to successfully ssh into the Neo and verifed that I could also
-connect to the internet from the Neo I wanted to upgrade to the latest software
-release. To do this you use &lt;a href=&#34;http://wiki.openmoko.org/wiki/Opkg&#34;&gt;opgk&lt;/a&gt; (package
-management system based on Ipkg). The first time you upgrade from the software
-release shipped with the Neo you have to first upgrade dropbear (ssh server)
-from the terminal on the Neo, then you can ssh back into the Neo and upgrade
-the rest of the software:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# opkg update
-On the Neo, open Terminal and run: # opkg install dropbear
-Then ssh to neo and run: # opkg upgrade
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;At this point I rebooted and inserted my T-Mobile sim card and microSD card.
-Once back at the home screen it showed I was registered to the T-Mobile network
-and I opened up the dialer app and placed my first call!&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Set up Timezone and correct date/time&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;To fix the timezone run this from the Neo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# opkg install tzdata tzdata-americas
-# ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
-# /etc/init.d/xserver-nodm restart
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To set the correct time using ntp run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# opkg install ntpclient
-# ntpclient -s -h pool.ntp.org
-# hwclock --systohc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;WLAN&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Next up was connecting the Neo to my wireless LAN. The wireless interface on
-the Neo is eth0. First have to make sure WLAN device is turned on which it
-seemed to be by default when you first boot. You can check this by holding down
-the power button for a few seconds which should pop up a menu showing the state
-of the various devices. Here&amp;rsquo;s the script I use to connect the Neo to my WLAN:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
-
-/sbin/ifconfig eth0 down
-/sbin/ifconfig eth0 up
-/sbin/iwconfig eth0 key restricted &lt;span class=&#34;s1&#34;&gt;&amp;#39;xxxxx&amp;#39;&lt;/span&gt;
-/sbin/iwconfig eth0 essid &lt;span class=&#34;s1&#34;&gt;&amp;#39;xxxx&amp;#39;&lt;/span&gt;
-/sbin/udhcpc eth0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;strong&gt;GPS&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.tangogps.org/&#34;&gt;tangoGPS&lt;/a&gt; rocks. This app is amazing and it worked
-right out of the box. Followed the &lt;a href=&#34;http://wiki.openmoko.org/wiki/Getting_Started_with_your_Neo_FreeRunner#Use_the_GPS&#34;&gt;directions on the
-wiki&lt;/a&gt;
-to get it up and running. There was an
-&lt;a href=&#34;http://wiki.openmoko.org/wiki/GPS_Problems&#34;&gt;issue&lt;/a&gt; getting a fix with the SD
-card installed but by the time I tried this out they already had a kernel
-update which fixed the issue. I had no problem getting a fix and my TTFF was
-35s with the SD card in. Here&amp;rsquo;s some screenshots of tangoGPS in action:&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/screenshot-1.png&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/screenshot-2.png&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;I also installed and ran &lt;a href=&#34;http://wiki.openmoko.org/wiki/Howto_Test_Your_GPS_with_agpsui&#34;&gt;AGPS
-Test&lt;/a&gt; which is a
-program for testing out GPS on the Neo. It shows some nice graphs of the
-various satellites you&amp;rsquo;re currently connected to and their signal strengths:&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/screenshot-4.png&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/screenshot-5.png&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;&lt;strong&gt;Bugs/Issues&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Overall I was impressed by how much I was able to get working the first time
-around however there&amp;rsquo;s definitely a few issues I came across. The most
-concerning was the &lt;a href=&#34;http://wiki.openmoko.org/wiki/Freerunner_Hardware_Issues#Poor_Audio_Quality&#34;&gt;GSM
-buzzing&lt;/a&gt;
-during phone calls. On the Neo side everything sounds fine but the person on
-the other end hears a very loud buzzing noise. Here&amp;rsquo;s the &lt;a href=&#34;http://lists.openmoko.org/pipermail/hardware/2008-August/000288.html&#34;&gt;latest
-update&lt;/a&gt;
-from the hardware list regarding the issue. I tried tweaking the various alsa
-settings in &lt;code&gt;/usr/share/openmoko/scenarios/gsmhandset.state&lt;/code&gt; with some luck but
-still wasn&amp;rsquo;t able to find the right balance to completely eliminate the
-buzzing. Still trying to wrap my head around which alsa settings do what but I
-found playing with alsamixer during a live call to be helpful. The basic
-procedure goes something like this:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;ssh to FreeRunner&lt;/li&gt;
-&lt;li&gt;Make a phone call&lt;/li&gt;
-&lt;li&gt;While call is in progress run alsamixer&lt;/li&gt;
-&lt;li&gt;Tweak settings to minimize buzzing/echo&lt;/li&gt;
-&lt;li&gt;While call is still in progress run: &lt;code&gt;$ alsactl store -f gsmhandset-test1.txt&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Now you can diff this new file against the original
-(/usr/share/openmoko/scenarios/gsmhandset.state) and see which settings were
-changed. This is really the only thing holding me back from using the Neo as my
-primary phone so I look forward to a possible fix.&lt;/p&gt;
-
-&lt;p&gt;I found using the Terminal on the Neo rather clunky due to the lack of
-characters available on the keyboard. For example there&amp;rsquo;s no &lt;TAB&gt; or &amp;lsquo;/&amp;rsquo;. I&amp;rsquo;m
-sure there&amp;rsquo;s ways to customize the keyboard. Looks like only vi is available by
-default on the Neo so I plan on seeing if I can find a vim package (.ipk) or
-figuring out how to compile vim for the Neo.&lt;/p&gt;
-</description>
+hours.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Neo FreeRunner = Freedom</title>
-      <link>http://qnot.org/2008/07/23/neo-freerunner--freedom/</link>
+      <link>http://qnot.org/2008/07/23/neo-freerunner-freedom/</link>
       <pubDate>Wed, 23 Jul 2008 03:22:40 +0000</pubDate>
       
-      <guid>http://qnot.org/2008/07/23/neo-freerunner--freedom/</guid>
+      <guid>http://qnot.org/2008/07/23/neo-freerunner-freedom/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Open. Mobile. Free.&lt;/strong&gt; That was the tag line printed on the side of the box
 which housed my shiny new &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
 FreeRunner&lt;/a&gt;. I finally had
@@ -1182,66 +141,7 @@ basically open sourced their internal development. Where else could you get the
 complete &lt;a href=&#34;http://wiki.openmoko.org/wiki/CAD_models&#34;&gt;CAD files&lt;/a&gt; for your phone?
 There&amp;rsquo;s a good post about why you might &lt;a href=&#34;http://www.fsf.org/blogs/community/5-reasons-to-avoid-iphone-3g&#34;&gt;think twice before buying an
 iPhone&lt;/a&gt; and
-picking up a FreeRunner instead.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s a few pics of what the Neo looks like all boxed up..&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-box.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-box2.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;The Neo came bundled with a USB cable, a nifty stylus + laser pen, AC adapter,
-battery, and a 512mb microSD card.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-accessories.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;The &lt;a href=&#34;http://wiki.openmoko.org/wiki/Neo_FreeRunner_GTA02_Hardware&#34;&gt;hardware
-specs&lt;/a&gt; for the Neo
-(GTA02) are impressive, GSM, WiFi, Bluetooth, GPS. All that packed into a full
-blown Linux distro that fits in the palm of your hand.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-hand.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-back.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ll be posting more about my experiences using the Neo as my daily phone. More
-to come..&lt;/p&gt;
-</description>
+picking up a FreeRunner instead.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1254,126 +154,7 @@ to come..&lt;/p&gt;
 assemblies&lt;/a&gt; for while I
 finally figured out how to build executable jars. The Maven assembly plugin
 allows you to define ways to package up your project for distribution by
-creating various assembly descriptor files. Here&amp;rsquo;s a quick example of a Maven
-assembly for building an executable jar (uberjar). For this example we&amp;rsquo;ll
-create a brand new project from scratch but it should be easy to see how to
-integrate into an existing project.&lt;/p&gt;
-
-&lt;p&gt;First step lets create a test project:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mvn archetype:create -DgroupId=org.qnot.example -DartifactId=hello-world
-$ cd hello-world
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next add a few dependencies to the project. In this example we&amp;rsquo;ll add a few
-libraries from jakarta commons. The &lt;dependencies/&gt; section in the pom.xml
-should now look like this:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;junit&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;junit&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;3.8.1&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;test&lt;span class=&#34;nt&#34;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;commons-cli&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;commons-cli&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.1&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;commons-lang&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;commons-lang&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.3&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Create a META-INF/ directory to store the MANIFEST.MF file which defines the
-main class in the executable jar.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mkdir -p src/main/resources/META-INF/
-$ echo &#39;Main-Class: org.qnot.example.App&#39; &amp;gt; MANIFEST.MF 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Create a src/assemble directory to store the assembly descriptor files&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mkdir src/assemble
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next we&amp;rsquo;ll create the actual assembly descriptor file which defines how to
-package up the jar. Create the file src/assemble/exe.xml with the following
-xml:&lt;/p&gt;
-
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;assembly&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;exe&lt;span class=&#34;nt&#34;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;formats&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;format&amp;gt;&lt;/span&gt;jar&lt;span class=&#34;nt&#34;&gt;&amp;lt;/format&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/formats&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;includeBaseDirectory&amp;gt;&lt;/span&gt;false&lt;span class=&#34;nt&#34;&gt;&amp;lt;/includeBaseDirectory&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependencySets&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependencySet&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;outputDirectory&amp;gt;&amp;lt;/outputDirectory&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;outputFileNameMapping&amp;gt;&amp;lt;/outputFileNameMapping&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;unpack&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/unpack&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;runtime&lt;span class=&#34;nt&#34;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;includes&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;commons-lang:commons-lang&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;commons-cli:commons-cli&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;/includes&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependencySet&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependencySets&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;fileSets&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;fileSet&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;target/classes&lt;span class=&#34;nt&#34;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;outputDirectory&amp;gt;&amp;lt;/outputDirectory&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/fileSet&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/fileSets&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/assembly&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Inside the &lt;code&gt;&amp;lt;dependecySets/&amp;gt;&lt;/code&gt; is where you can add all the libraries you&amp;rsquo;d like
-to include in the uberjar. These must also be defined in your pom.&lt;/p&gt;
-
-&lt;p&gt;Finally, add the maven-assembly-plugin to the pom:
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;finalName&amp;gt;&lt;/span&gt;hello-world&lt;span class=&#34;nt&#34;&gt;&amp;lt;/finalName&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugins&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;maven-assembly-plugin&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;descriptors&amp;gt;&lt;/span&gt;
-            &lt;span class=&#34;nt&#34;&gt;&amp;lt;descriptor&amp;gt;&lt;/span&gt;src/assemble/exe.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/descriptor&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;/descriptors&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;archive&amp;gt;&lt;/span&gt;
-            &lt;span class=&#34;nt&#34;&gt;&amp;lt;manifestFile&amp;gt;&lt;/span&gt;src/main/resources/META-INF/MANIFEST.MF&lt;span class=&#34;nt&#34;&gt;&amp;lt;/manifestFile&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;/archive&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To run the assembly and build the executable jar:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mvn assembly:assembly
-$ java -jar target/hello-world-exe.jar
-Hello World! 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I tested the hello-world example using the latest Maven release (2.0.8) and
-maven-assembly-plugin-2.2-beta-1. If you run into any issues try and update
-your Maven plugins by running:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mvn -U compile
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can download the example hello-world project
-&lt;a href=&#34;http://qnot.org/data/hello-world.tar.gz&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-</description>
+creating various assembly descriptor files.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1390,314 +171,7 @@ design around you end up having to sync your visual diagram with your SQL
 files. It&amp;rsquo;s tedious having to  manage the various SQL for building the database
 and this can be a larger pain when trying to support different database
 platforms each with their own SQL syntax. So before you create your next
-database read on and see how Dia can make your life a bit easier.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://live.gnome.org/Dia&#34;&gt;Dia&lt;/a&gt; is a program for creating diagrams and for
-this exercise we&amp;rsquo;ll be creating UML diagrams from within Dia. We&amp;rsquo;re also going
-to use a perl script called &lt;a href=&#34;http://tedia2sql.tigris.org/&#34;&gt;tedia2sql&lt;/a&gt; which
-will transform our Dia files directly to SQL for our target database. What&amp;rsquo;s
-also nice about creating database schemas this way is that you can generate SQL
-for multiple target databases without the maintenance overhead.&lt;/p&gt;
-
-&lt;p&gt;First off, install a copy of Dia as well as tedia2sql. You can download
-tedia2sql &lt;a href=&#34;http://tedia2sql.tigris.org/servlets/ProjectDocumentList&#34;&gt;here&lt;/a&gt; and
-download Dia &lt;a href=&#34;http://live.gnome.org/Dia/Download&#34;&gt;here&lt;/a&gt;. I&amp;rsquo;m not going to cover
-the install in this post but there should be packages available for most Linux
-distro&amp;rsquo;s and if your not running Linux now is a great time to start!&lt;/p&gt;
-
-&lt;p&gt;Fire up Dia, create a new diagram and save it as &amp;ldquo;employee.dia&amp;rdquo;. Select the UML
-sheet from the drop down list. We&amp;rsquo;ll be using various UML objects to represent
-tables and definitions that make up our database. Here&amp;rsquo;s a quick overview of
-the main UML objects and their usage:&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_menu.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;UML object&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_class.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td&gt;Class represents a table in the database. A Class has a name which corresponds to the name of the table and attributes which map to the columns of the table. Attributes in classes can have visibility (public, private, protected). Protected attributes are primary keys. More on classes later.&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_component.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td&gt;Component is a special object that lets you define a list of default values to be inserted into a table. These are equivalent to hard coding &amp;ldquo;insert into ..&amp;rdquo; statements in your SQL files.&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_small_package.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td&gt;Small Package represents a typemap. Typemaps are used for adding custom SQL types such as MySQL tinyint.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Now lets create our first table. Select the &amp;ldquo;Class&amp;rdquo; object icon from the UML
-sheet and click inside the diagram editor window. This will add the class to
-your diagram. Now right click on the new class and select &amp;ldquo;Show Properties&amp;rdquo;.
-This will bring up a rather large and complex property window for the UML class
-you&amp;rsquo;ve just created. We&amp;rsquo;re only going to customize a few properties outlined
-below.&lt;/p&gt;
-
-&lt;p&gt;First, under the &amp;ldquo;Class&amp;rdquo; tab enter the name of the table (employee) in the
-&amp;ldquo;Class Name: &amp;ldquo; field. Next click on the &amp;ldquo;Attributes&amp;rdquo; tab and enter in the
-columns of the table as attributes. In the &amp;ldquo;Name: &amp;ldquo; field enter in the column
-name. In the &amp;ldquo;Type: &amp;ldquo; field enter in the SQL type for the column. If you want
-to support multiple database platforms try to be generic here and only use ANSI
-SQL 1992 or else use a typemap. More on typemaps later. In the &amp;ldquo;Value: &amp;ldquo; field
-enter any default values for the column. For example, this is where you could
-add in &amp;ldquo;not null&amp;rdquo;. If the column your adding is a primary key then don&amp;rsquo;t put
-&amp;ldquo;not null&amp;rdquo; here and instead select &amp;ldquo;Protected&amp;rdquo; for the &amp;ldquo;Visibility: &amp;ldquo; field.
-Not null will automatically get added to all primary keys on output generation.
-The screen shot below is an example of the Class property editor window.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_attributes.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;Next, repeat the process for as many tables as you need in your database. For
-this example, create two tables &amp;ldquo;employee&amp;rdquo; and &amp;ldquo;department&amp;rdquo; with the columns as
-shown in the screenshot below (note the &amp;lsquo;#&amp;rsquo; in front of an attribute indicates
-that it&amp;rsquo;s visibility is &amp;ldquo;Protected&amp;rdquo; thus making it a Primary Key):&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_employee.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;This is a simple example of a database which stores employee data along with
-the department they belong to. Now suppose we have a default list of
-departments that we&amp;rsquo;d like to load into the department table when our database
-is created. To do this we&amp;rsquo;ll use the &amp;ldquo;Component&amp;rdquo; object from the UML sheet.
-Select the &amp;ldquo;Component&amp;rdquo; object and add it to your diagram editor window. Right
-click and select &amp;ldquo;Properties&amp;rdquo;.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_comp_prop.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;In the &amp;ldquo;Stereotype: &amp;ldquo; field you basically enter in the first part of an &amp;ldquo;insert
-into ..&amp;rdquo; SQL statement. For this example, to insert a default list of
-departments we&amp;rsquo;d normally write the following SQL:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Marketing&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Production&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Design&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;So in this case, for the &amp;ldquo;Stereotype: &amp;ldquo; field we&amp;rsquo;d enter in &amp;ldquo;department
-(department_id, name)&amp;ldquo;. Click OK to close the properties dialog. Now in the
-Component object box enter in the values you&amp;rsquo;d like to insert, one per line.
-Here&amp;rsquo;s what our diagram should look like now:&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_employee2.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;Now lets add in a typemap. Typemaps are used for when you&amp;rsquo;d like to configure
-custom types which are specific to a database platform. A good example of this
-is MySQL auto_increment. This is a feature specific to MySQL and not supported
-in all databases. Lets suppose we&amp;rsquo;d like to have a primary key column which
-gets auto incremented upon each insert. But we also want to support both MySQL
-and Apache Derby without having to maintain separate SQL files. To achieve this
-we&amp;rsquo;ll create a custom typemap and define the specific SQL for each target db.&lt;/p&gt;
-
-&lt;p&gt;Typemaps are created using a Small Package so select the &amp;ldquo;Small Package&amp;rdquo; object
-and add it to your diagram editor window. Right click and select &amp;ldquo;Properties&amp;rdquo;.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_type_prop.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;In the &amp;ldquo;Stereotype: &amp;ldquo; field you enter in the target database. So for example
-&amp;ldquo;mysql: typemap&amp;rdquo;.  For a list of supported target databases see tedia2sql
-&amp;ndash;help. Some common ones are: postgres, mysql, sybase, oracle, db2, and innodb.
-Click OK to close the properties dialog. Now inside the Small package box you
-can enter custom types one per line. For this example we&amp;rsquo;ll create a custom
-type with a name of &amp;ldquo;identity&amp;rdquo;. This means that when we generate our SQL files,
-tedia2sql will replace the column type with our custom type. Here&amp;rsquo;s a few
-examples:&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;MySQL typemaps&lt;/th&gt;
-&lt;th&gt;Apache Derby typemaps&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;identity: int unsigned auto_increment&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;identity: int generated by default as identity&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;bigid: bigint unsigned auto_increment&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;bigid: long generated by default as identity&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Repeat the process for Apache Derby using &amp;ldquo;db2: typemap&amp;rdquo;.  Now that we&amp;rsquo;ve
-defined our custom identity typemap we can change the employee_id column from
-type &amp;ldquo;int&amp;rdquo; to type &amp;ldquo;identity&amp;rdquo;. We can also do the same for our department
-table. Now these columns will be auto incrementing columns and depending on
-which target database we select on output the correct SQL will be generated.
-Our diagram should now look like this:&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_employee3.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;At this point we have created our database schema and defined a default list of
-departments to be inserted. We also created a typemap called &amp;ldquo;identity&amp;rdquo; which
-defines auto incrementing columns for both MySQL and Apache derby. Now lets
-generate the SQL files to create the database using tedia2sql. Before we run
-tedia2sql we need to apply a small patch to the tedia2sql script. This fixes a
-very small formatting issue in tedia2sql related to the typemaps we created.
-Edit the tedia2sql script (/usr/bin/tedia2sql) and comment out the line inside
-the parseTypeMap(..) subroutine that looks like this:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-perl&#34; data-lang=&#34;perl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$defStr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=~&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;s/s//g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# ignore spaces&lt;/span&gt;
-     &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;change&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;#   $defStr =~ s/s//g; # ignore spaces&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;or just apply the patch I created
-&lt;a href=&#34;http://qnot.org/data/tedia2sql-typemap-1.2.12.patch&#34;&gt;here&lt;/a&gt; (works for version 1.2.12):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ patch /usr/bin/tedia2sql &amp;amp;lt; tedia2sql-typemap-1.2.12.patch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we can generate the SQL files for our target databases:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ tedia2sql -i employee.dia -o employee-mysql.sql -t mysql -d
-$ tedia2sql -i employee.dia -o employee-derby.sql -t db2 -d
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will generate two SQL files for building the database in both MySQL and
-Apache derby. If you view these files you can see how tedia2sql handled our
-typemaps for the auto incrementing columns in each target database:&lt;/p&gt;
-
-&lt;p&gt;MySQL
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- employee&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;table&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;employee&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;auto_increment&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;             &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;first_name&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;last_name&lt;/span&gt;                 &lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;start_date&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;constraint&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pk_Employee&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Apache Derby
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- employee&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;table&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;employee&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;generated&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;by&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;identity&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;             &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;first_name&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;last_name&lt;/span&gt;                 &lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;start_date&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;constraint&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pk_Employee&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;You can download the files generated as well as the employee.dia file I used in
-this tutorial here:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://qnot.org/data/employee.dia&#34;&gt;employee.dia&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://qnot.org/data/employee-mysql.sql&#34;&gt;employee-mysql.sql&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://qnot.org/data/employee-derby.sql&#34;&gt;employee-derby.sql&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You can test the SQL files generated by tedia2sql and create the employee
-database as follows:&lt;/p&gt;
-
-&lt;p&gt;MySQL&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mysql -u user -p dbname &amp;amp;lt; employee-mysql.sql
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Apache Derby&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ java -cp derby.jar:derbytools.jar \
-       -Dderby.system.home=/path/to/dbroot \
-       -Dij.protocol=jdbc:derby: \
-       -Dij.database=&#39;employee;create=true&#39;
-    org.apache.derby.tools.ij employee-derby.sql
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;A quick Makefile will help out a lot in testing out your database schema:&lt;/p&gt;
-
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
-      tedia2sql -i employee.dia -o employee-mysql.sql -t mysql -d
-      tedia2sql -i employee.dia -o employee-derby.sql -t db2 -d
-&lt;span class=&#34;nf&#34;&gt;clean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
-      rm -f *.sql
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ve found that for small to moderate size projects creating database schemas
-in Dia and using tedia2sql for SQL generation to be a lifesaver. You can also
-make use of Dia&amp;rsquo;s export feature to export your database schema to a number of
-different formats such as jpg, png, eps, tiff, etc. I really only scratched the
-surface of what can be done using these great tools. tedia2sql has support for
-lots of cool features like indexes, foreign key constraints, views and much
-more. For more information check out &lt;a href=&#34;http://tedia2sql.tigris.org/usingtedia2sql.html&#34;&gt;using
-tedia2sql&lt;/a&gt;  and &lt;a href=&#34;http://dia-installer.de/doc/en/index.html&#34;&gt;Dia&amp;rsquo;s
-manual&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Happy Diagramming!&lt;/p&gt;
-</description>
+database read on and see how Dia can make your life a bit easier.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1709,43 +183,7 @@ manual&lt;/a&gt;.&lt;/p&gt;
       <description>&lt;p&gt;I&amp;rsquo;m a big fan of &lt;a href=&#34;http://xplanet.sourceforge.net/&#34;&gt;Xplanet&lt;/a&gt; and every year
 during the hurricane season there&amp;rsquo;s no better way to liven up your desktop than
 to download the latest &lt;a href=&#34;http://xplanet.sourceforge.net/clouds.php&#34;&gt;cloud maps&lt;/a&gt;
-and watch the path of the storm. Here&amp;rsquo;s a screenshot of my desktop showing
-&lt;a href=&#34;http://en.wikipedia.org/wiki/Hurricane_Dean_(2007&#34;&gt;hurricane dean&lt;/a&gt;):&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dean_xplanet_large.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;I cron a script to download the latest cloud maps every 4 hours or so. The
-xplanet command I run is as follows:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;xplanet -origin sun -north orbit &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -config xplanet.conf -label &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -marker_file brightStars &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -target earth &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -latitude &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -longitude -78 &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -radius &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -labelpos +30+30
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Here&amp;rsquo;s my xplanet.conf:&lt;/p&gt;
-
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;earth&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;cloud_map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clouds_2048.jpg
-&lt;span class=&#34;nv&#34;&gt;magnify&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;20
-
-&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;moon&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;magnify&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;20
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-</description>
+and watch the path of the storm.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1756,63 +194,7 @@ xplanet command I run is as follows:&lt;/p&gt;
       <guid>http://qnot.org/2007/08/15/rotate-labels-jfreechart/</guid>
       <description>&lt;p&gt;When creating a chart that has rather long labels for the x-axis it is
 sometimes desirable to rotate them a bit so they fit on the plot. The method to
-use is &lt;code&gt;setCategoryLabelPositions(..)&lt;/code&gt; on the &lt;code&gt;CategoryAxis&lt;/code&gt; class. Here&amp;rsquo;s a
-quick example:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://qnot.org/media/rotate_labels.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;And the code..&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.io.File&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.io.IOException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.jfree.chart.ChartFactory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.jfree.chart.ChartUtilities&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.jfree.chart.ChartColor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.jfree.chart.JFreeChart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.jfree.chart.plot.CategoryPlot&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.jfree.chart.plot.PlotOrientation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.jfree.chart.axis.CategoryLabelPositions&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.jfree.chart.axis.CategoryAxis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.jfree.data.category.DefaultCategoryDataset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;RotateLabels&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;DefaultCategoryDataset&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataSet&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DefaultCategoryDataset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;dataSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;51&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;series&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Colonel Forbin&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;dataSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;92&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;series&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;The Lizards&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;dataSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;33&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;series&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Wilson&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;dataSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;77&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;series&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Rutherford the Brave&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;dataSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;37&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;series&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;The Unit Monster&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;dataSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;97&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;series&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;The Famous Mockingbird&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;dataSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;67&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;series&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Poster Nutbag&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-        &lt;span class=&#34;n&#34;&gt;JFreeChart&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;chart&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ChartFactory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;createBarChart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;
-            &lt;span class=&#34;s&#34;&gt;&amp;quot;Gamehendge&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;dataSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;PlotOrientation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;VERTICAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-        &lt;span class=&#34;n&#34;&gt;CategoryPlot&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;plot&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CategoryPlot&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;chart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getPlot&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;CategoryAxis&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;xAxis&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CategoryAxis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;plot&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDomainAxis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;xAxis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setCategoryLabelPositions&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CategoryLabelPositions&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;UP_45&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-        &lt;span class=&#34;n&#34;&gt;chart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setBackgroundPaint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ChartColor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;WHITE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;ChartUtilities&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;saveChartAsPNG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;chart.png&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;chart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;400&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;300&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-</description>
+use is &lt;code&gt;setCategoryLabelPositions(..)&lt;/code&gt; on the &lt;code&gt;CategoryAxis&lt;/code&gt; class.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1827,54 +209,7 @@ iBATIS doesn&amp;rsquo;t seem to have a way to handle BigInteger data types and 
 exception when attempting to do an insert. Fetching data out seemed to work OK
 because if iBATIS doesn&amp;rsquo;t know how to handle a certain type it just returns a
 java.lang.Object. The way to go about inserting BigInteger types is to set up a
-type handler. Here&amp;rsquo;s an example type handler for BigInteger types:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.qnot.util&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.math.BigDecimal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.math.BigInteger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.sql.SQLException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.sql.Types&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;com.ibatis.sqlmap.client.extensions.ParameterSetter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;com.ibatis.sqlmap.client.extensions.ResultGetter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;com.ibatis.sqlmap.client.extensions.TypeHandlerCallback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;BigIntegerTypeHandler&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TypeHandlerCallback&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getResult&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ResultGetter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SQLException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;wasNull&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-        &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;o&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getObject&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;o&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;instanceof&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BigDecimal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;BigDecimal&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BigDecimal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toBigInteger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;o&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;instanceof&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BigInteger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BigInteger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;setParameter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ParameterSetter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;setter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parameter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-            &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SQLException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;parameter&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;setter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setNull&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Types&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;BIGINT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;BigInteger&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BigInteger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parameter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;setter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setBigDecimal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BigDecimal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;valueOf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-</description>
+type handler. Here&amp;rsquo;s an example type handler for BigInteger types:&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1889,37 +224,7 @@ plant. It&amp;rsquo;s exciting to see Buffalo on the forefront of renewable ener
 this new wind farm dubbed &amp;ldquo;Steel Winds&amp;rdquo; is the first urban wind farm in the
 country.  It&amp;rsquo;s also the world&amp;rsquo;s first commercial project to use Clipper
 Windpower&amp;rsquo;s &lt;a href=&#34;http://www.clipperwind.com/techspecs.php&#34;&gt;Liberty series
-turbines&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s some quick stats about the turbines:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Stand approximately 255 feet tall (410 feet with blades extended)&lt;/li&gt;
-&lt;li&gt;Can potentially produce 20 megawatts of pollution-free electric power&lt;/li&gt;
-&lt;li&gt;Could provide the annual electrical needs of more than 6,000 homes&lt;/li&gt;
-&lt;li&gt;Total project cost around $40 million&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;There&amp;rsquo;s also talk about expanding the project to include as many as 19
-additional windmills.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/windmills.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;Sources:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.buffaloniagara.org/Home/LatestNews/WindmillPoweraReality&#34;&gt;http://www.buffaloniagara.org/Home/LatestNews/WindmillPoweraReality&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://buffalo.bizjournals.com/buffalo/stories/2007/06/04/daily21.html&#34;&gt;http://buffalo.bizjournals.com/buffalo/stories/2007/06/04/daily21.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://buffalo.bizjournals.com/buffalo/stories/2007/04/16/story9.html&#34;&gt;http://buffalo.bizjournals.com/buffalo/stories/2007/04/16/story9.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+turbines&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1933,21 +238,141 @@ customizing Gaim chat windows. Since then Gaim has formally changed it&amp;rsquo
 to &lt;a href=&#34;http://pidgin.im/pidgin/home/&#34;&gt;Pidgin&lt;/a&gt; due to &lt;a href=&#34;http://pidgin.im/~elb/cgi-bin/pyblosxom.cgi/going_public.html&#34;&gt;legal issues with
 AOL&lt;/a&gt;. I finally
 upgraded to Pidgin and had to do a few minor tweaks to get the same chat window
-customizations as before.  I updated &lt;code&gt;~/.purple/gtkrc-2.0&lt;/code&gt; which previously
-resided in &lt;code&gt;~/.gaim&lt;/code&gt; and changed the widget names from &lt;code&gt;gaim_gtkconv_*&lt;/code&gt; to
-&lt;code&gt;pidgin_conv_*&lt;/code&gt;. Here&amp;rsquo;s my updated &lt;code&gt;~/.purple/gtkrc-2.0&lt;/code&gt; file:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;style &amp;quot;pidgin-dark&amp;quot; {
-    base[NORMAL]=&amp;quot;#000000&amp;quot;
-    text[NORMAL]=&amp;quot;#00FF00&amp;quot;
-    GtkIMHtml::hyperlink-color=&amp;quot;#007FFF&amp;quot;
-    GtkWidget::cursor-color=&amp;quot;#60AFFE&amp;quot;
-    GtkWidget::secondary-cursor-color=&amp;quot;#A4D3EE&amp;quot;
-}
-widget &amp;quot;*pidgin_conv_imhtml&amp;quot; style &amp;quot;pidgin-dark&amp;quot;
-widget &amp;quot;*pidgin_conv_entry&amp;quot; style &amp;quot;pidgin-dark&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+customizations as before.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>phpLDAPadmin and Kerberos</title>
+      <link>http://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</link>
+      <pubDate>Wed, 27 Jun 2007 02:56:55 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been experimenting with
+&lt;a href=&#34;http://phpldapadmin.sourceforge.net/&#34;&gt;phpLDAPadmin&lt;/a&gt; for browsing/searching
+LDAP directories over the web and found it to be a wonderful tool. I&amp;rsquo;m
+currently working with LDAP in a central authentication system together with
+Kerberos and wanted to have a nice web interface for managing user information
+within the LDAP directory. phpLDAPadmin provides a very nice interface for
+browsing, searching, and updating entries which makes it a bit easier than
+working with the ldap* command line tools. Here&amp;rsquo;s my basic setup of
+phpLDAPadmin using Kerberos for authentication. This assumes you already have
+an LDAP/Kerberos setup working and are using Apache as your web server.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Adventures in a Penske</title>
+      <link>http://qnot.org/2007/04/04/adventures-in-a-penske/</link>
+      <pubDate>Wed, 04 Apr 2007 13:30:01 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/04/04/adventures-in-a-penske/</guid>
+      <description>&lt;p&gt;My family and I recently decided to take a journey across the country. We&amp;rsquo;re
+relocating to the snow belt so we wanted to be sure and have one last adventure
+before we go without seeing the sun for most of the year. The only way to
+travel when taking a trip across country is to rent a nice big Penske truck,
+throw everything you own in the back, and take lots of pictures because you
+probably won&amp;rsquo;t be doing it ever again.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Farewell to an old friend</title>
+      <link>http://qnot.org/2007/03/30/farewell-to-an-old-friend/</link>
+      <pubDate>Fri, 30 Mar 2007 02:56:01 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/03/30/farewell-to-an-old-friend/</guid>
+      <description>I had to say goodbye to one of my dearest friends a few weeks ago. I sold my bus stella and will no longer be able to see wine country through that big bay window anymore. We had some great adventures together but the time has come for us to part our ways. Farewell old friend.
+  </description>
+    </item>
+    
+    <item>
+      <title>My last day at O&#39;Reilly</title>
+      <link>http://qnot.org/2007/03/29/my-last-day-at-oreilly/</link>
+      <pubDate>Thu, 29 Mar 2007 04:41:55 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/03/29/my-last-day-at-oreilly/</guid>
+      <description>I recently finished up my last day as an O&amp;rsquo;Reilly employee. I decided it was time to take the next step in my career and have accepted a position at the Center for Computational Research. My last day at O&amp;rsquo;Reilly was an emotional one and it was sad saying goodbye to the wonderful relationships I had built throughout my time there. I had the opportunity to work with some amazing people and wish them all well in the future.</description>
+    </item>
+    
+    <item>
+      <title>Creating iCalendar Files in Ruby</title>
+      <link>http://qnot.org/2007/02/07/creating-icalendar-files-in-ruby/</link>
+      <pubDate>Wed, 07 Feb 2007 06:24:50 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/02/07/creating-icalendar-files-in-ruby/</guid>
+      <description>&lt;p&gt;I recently came across a great ruby module called
+&lt;a href=&#34;http://icalendar.rubyforge.org/&#34;&gt;icalendar&lt;/a&gt; for working with
+&lt;a href=&#34;http://en.wikipedia.org/wiki/ICalendar&#34;&gt;iCalendar&lt;/a&gt; files. For a quick example
+here&amp;rsquo;s some code that generates the &lt;a href=&#34;http://www.sabres.com&#34;&gt;Buffalo Sabres&lt;/a&gt;
+06/07 schedule in iCalendar format. The source data comes from the Excel
+spreadsheet available &lt;a href=&#34;http://www.sabres.com/downloads_html.cfm&#34;&gt;here&lt;/a&gt; which
+gets converted to CSV before running through the script.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MIF XML at O&#39;Reilly</title>
+      <link>http://qnot.org/2007/02/05/mif-xml-at-oreilly/</link>
+      <pubDate>Mon, 05 Feb 2007 05:08:51 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/02/05/mif-xml-at-oreilly/</guid>
+      <description>Keith, a fellow O&amp;rsquo;Reillyer, has written a few posts on how O&amp;rsquo;Reilly has been making use of MIF XML (MX). Keith gives some background and example uses as a follow up to my previous posts on converting MIF to XML. He also posted some XSLT for round-tripping the XML back into MIF.</description>
+    </item>
+    
+    <item>
+      <title>Converting MIF to XML - Java Version</title>
+      <link>http://qnot.org/2007/02/01/converting-mif-to-xml-java-version/</link>
+      <pubDate>Thu, 01 Feb 2007 03:57:01 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/02/01/converting-mif-to-xml-java-version/</guid>
+      <description>&lt;p&gt;In my &lt;a href=&#34;http://qnot.org/2007/01/25/converting-mif-to-xml/&#34;&gt;previous post&lt;/a&gt; I discussed a
+tool called &lt;code&gt;mif2xml&lt;/code&gt; for converting MIF files to an intermediate XML dialect.
+In this post I&amp;rsquo;ll talk about the Java port of &lt;code&gt;mif2xml&lt;/code&gt; called &lt;code&gt;mif2xml-j&lt;/code&gt;
+which you can download &lt;a href=&#34;https://github.com/aebruno/mif2xml-j&#34;&gt;here&lt;/a&gt; including
+just the &lt;a href=&#34;https://github.com/downloads/aebruno/mif2xml-j/mif2xml-0.3.jar&#34;&gt;executable
+jar&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Converting MIF to XML</title>
+      <link>http://qnot.org/2007/01/25/converting-mif-to-xml/</link>
+      <pubDate>Thu, 25 Jan 2007 08:39:43 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/01/25/converting-mif-to-xml/</guid>
+      <description>&lt;p&gt;MIF (Maker Interchange Format) is an ASCII text representation of a
+&lt;a href=&#34;http://en.wikipedia.org/wiki/FrameMaker&#34;&gt;FrameMaker&lt;/a&gt; document. You can export
+your FrameMaker documents into this text based representation to allow for
+parsing and manipulation by external tools outside of FrameMaker. You can also
+import MIF files back into FrameMaker. If your interested in reading more about
+MIF you can check out the &lt;a href=&#34;http://partners.adobe.com/public/developer/en/framemaker/MIF_Reference.pdf&#34;&gt;MIF
+Reference&lt;/a&gt;
+from Adobe (link may be out of date).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Creating Sparklines with JFreeChart</title>
+      <link>http://qnot.org/2007/01/15/creating-sparklines-with-jfreechart/</link>
+      <pubDate>Mon, 15 Jan 2007 08:05:01 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/01/15/creating-sparklines-with-jfreechart/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Sparkline&#34;&gt;Sparklines&lt;/a&gt; are very small charts
+usually displayed along side some text and help quickly compare time series
+data. They are usually rendered without any axis, labels, or tick marks and
+appear as just a simple line. Sparklines were developed by &lt;a href=&#34;http://www.edwardtufte.com/&#34;&gt;Edward
+Tufte&lt;/a&gt; and further explained
+&lt;a href=&#34;http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR&amp;amp;topic_id=1&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Customizing Gaim Chat Windows</title>
+      <link>http://qnot.org/2007/01/14/customizing-gaim-chat-windows/</link>
+      <pubDate>Sun, 14 Jan 2007 10:09:52 +0000</pubDate>
+      
+      <guid>http://qnot.org/2007/01/14/customizing-gaim-chat-windows/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://gaim.sf.net&#34;&gt;Gaim&lt;/a&gt; is an excellent instant messaging client with
+support for multiple protocols and runs on several different
+&lt;a href=&#34;http://gaim.sourceforge.net/about.php&#34;&gt;platforms&lt;/a&gt;. For the longest time I&amp;rsquo;ve
+wanted to customize the background color of my chat windows so they resemble my
+xterm settings of green text on a black background. There doesn&amp;rsquo;t seem to be an
+easy way to do this via Gaim&amp;rsquo;s preferences and after a little digging I finally
+got it working.&lt;/p&gt;</description>
     </item>
     
   </channel>

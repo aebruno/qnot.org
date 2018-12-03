@@ -7,9 +7,8 @@
     <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
     <meta name="author" content="Andrew E. Bruno">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="" rel="alternate" type="application/rss+xml" title="">
     <title>  Counting the number of reads in a BAM file &middot;  qnot.org</title>
-    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://qnot.org/css/syntax.css">
     <link rel="stylesheet" href="http://qnot.org/css/styles.css">
@@ -39,7 +38,9 @@
 <a href="http://samtools.sourceforge.net/">SAM/BAM</a> format. When presented with one of
 these files a common first task is to calculate the total number of alignments
 (reads) captured in the file. In this post I show some examples for finding the
-total number of reads using samtools and directly from Java code.  For the
+total number of reads using samtools and directly from Java code.</p>
+
+<p>For the
 examples below, I use the HG00173.chrom11 BAM file from the 1000 genomes
 project which can be downloaded
 <a href="ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/data/HG00173/alignment/">here</a>.</p>
@@ -121,25 +122,23 @@ object or similar. Here&rsquo;s a function I wrote to calcuate the total mapped 
 from a BAM file. This makes use of the BAM index for speed and obviously
 requires you to first index your BAM file:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">getTotalReadCount</span><span class="o">(</span><span class="n">SAMFileReader</span> <span class="n">sam</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">getTotalReadCount</span><span class="o">(</span><span class="n">SAMFileReader</span> <span class="n">sam</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
 
     <span class="n">AbstractBAMFileIndex</span> <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractBAMFileIndex</span><span class="o">)</span> <span class="n">sam</span><span class="o">.</span><span class="na">getIndex</span><span class="o">();</span>
     <span class="kt">int</span> <span class="n">nRefs</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="na">getNumberOfReferences</span><span class="o">();</span>
-    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nRefs</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nRefs</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
         <span class="n">BAMIndexMetaData</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="na">getMetaData</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
         <span class="n">count</span> <span class="o">+=</span> <span class="n">meta</span><span class="o">.</span><span class="na">getAlignedRecordCount</span><span class="o">();</span>
     <span class="o">}</span>
 
     <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div>
-
+<span class="o">}</span></code></pre></div>
 
 <p>This uses the BAMIndex to loop through each reference and sum the total mapped
 reads. A complete working example is included below:</p>
 
-<p><div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">net.sf.samtools.AbstractBAMFileIndex</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">net.sf.samtools.BAMIndexMetaData</span><span class="o">;</span>
@@ -148,25 +147,23 @@ reads. A complete working example is included below:</p>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountMapped</span> <span class="o">{</span>
 
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">File</span> <span class="n">bamFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+        <span class="n">File</span> <span class="n">bamFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
 
         <span class="n">SAMFileReader</span> <span class="n">sam</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SAMFileReader</span><span class="o">(</span><span class="n">bamFile</span><span class="o">,</span> 
-                                 <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">bamFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;.bai&quot;</span><span class="o">));</span>
+                                 <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">bamFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;.bai&#34;</span><span class="o">));</span>
 
         <span class="n">AbstractBAMFileIndex</span> <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractBAMFileIndex</span><span class="o">)</span> <span class="n">sam</span><span class="o">.</span><span class="na">getIndex</span><span class="o">();</span>
 
-        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">index</span><span class="o">.</span><span class="na">getNumberOfReferences</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">index</span><span class="o">.</span><span class="na">getNumberOfReferences</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
             <span class="n">BAMIndexMetaData</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="na">getMetaData</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
             <span class="n">count</span> <span class="o">+=</span> <span class="n">meta</span><span class="o">.</span><span class="na">getAlignedRecordCount</span><span class="o">();</span>
         <span class="o">}</span>
 
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Total mapped reads: &quot;</span> <span class="o">+</span> <span class="n">count</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Total mapped reads: &#34;</span> <span class="o">+</span> <span class="n">count</span><span class="o">);</span>
     <span class="o">}</span>
 
-<span class="o">}</span>
-</code></pre></div>
-</p>
+<span class="o">}</span></code></pre></div>
 
 <p>Requires the Picard Java library. To compile/run:</p>
 
@@ -174,7 +171,6 @@ reads. A complete working example is included below:</p>
 $ java -cp samtools.jar:. CountMapped HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
 Total mapped reads: 5068340
 </code></pre>
-
 </div>
 
 </div>

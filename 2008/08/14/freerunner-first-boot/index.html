@@ -7,9 +7,8 @@
     <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
     <meta name="author" content="Andrew E. Bruno">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="" rel="alternate" type="application/rss+xml" title="">
     <title>  Freerunner First Boot &middot;  qnot.org</title>
-    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://qnot.org/css/syntax.css">
     <link rel="stylesheet" href="http://qnot.org/css/styles.css">
@@ -59,12 +58,10 @@ address of the Freerunner is 192.168.0.202. On the desktop side you first have
 to ifconfig the usb0 interface and setup the correct routes. Here&rsquo;s the script
 I run on my desktop after connecting the Freerunner:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-
-/sbin/ifconfig usb0 192.168.0.200 netmask 255.255.255.0
-/sbin/route add -host 192.168.0.202/32 dev usb0
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+/sbin/ifconfig usb0 <span class="m">192</span>.168.0.200 netmask <span class="m">255</span>.255.255.0
+/sbin/route add -host <span class="m">192</span>.168.0.202/32 dev usb0</code></pre></div>
 
 <p>One extra step I had to do was configure my firewall to allow connections
 to/from usb0. I&rsquo;m running Ubuntu hardy 8.04 and using Firestarter. Open up
@@ -93,12 +90,8 @@ for customizing the today page (run these commands on the Neo):</p>
 
 <p>Here&rsquo;s a screenshot of the home screen:</p>
 
-
-<figure >
-    
-        <img src="/media/neo-clock.png" />
-    
-    
+<figure>
+    <img src="/media/neo-clock.png"/> 
 </figure>
 
 
@@ -145,15 +138,13 @@ seemed to be by default when you first boot. You can check this by holding down
 the power button for a few seconds which should pop up a menu showing the state
 of the various devices. Here&rsquo;s the script I use to connect the Neo to my WLAN:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/sh</span>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
 /sbin/ifconfig eth0 down
 /sbin/ifconfig eth0 up
 /sbin/iwconfig eth0 key restricted <span class="s1">&#39;xxxxx&#39;</span>
 /sbin/iwconfig eth0 essid <span class="s1">&#39;xxxx&#39;</span>
-/sbin/udhcpc eth0
-</code></pre></div>
-
+/sbin/udhcpc eth0</code></pre></div>
 
 <p><strong>GPS</strong></p>
 
@@ -166,21 +157,13 @@ card installed but by the time I tried this out they already had a kernel
 update which fixed the issue. I had no problem getting a fix and my TTFF was
 35s with the SD card in. Here&rsquo;s some screenshots of tangoGPS in action:</p>
 
-
-<figure >
-    
-        <img src="/media/screenshot-1.png" />
-    
-    
+<figure>
+    <img src="/media/screenshot-1.png"/> 
 </figure>
 
 
-
-<figure >
-    
-        <img src="/media/screenshot-2.png" />
-    
-    
+<figure>
+    <img src="/media/screenshot-2.png"/> 
 </figure>
 
 
@@ -189,21 +172,13 @@ Test</a> which is a
 program for testing out GPS on the Neo. It shows some nice graphs of the
 various satellites you&rsquo;re currently connected to and their signal strengths:</p>
 
-
-<figure >
-    
-        <img src="/media/screenshot-4.png" />
-    
-    
+<figure>
+    <img src="/media/screenshot-4.png"/> 
 </figure>
 
 
-
-<figure >
-    
-        <img src="/media/screenshot-5.png" />
-    
-    
+<figure>
+    <img src="/media/screenshot-5.png"/> 
 </figure>
 
 
@@ -241,7 +216,6 @@ characters available on the keyboard. For example there&rsquo;s no <TAB> or &lsq
 sure there&rsquo;s ways to customize the keyboard. Looks like only vi is available by
 default on the Neo so I plan on seeing if I can find a vim package (.ipk) or
 figuring out how to compile vim for the Neo.</p>
-
 </div>
 
 </div>

@@ -7,9 +7,8 @@
     <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
     <meta name="author" content="Andrew E. Bruno">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="" rel="alternate" type="application/rss+xml" title="">
     <title>  Customizing Gaim Chat Windows &middot;  qnot.org</title>
-    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://qnot.org/css/syntax.css">
     <link rel="stylesheet" href="http://qnot.org/css/styles.css">
@@ -53,17 +52,15 @@ introduction to styles and themes in GTK+.</p>
 <p>To customize the colors in your chat windows edit your <code>~/.gaim/gtkrc-2.0</code> file
 or create if it doesn&rsquo;t exist and add the following lines:</p>
 
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span> <span class="p">{</span>
-    <span class="n">base</span><span class="p">[</span><span class="n">NORMAL</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span>
-    <span class="k">text</span><span class="p">[</span><span class="n">NORMAL</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;#00FF00&quot;</span>
-    <span class="n">GtkIMHtml</span><span class="o">::</span><span class="n">hyperlink</span><span class="o">-</span><span class="k">color</span><span class="o">=</span><span class="s2">&quot;#007FFF&quot;</span>
-    <span class="n">GtkWidget</span><span class="o">::</span><span class="k">cursor</span><span class="o">-</span><span class="k">color</span><span class="o">=</span><span class="s2">&quot;#60AFFE&quot;</span>
-    <span class="n">GtkWidget</span><span class="o">::</span><span class="n">secondary</span><span class="o">-</span><span class="k">cursor</span><span class="o">-</span><span class="k">color</span><span class="o">=</span><span class="s2">&quot;#A4D3EE&quot;</span>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">style</span> <span class="s2">&#34;gaim-dark&#34;</span> <span class="p">{</span>
+    <span class="err">base[NORMAL]=&#34;#000000&#34;</span>
+    <span class="err">text[NORMAL]=&#34;#00FF00&#34;</span>
+    <span class="n">GtkIMHtml</span><span class="p">:</span><span class="o">:</span><span class="n">hyperlink-color</span><span class="o">=</span><span class="s2">&#34;#007FFF&#34;</span>
+    <span class="n">GtkWidget</span><span class="o">::</span><span class="k">cursor</span><span class="o">-</span><span class="kc">color</span><span class="o">=</span><span class="s2">&#34;#60AFFE&#34;</span>
+    <span class="n">GtkWidget</span><span class="o">::</span><span class="n">secondary-cursor-color</span><span class="o">=</span><span class="s2">&#34;#A4D3EE&#34;</span>
 <span class="p">}</span>
-<span class="nt">widget</span> <span class="s2">&quot;*gaim_gtkconv_imhtml&quot;</span> <span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span>
-<span class="nt">widget</span> <span class="s2">&quot;*gaim_gtkconv_entry&quot;</span> <span class="nt">style</span> <span class="s2">&quot;gaim-dark&quot;</span>
-</code></pre></div>
-
+<span class="nt">widget</span> <span class="s2">&#34;*gaim_gtkconv_imhtml&#34;</span> <span class="nt">style</span> <span class="s2">&#34;gaim-dark&#34;</span>
+<span class="nt">widget</span> <span class="s2">&#34;*gaim_gtkconv_entry&#34;</span> <span class="nt">style</span> <span class="s2">&#34;gaim-dark&#34;</span></code></pre></div>
 
 <p><code>base[NORMAL]</code> sets the background color and <code>text[NORMAL]</code> sets the color of
 the text. You can tweak the colors to your liking restart Gaim and your chat
@@ -76,21 +73,16 @@ of the Gaim source. You could always try changing these values and re-compiling
 Gaim. I haven&rsquo;t tested this but seems like it should work.  Here&rsquo;s a screen
 shot of my customized chat window:</p>
 
-<p>
-<figure >
-    
-        <img src="/media/gaim_green_black.jpg" />
-    
-    
+<figure>
+    <img src="/media/gaim_green_black.jpg"/> 
 </figure>
-</p>
+
 
 <p>There is also a plugin which comes with Gaim called <em>Gaim GTK+ Theme Control</em>
 which seems to provide a GUI interface for editing your <code>~/.gaim/gtkrc-2.0</code>
 file but I didn&rsquo;t see any options for customizing the chat windows. In the Gaim
 FAQ there is also a link to a <a href="http://gaim.sourceforge.net/gtkrc-2.0">sample gtkrc-2.0</a>
 which gives some good examples of other customizations.</p>
-
 </div>
 
 </div>

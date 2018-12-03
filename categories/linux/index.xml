@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 14 Sep 2010 04:29:59 +0000</lastBuildDate>
-    <atom:link href="http://qnot.org/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://qnot.org/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Logging out without killing a process</title>
@@ -18,35 +20,15 @@
       <description>&lt;p&gt;Here&amp;rsquo;s the scenario, you&amp;rsquo;re logged into your favorite *nix box and are using
 bash as your shell. You fired off some process which is going to take a while
 to run (and forgot to run &lt;a href=&#34;http://www.gnu.org/software/screen/&#34;&gt;screen&lt;/a&gt;) and
-you want to logout without killing that process. The command to use is
-&lt;a href=&#34;http://www.gnu.org/software/bash/manual/bashref.html#Job-Control-Builtins&#34;&gt;disown&lt;/a&gt;.
-Here&amp;rsquo;s a really simple example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ssh some-host
-$ perl script-that-chugs-along.pl
-$ Ctrl-Z (suspend)
-$ bg (put it in background)
-$ disown -h
-$ logout
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;disown&lt;/code&gt; command allows you to remove jobs from the list of active jobs
-associated with your login shell. Here&amp;rsquo;s an excerpt from the bash man page:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Without options, each &lt;em&gt;jobspec&lt;/em&gt; is removed from the table of active jobs. If
-the &lt;code&gt;-h&lt;/code&gt; option is given, the job is not removed from the table, but is marked
-so that &lt;code&gt;SIGHUP&lt;/code&gt; is not sent to the job if the shell receives a &lt;code&gt;SIGHUP&lt;/code&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
+you want to logout without killing that process.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Neo FreeRunner = Freedom</title>
-      <link>http://qnot.org/2008/07/23/neo-freerunner--freedom/</link>
+      <link>http://qnot.org/2008/07/23/neo-freerunner-freedom/</link>
       <pubDate>Wed, 23 Jul 2008 03:22:40 +0000</pubDate>
       
-      <guid>http://qnot.org/2008/07/23/neo-freerunner--freedom/</guid>
+      <guid>http://qnot.org/2008/07/23/neo-freerunner-freedom/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Open. Mobile. Free.&lt;/strong&gt; That was the tag line printed on the side of the box
 which housed my shiny new &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
 FreeRunner&lt;/a&gt;. I finally had
@@ -58,66 +40,7 @@ basically open sourced their internal development. Where else could you get the
 complete &lt;a href=&#34;http://wiki.openmoko.org/wiki/CAD_models&#34;&gt;CAD files&lt;/a&gt; for your phone?
 There&amp;rsquo;s a good post about why you might &lt;a href=&#34;http://www.fsf.org/blogs/community/5-reasons-to-avoid-iphone-3g&#34;&gt;think twice before buying an
 iPhone&lt;/a&gt; and
-picking up a FreeRunner instead.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s a few pics of what the Neo looks like all boxed up..&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-box.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-box2.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;The Neo came bundled with a USB cable, a nifty stylus + laser pen, AC adapter,
-battery, and a 512mb microSD card.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-accessories.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;The &lt;a href=&#34;http://wiki.openmoko.org/wiki/Neo_FreeRunner_GTA02_Hardware&#34;&gt;hardware
-specs&lt;/a&gt; for the Neo
-(GTA02) are impressive, GSM, WiFi, Bluetooth, GPS. All that packed into a full
-blown Linux distro that fits in the palm of your hand.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-hand.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/neo-back.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ll be posting more about my experiences using the Neo as my daily phone. More
-to come..&lt;/p&gt;
-</description>
+picking up a FreeRunner instead.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -134,314 +57,7 @@ design around you end up having to sync your visual diagram with your SQL
 files. It&amp;rsquo;s tedious having to  manage the various SQL for building the database
 and this can be a larger pain when trying to support different database
 platforms each with their own SQL syntax. So before you create your next
-database read on and see how Dia can make your life a bit easier.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://live.gnome.org/Dia&#34;&gt;Dia&lt;/a&gt; is a program for creating diagrams and for
-this exercise we&amp;rsquo;ll be creating UML diagrams from within Dia. We&amp;rsquo;re also going
-to use a perl script called &lt;a href=&#34;http://tedia2sql.tigris.org/&#34;&gt;tedia2sql&lt;/a&gt; which
-will transform our Dia files directly to SQL for our target database. What&amp;rsquo;s
-also nice about creating database schemas this way is that you can generate SQL
-for multiple target databases without the maintenance overhead.&lt;/p&gt;
-
-&lt;p&gt;First off, install a copy of Dia as well as tedia2sql. You can download
-tedia2sql &lt;a href=&#34;http://tedia2sql.tigris.org/servlets/ProjectDocumentList&#34;&gt;here&lt;/a&gt; and
-download Dia &lt;a href=&#34;http://live.gnome.org/Dia/Download&#34;&gt;here&lt;/a&gt;. I&amp;rsquo;m not going to cover
-the install in this post but there should be packages available for most Linux
-distro&amp;rsquo;s and if your not running Linux now is a great time to start!&lt;/p&gt;
-
-&lt;p&gt;Fire up Dia, create a new diagram and save it as &amp;ldquo;employee.dia&amp;rdquo;. Select the UML
-sheet from the drop down list. We&amp;rsquo;ll be using various UML objects to represent
-tables and definitions that make up our database. Here&amp;rsquo;s a quick overview of
-the main UML objects and their usage:&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_menu.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;UML object&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_class.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td&gt;Class represents a table in the database. A Class has a name which corresponds to the name of the table and attributes which map to the columns of the table. Attributes in classes can have visibility (public, private, protected). Protected attributes are primary keys. More on classes later.&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_component.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td&gt;Component is a special object that lets you define a list of default values to be inserted into a table. These are equivalent to hard coding &amp;ldquo;insert into ..&amp;rdquo; statements in your SQL files.&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://qnot.org/media/dia_small_package.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td&gt;Small Package represents a typemap. Typemaps are used for adding custom SQL types such as MySQL tinyint.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Now lets create our first table. Select the &amp;ldquo;Class&amp;rdquo; object icon from the UML
-sheet and click inside the diagram editor window. This will add the class to
-your diagram. Now right click on the new class and select &amp;ldquo;Show Properties&amp;rdquo;.
-This will bring up a rather large and complex property window for the UML class
-you&amp;rsquo;ve just created. We&amp;rsquo;re only going to customize a few properties outlined
-below.&lt;/p&gt;
-
-&lt;p&gt;First, under the &amp;ldquo;Class&amp;rdquo; tab enter the name of the table (employee) in the
-&amp;ldquo;Class Name: &amp;ldquo; field. Next click on the &amp;ldquo;Attributes&amp;rdquo; tab and enter in the
-columns of the table as attributes. In the &amp;ldquo;Name: &amp;ldquo; field enter in the column
-name. In the &amp;ldquo;Type: &amp;ldquo; field enter in the SQL type for the column. If you want
-to support multiple database platforms try to be generic here and only use ANSI
-SQL 1992 or else use a typemap. More on typemaps later. In the &amp;ldquo;Value: &amp;ldquo; field
-enter any default values for the column. For example, this is where you could
-add in &amp;ldquo;not null&amp;rdquo;. If the column your adding is a primary key then don&amp;rsquo;t put
-&amp;ldquo;not null&amp;rdquo; here and instead select &amp;ldquo;Protected&amp;rdquo; for the &amp;ldquo;Visibility: &amp;ldquo; field.
-Not null will automatically get added to all primary keys on output generation.
-The screen shot below is an example of the Class property editor window.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_attributes.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;Next, repeat the process for as many tables as you need in your database. For
-this example, create two tables &amp;ldquo;employee&amp;rdquo; and &amp;ldquo;department&amp;rdquo; with the columns as
-shown in the screenshot below (note the &amp;lsquo;#&amp;rsquo; in front of an attribute indicates
-that it&amp;rsquo;s visibility is &amp;ldquo;Protected&amp;rdquo; thus making it a Primary Key):&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_employee.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;This is a simple example of a database which stores employee data along with
-the department they belong to. Now suppose we have a default list of
-departments that we&amp;rsquo;d like to load into the department table when our database
-is created. To do this we&amp;rsquo;ll use the &amp;ldquo;Component&amp;rdquo; object from the UML sheet.
-Select the &amp;ldquo;Component&amp;rdquo; object and add it to your diagram editor window. Right
-click and select &amp;ldquo;Properties&amp;rdquo;.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_comp_prop.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;In the &amp;ldquo;Stereotype: &amp;ldquo; field you basically enter in the first part of an &amp;ldquo;insert
-into ..&amp;rdquo; SQL statement. For this example, to insert a default list of
-departments we&amp;rsquo;d normally write the following SQL:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Marketing&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Production&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;department&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Design&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;So in this case, for the &amp;ldquo;Stereotype: &amp;ldquo; field we&amp;rsquo;d enter in &amp;ldquo;department
-(department_id, name)&amp;ldquo;. Click OK to close the properties dialog. Now in the
-Component object box enter in the values you&amp;rsquo;d like to insert, one per line.
-Here&amp;rsquo;s what our diagram should look like now:&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_employee2.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;Now lets add in a typemap. Typemaps are used for when you&amp;rsquo;d like to configure
-custom types which are specific to a database platform. A good example of this
-is MySQL auto_increment. This is a feature specific to MySQL and not supported
-in all databases. Lets suppose we&amp;rsquo;d like to have a primary key column which
-gets auto incremented upon each insert. But we also want to support both MySQL
-and Apache Derby without having to maintain separate SQL files. To achieve this
-we&amp;rsquo;ll create a custom typemap and define the specific SQL for each target db.&lt;/p&gt;
-
-&lt;p&gt;Typemaps are created using a Small Package so select the &amp;ldquo;Small Package&amp;rdquo; object
-and add it to your diagram editor window. Right click and select &amp;ldquo;Properties&amp;rdquo;.&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_type_prop.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;In the &amp;ldquo;Stereotype: &amp;ldquo; field you enter in the target database. So for example
-&amp;ldquo;mysql: typemap&amp;rdquo;.  For a list of supported target databases see tedia2sql
-&amp;ndash;help. Some common ones are: postgres, mysql, sybase, oracle, db2, and innodb.
-Click OK to close the properties dialog. Now inside the Small package box you
-can enter custom types one per line. For this example we&amp;rsquo;ll create a custom
-type with a name of &amp;ldquo;identity&amp;rdquo;. This means that when we generate our SQL files,
-tedia2sql will replace the column type with our custom type. Here&amp;rsquo;s a few
-examples:&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;MySQL typemaps&lt;/th&gt;
-&lt;th&gt;Apache Derby typemaps&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;identity: int unsigned auto_increment&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;identity: int generated by default as identity&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;bigid: bigint unsigned auto_increment&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;bigid: long generated by default as identity&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Repeat the process for Apache Derby using &amp;ldquo;db2: typemap&amp;rdquo;.  Now that we&amp;rsquo;ve
-defined our custom identity typemap we can change the employee_id column from
-type &amp;ldquo;int&amp;rdquo; to type &amp;ldquo;identity&amp;rdquo;. We can also do the same for our department
-table. Now these columns will be auto incrementing columns and depending on
-which target database we select on output the correct SQL will be generated.
-Our diagram should now look like this:&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dia_employee3.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;At this point we have created our database schema and defined a default list of
-departments to be inserted. We also created a typemap called &amp;ldquo;identity&amp;rdquo; which
-defines auto incrementing columns for both MySQL and Apache derby. Now lets
-generate the SQL files to create the database using tedia2sql. Before we run
-tedia2sql we need to apply a small patch to the tedia2sql script. This fixes a
-very small formatting issue in tedia2sql related to the typemaps we created.
-Edit the tedia2sql script (/usr/bin/tedia2sql) and comment out the line inside
-the parseTypeMap(..) subroutine that looks like this:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-perl&#34; data-lang=&#34;perl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$defStr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=~&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;s/s//g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# ignore spaces&lt;/span&gt;
-     &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;change&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;#   $defStr =~ s/s//g; # ignore spaces&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;or just apply the patch I created
-&lt;a href=&#34;http://qnot.org/data/tedia2sql-typemap-1.2.12.patch&#34;&gt;here&lt;/a&gt; (works for version 1.2.12):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ patch /usr/bin/tedia2sql &amp;amp;lt; tedia2sql-typemap-1.2.12.patch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we can generate the SQL files for our target databases:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ tedia2sql -i employee.dia -o employee-mysql.sql -t mysql -d
-$ tedia2sql -i employee.dia -o employee-derby.sql -t db2 -d
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will generate two SQL files for building the database in both MySQL and
-Apache derby. If you view these files you can see how tedia2sql handled our
-typemaps for the auto incrementing columns in each target database:&lt;/p&gt;
-
-&lt;p&gt;MySQL
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- employee&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;table&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;employee&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;auto_increment&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;             &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;first_name&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;last_name&lt;/span&gt;                 &lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;start_date&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;constraint&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pk_Employee&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Apache Derby
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- employee&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;table&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;employee&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;generated&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;by&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;identity&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;department_id&lt;/span&gt;             &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;first_name&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;last_name&lt;/span&gt;                 &lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;start_date&lt;/span&gt;                &lt;span class=&#34;nb&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;constraint&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pk_Employee&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;employee_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;You can download the files generated as well as the employee.dia file I used in
-this tutorial here:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://qnot.org/data/employee.dia&#34;&gt;employee.dia&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://qnot.org/data/employee-mysql.sql&#34;&gt;employee-mysql.sql&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://qnot.org/data/employee-derby.sql&#34;&gt;employee-derby.sql&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You can test the SQL files generated by tedia2sql and create the employee
-database as follows:&lt;/p&gt;
-
-&lt;p&gt;MySQL&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mysql -u user -p dbname &amp;amp;lt; employee-mysql.sql
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Apache Derby&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ java -cp derby.jar:derbytools.jar \
-       -Dderby.system.home=/path/to/dbroot \
-       -Dij.protocol=jdbc:derby: \
-       -Dij.database=&#39;employee;create=true&#39;
-    org.apache.derby.tools.ij employee-derby.sql
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;A quick Makefile will help out a lot in testing out your database schema:&lt;/p&gt;
-
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
-      tedia2sql -i employee.dia -o employee-mysql.sql -t mysql -d
-      tedia2sql -i employee.dia -o employee-derby.sql -t db2 -d
-&lt;span class=&#34;nf&#34;&gt;clean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
-      rm -f *.sql
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ve found that for small to moderate size projects creating database schemas
-in Dia and using tedia2sql for SQL generation to be a lifesaver. You can also
-make use of Dia&amp;rsquo;s export feature to export your database schema to a number of
-different formats such as jpg, png, eps, tiff, etc. I really only scratched the
-surface of what can be done using these great tools. tedia2sql has support for
-lots of cool features like indexes, foreign key constraints, views and much
-more. For more information check out &lt;a href=&#34;http://tedia2sql.tigris.org/usingtedia2sql.html&#34;&gt;using
-tedia2sql&lt;/a&gt;  and &lt;a href=&#34;http://dia-installer.de/doc/en/index.html&#34;&gt;Dia&amp;rsquo;s
-manual&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Happy Diagramming!&lt;/p&gt;
-</description>
+database read on and see how Dia can make your life a bit easier.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -453,43 +69,7 @@ manual&lt;/a&gt;.&lt;/p&gt;
       <description>&lt;p&gt;I&amp;rsquo;m a big fan of &lt;a href=&#34;http://xplanet.sourceforge.net/&#34;&gt;Xplanet&lt;/a&gt; and every year
 during the hurricane season there&amp;rsquo;s no better way to liven up your desktop than
 to download the latest &lt;a href=&#34;http://xplanet.sourceforge.net/clouds.php&#34;&gt;cloud maps&lt;/a&gt;
-and watch the path of the storm. Here&amp;rsquo;s a screenshot of my desktop showing
-&lt;a href=&#34;http://en.wikipedia.org/wiki/Hurricane_Dean_(2007&#34;&gt;hurricane dean&lt;/a&gt;):&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/dean_xplanet_large.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-
-
-&lt;p&gt;I cron a script to download the latest cloud maps every 4 hours or so. The
-xplanet command I run is as follows:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;xplanet -origin sun -north orbit &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -config xplanet.conf -label &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -marker_file brightStars &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -target earth &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -latitude &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -longitude -78 &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -radius &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-        -labelpos +30+30
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Here&amp;rsquo;s my xplanet.conf:&lt;/p&gt;
-
-&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;earth&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;cloud_map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clouds_2048.jpg
-&lt;span class=&#34;nv&#34;&gt;magnify&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;20
-
-&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;moon&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;magnify&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;20
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
-</description>
+and watch the path of the storm.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -503,21 +83,7 @@ customizing Gaim chat windows. Since then Gaim has formally changed it&amp;rsquo
 to &lt;a href=&#34;http://pidgin.im/pidgin/home/&#34;&gt;Pidgin&lt;/a&gt; due to &lt;a href=&#34;http://pidgin.im/~elb/cgi-bin/pyblosxom.cgi/going_public.html&#34;&gt;legal issues with
 AOL&lt;/a&gt;. I finally
 upgraded to Pidgin and had to do a few minor tweaks to get the same chat window
-customizations as before.  I updated &lt;code&gt;~/.purple/gtkrc-2.0&lt;/code&gt; which previously
-resided in &lt;code&gt;~/.gaim&lt;/code&gt; and changed the widget names from &lt;code&gt;gaim_gtkconv_*&lt;/code&gt; to
-&lt;code&gt;pidgin_conv_*&lt;/code&gt;. Here&amp;rsquo;s my updated &lt;code&gt;~/.purple/gtkrc-2.0&lt;/code&gt; file:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;style &amp;quot;pidgin-dark&amp;quot; {
-    base[NORMAL]=&amp;quot;#000000&amp;quot;
-    text[NORMAL]=&amp;quot;#00FF00&amp;quot;
-    GtkIMHtml::hyperlink-color=&amp;quot;#007FFF&amp;quot;
-    GtkWidget::cursor-color=&amp;quot;#60AFFE&amp;quot;
-    GtkWidget::secondary-cursor-color=&amp;quot;#A4D3EE&amp;quot;
-}
-widget &amp;quot;*pidgin_conv_imhtml&amp;quot; style &amp;quot;pidgin-dark&amp;quot;
-widget &amp;quot;*pidgin_conv_entry&amp;quot; style &amp;quot;pidgin-dark&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+customizations as before.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -532,58 +98,7 @@ support for multiple protocols and runs on several different
 wanted to customize the background color of my chat windows so they resemble my
 xterm settings of green text on a black background. There doesn&amp;rsquo;t seem to be an
 easy way to do this via Gaim&amp;rsquo;s preferences and after a little digging I finally
-got it working.&lt;/p&gt;
-
-&lt;p&gt;The most recent version of Gaim uses &lt;a href=&#34;http://www.gtk.org&#34;&gt;GTK+ 2.0&lt;/a&gt; and the
-background color for chat windows can be customized by adding some styles to
-your &lt;code&gt;~/.gaim/gtkrc-2.0&lt;/code&gt; file. You can also customize key bindings, fonts, and
-other widgets in Gaim by tweaking this file but I&amp;rsquo;m just going to discuss the
-settings for the chat windows in this post. I&amp;rsquo;m no GTK+ guru but I found the
-&lt;a href=&#34;http://www.gtk.org/tutorial/x2138.html&#34;&gt;API docs&lt;/a&gt; and this
-&lt;a href=&#34;http://ometer.com/gtk-colors.html&#34;&gt;mini-FAQ&lt;/a&gt; helpful and gave a nice
-introduction to styles and themes in GTK+.&lt;/p&gt;
-
-&lt;p&gt;To customize the colors in your chat windows edit your &lt;code&gt;~/.gaim/gtkrc-2.0&lt;/code&gt; file
-or create if it doesn&amp;rsquo;t exist and add the following lines:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;nt&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;gaim-dark&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;base&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NORMAL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;#000000&amp;quot;&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NORMAL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;#00FF00&amp;quot;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;GtkIMHtml&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hyperlink&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;#007FFF&amp;quot;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;GtkWidget&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;cursor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;#60AFFE&amp;quot;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;GtkWidget&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;secondary&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;cursor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;#A4D3EE&amp;quot;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;widget&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;*gaim_gtkconv_imhtml&amp;quot;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;gaim-dark&amp;quot;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;widget&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;*gaim_gtkconv_entry&amp;quot;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;gaim-dark&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;code&gt;base[NORMAL]&lt;/code&gt; sets the background color and &lt;code&gt;text[NORMAL]&lt;/code&gt; sets the color of
-the text. You can tweak the colors to your liking restart Gaim and your chat
-windows should now be customized. I didn&amp;rsquo;t find a way to change the color of
-the screen names displayed in the chat window. Digging through the source code
-it looks like these colors are hardcoded  using &lt;code&gt;#define SEND_COLOR &amp;quot;#204a87&amp;quot;&lt;/code&gt;
-and &lt;code&gt;#define RECV_COLOR &amp;quot;#cc0000&amp;quot;&lt;/code&gt; around line number 86 inside the file
-&lt;a href=&#34;https://svn.sourceforge.net/svnroot/gaim/trunk/gtk/gtkconv.c&#34;&gt;./gtk/gtkconv.c&lt;/a&gt;
-of the Gaim source. You could always try changing these values and re-compiling
-Gaim. I haven&amp;rsquo;t tested this but seems like it should work.  Here&amp;rsquo;s a screen
-shot of my customized chat window:&lt;/p&gt;
-
-&lt;p&gt;
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://qnot.org/media/gaim_green_black.jpg&#34; /&gt;
-    
-    
-&lt;/figure&gt;
-&lt;/p&gt;
-
-&lt;p&gt;There is also a plugin which comes with Gaim called &lt;em&gt;Gaim GTK+ Theme Control&lt;/em&gt;
-which seems to provide a GUI interface for editing your &lt;code&gt;~/.gaim/gtkrc-2.0&lt;/code&gt;
-file but I didn&amp;rsquo;t see any options for customizing the chat windows. In the Gaim
-FAQ there is also a link to a &lt;a href=&#34;http://gaim.sourceforge.net/gtkrc-2.0&#34;&gt;sample gtkrc-2.0&lt;/a&gt;
-which gives some good examples of other customizations.&lt;/p&gt;
-</description>
+got it working.&lt;/p&gt;</description>
     </item>
     
   </channel>

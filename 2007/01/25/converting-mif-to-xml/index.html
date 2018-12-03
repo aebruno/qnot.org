@@ -7,9 +7,8 @@
     <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
     <meta name="author" content="Andrew E. Bruno">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="" rel="alternate" type="application/rss+xml" title="">
     <title>  Converting MIF to XML &middot;  qnot.org</title>
-    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://qnot.org/css/syntax.css">
     <link rel="stylesheet" href="http://qnot.org/css/styles.css">
@@ -78,10 +77,10 @@ libraries for parsing and transforming XML.<!-- more --></p>
 
 <p>Would get converted to this XML:</p>
 
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
-<span class="c">&lt;!--</span>
-<span class="c"> Example XML from MIF</span>
-<span class="c">--&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span class="c">&lt;!--
+</span><span class="c"> Example XML from MIF
+</span><span class="c">--&gt;</span>
 <span class="nt">&lt;mif&gt;</span>
   <span class="nt">&lt;FontCatalog&gt;</span>
     <span class="nt">&lt;Font&gt;</span>
@@ -90,9 +89,7 @@ libraries for parsing and transforming XML.<!-- more --></p>
       <span class="nt">&lt;FLocked&gt;</span>No<span class="nt">&lt;/FLocked&gt;</span>
     <span class="nt">&lt;/Font&gt;</span>
   <span class="nt">&lt;/FontCatalog&gt;</span>
-<span class="nt">&lt;/mif&gt;</span>
-</code></pre></div>
-
+<span class="nt">&lt;/mif&gt;</span></code></pre></div>
 
 <p>This is not a new idea and one tool I know of which seems to do a similar task
 is called <a href="http://www.leximation.com/tools/mifml/">MIFML</a> written by Leximation
@@ -111,17 +108,17 @@ out MIF XML tags.  I chose to create a <code>c++</code> lexer so I could make us
 STL <code>stack</code> and <code>string</code> classes. Here&rsquo;s the <code>mif.ll</code> file which gets run
 through flex to generate the lexer:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** </span>
-<span class="cm"> * Copyright (c) 2007 Andrew Bruno &lt;aeb@qnot.org&gt;</span>
-<span class="cm"> * Licensed under the GNU General Public License version 2</span>
-<span class="cm"> */</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cm">/** 
+</span><span class="cm"> * Copyright (c) 2007 Andrew Bruno &lt;aeb@qnot.org&gt;
+</span><span class="cm"> * Licensed under the GNU General Public License version 2
+</span><span class="cm"> */</span>
 
 <span class="o">%</span><span class="p">{</span>
-<span class="cp">#include &lt;iostream&gt;</span>
-<span class="cp">#include &lt;stack&gt;</span>
-<span class="cp">#include &lt;string&gt;</span>
-<span class="cp">#include &lt;miftag.h&gt;</span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stack&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;miftag.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="n">stack</span><span class="o">&lt;</span><span class="n">Tag</span><span class="o">&gt;</span> <span class="n">tags</span><span class="p">;</span>
 <span class="n">string</span> <span class="n">data</span><span class="p">;</span>
@@ -135,8 +132,8 @@ through flex to generate the lexer:</p>
 <span class="o">%</span><span class="n">x</span> <span class="n">FACET</span>
 
 <span class="n">ID</span>                <span class="p">[</span><span class="n">A</span><span class="o">-</span><span class="n">Za</span><span class="o">-</span><span class="n">z</span><span class="p">][</span><span class="n">A</span><span class="o">-</span><span class="n">Za</span><span class="o">-</span><span class="n">z0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">*</span>
-<span class="n">TAG</span>               <span class="s">&quot;&lt;&quot;</span><span class="p">{</span><span class="n">ID</span><span class="p">}</span><span class="s">&quot; &quot;</span>
-<span class="n">TAG_END</span>           <span class="s">&quot;&gt;&quot;</span>
+<span class="n">TAG</span>               <span class="s">&#34;&lt;&#34;</span><span class="p">{</span><span class="n">ID</span><span class="p">}</span><span class="s">&#34; &#34;</span>
+<span class="n">TAG_END</span>           <span class="s">&#34;&gt;&#34;</span>
 <span class="n">NONNEWLINE</span>        <span class="p">[</span><span class="o">^</span><span class="err">\</span><span class="n">r</span><span class="o">|</span><span class="err">\</span><span class="n">n</span><span class="o">|</span><span class="err">\</span><span class="n">r</span><span class="err">\</span><span class="n">n</span><span class="p">]</span>
 <span class="n">NEWLINE</span>           <span class="p">[</span><span class="err">\</span><span class="n">r</span><span class="o">|</span><span class="err">\</span><span class="n">n</span><span class="o">|</span><span class="err">\</span><span class="n">r</span><span class="err">\</span><span class="n">n</span><span class="p">]</span>
 <span class="n">WHITE_SPACE_CHAR</span>  <span class="p">[</span> <span class="err">\</span><span class="n">n</span><span class="err">\</span><span class="n">t</span><span class="p">]</span>
@@ -149,7 +146,7 @@ through flex to generate the lexer:</p>
     <span class="n">tag</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="p">.</span><span class="n">length</span><span class="p">()</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
     <span class="n">tags</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">tag</span><span class="p">);</span>
     <span class="n">tag</span><span class="p">.</span><span class="n">writeStart</span><span class="p">();</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
     <span class="n">BEGIN</span><span class="p">(</span><span class="n">DATA</span><span class="p">);</span>
 <span class="p">}</span>
 
@@ -161,8 +158,8 @@ through flex to generate the lexer:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="o">&lt;</span><span class="n">INITIAL</span><span class="o">&gt;^</span><span class="s">&quot;=&quot;</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z</span><span class="p">][</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">*</span><span class="p">{</span><span class="n">NEWLINE</span><span class="p">}</span> <span class="p">{</span>
-    <span class="n">facet</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">INITIAL</span><span class="o">&gt;^</span><span class="s">&#34;=&#34;</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z</span><span class="p">][</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">*</span><span class="p">{</span><span class="n">NEWLINE</span><span class="p">}</span> <span class="p">{</span>
+    <span class="n">facet</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
     <span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="n">YYText</span><span class="p">());</span>
     <span class="n">facet</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
     <span class="n">BEGIN</span><span class="p">(</span><span class="n">FACET</span><span class="p">);</span>
@@ -178,7 +175,7 @@ through flex to generate the lexer:</p>
     <span class="p">}</span>
     <span class="n">BEGIN</span><span class="p">(</span><span class="n">INITIAL</span><span class="p">);</span>
 <span class="p">}</span>
-<span class="o">&lt;</span><span class="n">DATA</span><span class="o">&gt;</span><span class="s">&quot;`&quot;</span>  <span class="p">{</span>  <span class="n">BEGIN</span><span class="p">(</span><span class="n">STR</span><span class="p">);</span> <span class="p">}</span>
+<span class="o">&lt;</span><span class="n">DATA</span><span class="o">&gt;</span><span class="s">&#34;`&#34;</span>  <span class="p">{</span>  <span class="n">BEGIN</span><span class="p">(</span><span class="n">STR</span><span class="p">);</span> <span class="p">}</span>
 <span class="o">&lt;</span><span class="n">DATA</span><span class="o">&gt;</span><span class="p">{</span><span class="n">TAG_END</span><span class="p">}</span>  <span class="p">{</span>
     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">tags</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
         <span class="n">Tag</span> <span class="n">tag</span> <span class="o">=</span> <span class="n">tags</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
@@ -196,11 +193,11 @@ through flex to generate the lexer:</p>
     <span class="n">data</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="o">&lt;</span><span class="n">STR</span><span class="o">&gt;</span><span class="s">&quot;&#39;&quot;</span>  <span class="p">{</span>
+<span class="o">&lt;</span><span class="n">STR</span><span class="o">&gt;</span><span class="s">&#34;&#39;&#34;</span>  <span class="p">{</span>
     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">tags</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
         <span class="n">Tag</span> <span class="o">&amp;</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tags</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
         <span class="k">if</span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">tag</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;`&#39;&quot;</span><span class="p">;</span>
+            <span class="n">tag</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;`&#39;&#34;</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="n">BEGIN</span><span class="p">(</span><span class="n">INITIAL</span><span class="p">);</span>
@@ -209,14 +206,14 @@ through flex to generate the lexer:</p>
     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">tags</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
         <span class="n">Tag</span> <span class="o">&amp;</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tags</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
         <span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="n">YYText</span><span class="p">());</span>
-        <span class="n">string</span> <span class="n">buf</span> <span class="o">=</span> <span class="s">&quot;`&quot;</span><span class="p">;</span>
+        <span class="n">string</span> <span class="n">buf</span> <span class="o">=</span> <span class="s">&#34;`&#34;</span><span class="p">;</span>
         <span class="n">buf</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
-        <span class="n">buf</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&#39;&quot;</span><span class="p">);</span>
+        <span class="n">buf</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#34;&#39;&#34;</span><span class="p">);</span>
         <span class="n">tag</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">buf</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="o">&lt;</span><span class="n">FACET</span><span class="o">&gt;^</span><span class="s">&quot;=EndInset&quot;</span><span class="p">{</span><span class="n">NEWLINE</span><span class="p">}</span> <span class="p">{</span>
+<span class="o">&lt;</span><span class="n">FACET</span><span class="o">&gt;^</span><span class="s">&#34;=EndInset&#34;</span><span class="p">{</span><span class="n">NEWLINE</span><span class="p">}</span> <span class="p">{</span>
     <span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="n">YYText</span><span class="p">());</span>
     <span class="n">facet</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
     <span class="n">writeFacet</span><span class="p">(</span><span class="n">facet</span><span class="p">);</span>
@@ -231,32 +228,31 @@ through flex to generate the lexer:</p>
 <span class="o">%%</span>
 
 <span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&lt;?xml version=</span><span class="se">\&quot;</span><span class="s">1.0</span><span class="se">\&quot;</span><span class="s">?&gt;&lt;mif&gt;&quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&lt;?xml version=</span><span class="se">\&#34;</span><span class="s">1.0</span><span class="se">\&#34;</span><span class="s">?&gt;&lt;mif&gt;&#34;</span><span class="p">;</span>
     <span class="n">FlexLexer</span><span class="o">*</span> <span class="n">lexer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">yyFlexLexer</span><span class="p">;</span>
     <span class="k">while</span><span class="p">(</span><span class="n">lexer</span><span class="o">-&gt;</span><span class="n">yylex</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&lt;/mif&gt;&quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&lt;/mif&gt;&#34;</span><span class="p">;</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>Here&rsquo;s the <code>miftag.h</code> file which contains a helper class for writing out MIF
 XML tags. Rather than having a dependency on libxml or some other XML
 processing library I choose to just implement the XML output by hand. It&rsquo;s not
 nearly as robust but it worked out ok for a first pass.</p>
 
-<p><div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** </span>
-<span class="cm"> * Copyright (c) 2007 Andrew Bruno &lt;aeb@qnot.org&gt;</span>
-<span class="cm"> * Licensed under the GNU General Public License version 2</span>
-<span class="cm"> */</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cm">/** 
+</span><span class="cm"> * Copyright (c) 2007 Andrew Bruno &lt;aeb@qnot.org&gt;
+</span><span class="cm"> * Licensed under the GNU General Public License version 2
+</span><span class="cm"> */</span>
 
-<span class="cp">#ifndef __MIFTAG__</span>
-<span class="cp">#define __MIFTAG__</span>
+<span class="cp">#ifndef __MIFTAG__
+</span><span class="cp">#define __MIFTAG__
+</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-<span class="cp">#include &lt;string&gt;</span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">Tag</span> <span class="p">{</span>
+<span class="k">class</span><span class="err"> </span><span class="nc">Tag</span> <span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
         <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
         <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
@@ -271,19 +267,19 @@ nearly as robust but it worked out ok for a first pass.</p>
         <span class="n">string</span><span class="o">::</span><span class="n">size_type</span> <span class="n">size</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
         <span class="k">for</span><span class="p">(</span><span class="n">string</span><span class="o">::</span><span class="n">size_type</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;)</span> <span class="p">{</span>
             <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;&amp;&#39;</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;&amp;&quot;</span><span class="p">);</span>
+                <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#34;&amp;amp;&#34;</span><span class="p">);</span>
                 <span class="n">i</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
                 <span class="n">size</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
             <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;&lt;&#39;</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;&lt;&quot;</span><span class="p">);</span>
+                <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#34;&amp;lt;&#34;</span><span class="p">);</span>
                 <span class="n">i</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
                 <span class="n">size</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
             <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;&gt;&#39;</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;&gt;&quot;</span><span class="p">);</span>
+                <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#34;&amp;gt;&#34;</span><span class="p">);</span>
                 <span class="n">i</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
                 <span class="n">size</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;&quot;&#39;</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;&#34;&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#34;&amp;quot;&#34;</span><span class="p">);</span>
                 <span class="n">i</span> <span class="o">+=</span> <span class="mi">5</span><span class="p">;</span>
                 <span class="n">size</span> <span class="o">+=</span> <span class="mi">5</span><span class="p">;</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -301,34 +297,32 @@ nearly as robust but it worked out ok for a first pass.</p>
             <span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&lt;/&quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&gt;&quot;</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&lt;/&#34;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&gt;&#34;</span><span class="p">;</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&lt;/&quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&gt;&quot;</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&lt;/&#34;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&gt;&#34;</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">Tag</span><span class="o">::</span><span class="n">writeStart</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&lt;&quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&gt;&quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&lt;&#34;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&gt;&#34;</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">writeFacet</span><span class="p">(</span><span class="n">string</span> <span class="n">facet</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&lt;_facet&gt;&lt;![CDATA[&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">facet</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]]&gt;&lt;/_facet&gt;&quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&lt;_facet&gt;&lt;![CDATA[&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">facet</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;]]&gt;&lt;/_facet&gt;&#34;</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="cp">#endif</span>
-</code></pre></div>
-</p>
+<span class="cp">#endif
+</span><span class="cp"></span></code></pre></div>
 
 <p>Finally a quick and dirty Makefile:</p>
 
-<p><div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nf">all</span><span class="o">:</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">all</span><span class="o">:</span>
 	flex++ mif.ll
 	g++ -I. -o mif2xml lex.yy.cc -lfl
 
 <span class="nf">clean</span><span class="o">:</span>
 	rm -f lex.yy.cc *.o mif2xml
 </code></pre></div>
-</p>
 
 <p>The code above has not been thoroughly tested on all possible MIF files so your
 mileage may vary. We currently use a version of <code>mif2xml</code> at O&rsquo;Reilly on the
@@ -337,10 +331,9 @@ generated from <code>mif2xml</code> is then run through a set of custom transfor
 in XSLT 2.0 which transform the MIF XML to DocBook, WordML, and various other
 formats.</p>
 
-<p>In my <a href="http://qnot.org/2007/02/01/converting-mif-to-xml---java-version/">next post</a>
+<p>In my <a href="http://qnot.org/2007/02/01/converting-mif-to-xml-java-version/">next post</a>
 I&rsquo;ll discuss a pure Java version of <code>mif2xml</code> which uses a great library called
 <a href="http://www.jflex.de/">JFlex</a> for generating the MIF lexer.</p>
-
 </div>
 
 </div>

@@ -7,9 +7,8 @@
     <meta name="description" content="Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.">
     <meta name="author" content="Andrew E. Bruno">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="" rel="alternate" type="application/rss+xml" title="">
     <title>  MySQL bigint types and iBATIS &middot;  qnot.org</title>
-    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://qnot.org/css/syntax.css">
     <link rel="stylesheet" href="http://qnot.org/css/styles.css">
@@ -41,7 +40,7 @@ because if iBATIS doesn&rsquo;t know how to handle a certain type it just return
 java.lang.Object. The way to go about inserting BigInteger types is to set up a
 type handler. Here&rsquo;s an example type handler for BigInteger types:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">org.qnot.util</span><span class="o">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">org.qnot.util</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.math.BigDecimal</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.math.BigInteger</span><span class="o">;</span>
@@ -83,10 +82,7 @@ type handler. Here&rsquo;s an example type handler for BigInteger types:</p>
     <span class="kd">public</span> <span class="n">Object</span> <span class="nf">valueOf</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">s</span><span class="o">;</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
-
-
+<span class="o">}</span></code></pre></div>
 </div>
 
 </div>
