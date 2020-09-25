@@ -22,7 +22,6 @@
 <div class="container">
 <ol class="breadcrumb">
     <li><a href="/">About</a></li>
-    <li><a href="/blog/">Syncopated Pandemonium</a></li>
     <li><a href="/publications/">Publications</a></li>
     <li><a href="https://github.com/aebruno">Code</a></li>
     <li><a href="/contact/">Contact</a></li>
@@ -35,14 +34,10 @@
       <p>When creating a chart that has rather long labels for the x-axis it is
 sometimes desirable to rotate them a bit so they fit on the plot. The method to
 use is <code>setCategoryLabelPositions(..)</code> on the <code>CategoryAxis</code> class.</p>
-
-<p>Here&rsquo;s a
+<p>Here's a
 quick example:</p>
-
-<p><img src="/media/rotate_labels.png" alt="" /></p>
-
+<p><img src="/media/rotate_labels.png" alt=""></p>
 <p>And the code..</p>
-
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
 
@@ -57,15 +52,15 @@ quick example:</p>
 <span class="kn">import</span> <span class="nn">org.jfree.data.category.DefaultCategoryDataset</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RotateLabels</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">DefaultCategoryDataset</span> <span class="n">dataSet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultCategoryDataset</span><span class="o">();</span>
-        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">51</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;Colonel Forbin&#34;</span><span class="o">);</span>
-        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">92</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;The Lizards&#34;</span><span class="o">);</span>
-        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">33</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;Wilson&#34;</span><span class="o">);</span>
-        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">77</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;Rutherford the Brave&#34;</span><span class="o">);</span>
-        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">37</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;The Unit Monster&#34;</span><span class="o">);</span>
-        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">97</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;The Famous Mockingbird&#34;</span><span class="o">);</span>
-        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">67</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;Poster Nutbag&#34;</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[</span><span class="o">]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">DefaultCategoryDataset</span> <span class="n">dataSet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultCategoryDataset</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">51</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;Colonel Forbin&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">92</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;The Lizards&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">33</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;Wilson&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">77</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;Rutherford the Brave&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">37</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;The Unit Monster&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">97</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;The Famous Mockingbird&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dataSet</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">67</span><span class="o">,</span> <span class="s">&#34;series&#34;</span><span class="o">,</span> <span class="s">&#34;Poster Nutbag&#34;</span><span class="o">)</span><span class="o">;</span>
 
         <span class="n">JFreeChart</span> <span class="n">chart</span> <span class="o">=</span> <span class="n">ChartFactory</span><span class="o">.</span><span class="na">createBarChart</span><span class="o">(</span>
             <span class="s">&#34;Gamehendge&#34;</span><span class="o">,</span>
@@ -76,17 +71,17 @@ quick example:</p>
             <span class="kc">false</span><span class="o">,</span>
             <span class="kc">false</span><span class="o">,</span>
             <span class="kc">false</span>
-        <span class="o">);</span>
+        <span class="o">)</span><span class="o">;</span>
 
-        <span class="n">CategoryPlot</span> <span class="n">plot</span> <span class="o">=</span> <span class="o">(</span><span class="n">CategoryPlot</span><span class="o">)</span><span class="n">chart</span><span class="o">.</span><span class="na">getPlot</span><span class="o">();</span>
-        <span class="n">CategoryAxis</span> <span class="n">xAxis</span> <span class="o">=</span> <span class="o">(</span><span class="n">CategoryAxis</span><span class="o">)</span><span class="n">plot</span><span class="o">.</span><span class="na">getDomainAxis</span><span class="o">();</span>
-        <span class="n">xAxis</span><span class="o">.</span><span class="na">setCategoryLabelPositions</span><span class="o">(</span><span class="n">CategoryLabelPositions</span><span class="o">.</span><span class="na">UP_45</span><span class="o">);</span>
+        <span class="n">CategoryPlot</span> <span class="n">plot</span> <span class="o">=</span> <span class="o">(</span><span class="n">CategoryPlot</span><span class="o">)</span><span class="n">chart</span><span class="o">.</span><span class="na">getPlot</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">CategoryAxis</span> <span class="n">xAxis</span> <span class="o">=</span> <span class="o">(</span><span class="n">CategoryAxis</span><span class="o">)</span><span class="n">plot</span><span class="o">.</span><span class="na">getDomainAxis</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">xAxis</span><span class="o">.</span><span class="na">setCategoryLabelPositions</span><span class="o">(</span><span class="n">CategoryLabelPositions</span><span class="o">.</span><span class="na">UP_45</span><span class="o">)</span><span class="o">;</span>
 
-        <span class="n">chart</span><span class="o">.</span><span class="na">setBackgroundPaint</span><span class="o">(</span><span class="n">ChartColor</span><span class="o">.</span><span class="na">WHITE</span><span class="o">);</span>
+        <span class="n">chart</span><span class="o">.</span><span class="na">setBackgroundPaint</span><span class="o">(</span><span class="n">ChartColor</span><span class="o">.</span><span class="na">WHITE</span><span class="o">)</span><span class="o">;</span>
         <span class="k">try</span> <span class="o">{</span>
-            <span class="n">ChartUtilities</span><span class="o">.</span><span class="na">saveChartAsPNG</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;chart.png&#34;</span><span class="o">),</span> <span class="n">chart</span><span class="o">,</span> <span class="n">400</span><span class="o">,</span> <span class="n">300</span><span class="o">);</span>
+            <span class="n">ChartUtilities</span><span class="o">.</span><span class="na">saveChartAsPNG</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;chart.png&#34;</span><span class="o">)</span><span class="o">,</span> <span class="n">chart</span><span class="o">,</span> <span class="n">400</span><span class="o">,</span> <span class="n">300</span><span class="o">)</span><span class="o">;</span>
         <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></div>

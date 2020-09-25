@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
@@ -17,7 +17,7 @@
       <pubDate>Wed, 06 May 2015 00:12:02 +0000</pubDate>
       
       <guid>http://qnot.org/contact/</guid>
-      <description>The best way to contact me is by email: a&amp;#101;&amp;#98;&amp;#64;&amp;#113;n&amp;#111;&amp;#116;&amp;#46;&amp;#111;&amp;#114;&amp;#103;
+      <description>The best way to contact me is by email: aeb@qnot.org
  Web: http://qnot.org Work: https://buffalo.edu/~aebruno2  </description>
     </item>
     
@@ -27,7 +27,7 @@
       <pubDate>Wed, 06 May 2015 00:12:02 +0000</pubDate>
       
       <guid>http://qnot.org/publications/</guid>
-      <description>Andrew E. Bruno, Patrick Charbonneau, Janet Newman, Edward H. Snell, David R. So, Vincent Vanhoucke, Christopher J. Watkins, Shawn Williams, Julie Wilson. Classification of crystallization outcomes using deep convolutional neural networks. PLoS ONE, 2018. doi:10.1371/journal.pone.0198883 Rachel M. Simpson, Andrew E. Bruno, Runpu Chen, Kaylen Lott, Brianna L. Tylec, Jonathan E. Bard, Yijun Sun, Michael J. Buck, Laurie K. Read. Trypanosome RNA Editing Mediator Complex proteins have distinct functions in gRNA utilization.</description>
+      <description>Andrew E. Bruno, Salvatore J. Guercio, Doris Sajdak, Tony Kew, and Matthew D. Jones. 2020. Grendel: Bare Metal Provisioning System for High Performance Computing. In Practice and Experience in Advanced Research Computing (PEARC ’20). Association for Computing Machinery, New York, NY, USA, 13–18. DOI: doi:10.1145/3311790.3396637 Andrew E. Bruno, Patrick Charbonneau, Janet Newman, Edward H. Snell, David R. So, Vincent Vanhoucke, Christopher J. Watkins, Shawn Williams, Julie Wilson. Classification of crystallization outcomes using deep convolutional neural networks.</description>
     </item>
     
     <item>
@@ -64,16 +64,14 @@ Research&lt;/a&gt;.&lt;/p&gt;</description>
       <pubDate>Fri, 01 Jul 2011 04:15:21 +0000</pubDate>
       
       <guid>http://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</guid>
-      <description>&lt;p&gt;Here&amp;rsquo;s a quote from &lt;a href=&#34;http://www.schneier.com/blog/archives/2005/06/write_down_your.html&#34;&gt;Bruce
+      <description>&lt;p&gt;Here&#39;s a quote from &lt;a href=&#34;http://www.schneier.com/blog/archives/2005/06/write_down_your.html&#34;&gt;Bruce
 Schneier&lt;/a&gt;
 that essentially sums up the motivation for this post:&lt;/p&gt;
-
 &lt;blockquote&gt;
-&lt;p&gt;We&amp;rsquo;re all good at securing small pieces of paper. I recommend that people write
+&lt;p&gt;We&#39;re all good at securing small pieces of paper. I recommend that people write
 their passwords down on a small piece of paper, and keep it with their other
 valuable small pieces of paper: in their wallet.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;I recently read an excellent &lt;a href=&#34;http://blog.jgc.org/2010/12/write-your-passwords-down.html&#34;&gt;blog
 post&lt;/a&gt; by John
 Graham-Cumming in which he presents a elegant system for writing down your
@@ -91,8 +89,8 @@ light-weight system for managing passwords based on his idea.&lt;/p&gt;</descrip
       <guid>http://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</guid>
       <description>&lt;p&gt;In this post I discuss my experience converting a WordPress blog into a print
 book. This is by no means a generic how-to guide but more along the lines of a
-case study. There&amp;rsquo;s a number of ways one could tackle this problem however I
-wasn&amp;rsquo;t able to find any existing methods that fit my needs. Specifically, I
+case study. There&#39;s a number of ways one could tackle this problem however I
+wasn&#39;t able to find any existing methods that fit my needs. Specifically, I
 wanted to convert the content of a WordPress blog into a high quality print
 ready PDF book (complete with chapters, sections, table of contents, images,
 figures, page numbering, index, etc.) which could then be sent to various
@@ -106,7 +104,7 @@ figures, page numbering, index, etc.) which could then be sent to various
       <pubDate>Tue, 14 Sep 2010 04:29:59 +0000</pubDate>
       
       <guid>http://qnot.org/2010/09/14/logging-out-without-killing-a-process/</guid>
-      <description>&lt;p&gt;Here&amp;rsquo;s the scenario, you&amp;rsquo;re logged into your favorite *nix box and are using
+      <description>&lt;p&gt;Here&#39;s the scenario, you&#39;re logged into your favorite *nix box and are using
 bash as your shell. You fired off some process which is going to take a while
 to run (and forgot to run &lt;a href=&#34;http://www.gnu.org/software/screen/&#34;&gt;screen&lt;/a&gt;) and
 you want to logout without killing that process.&lt;/p&gt;</description>
@@ -118,7 +116,7 @@ you want to logout without killing that process.&lt;/p&gt;</description>
       <pubDate>Mon, 13 Sep 2010 02:28:17 +0000</pubDate>
       
       <guid>http://qnot.org/2010/09/13/no-more-moko-for-me/</guid>
-      <description>&lt;p&gt;Well it&amp;rsquo;s been just over 2 years now since I picked up my &lt;a href=&#34;http://wiki.openmoko.org/wiki/Neo_FreeRunner&#34;&gt;Neo
+      <description>&lt;p&gt;Well it&#39;s been just over 2 years now since I picked up my &lt;a href=&#34;http://wiki.openmoko.org/wiki/Neo_FreeRunner&#34;&gt;Neo
 Freerunner&lt;/a&gt; and unfortunately I
 have nothing good to report back. When I first got my hands on the Freerunner I
 had great expectations as can be seen in my
@@ -133,12 +131,12 @@ turns out I was little too optimistic.&lt;/p&gt;</description>
       <pubDate>Thu, 14 Aug 2008 03:42:31 +0000</pubDate>
       
       <guid>http://qnot.org/2008/08/14/freerunner-first-boot/</guid>
-      <description>&lt;p&gt;Here&amp;rsquo;s some notes on my initial experience setting up the &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
-Freerunner&lt;/a&gt;. I&amp;rsquo;ve been
+      <description>&lt;p&gt;Here&#39;s some notes on my initial experience setting up the &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
+Freerunner&lt;/a&gt;. I&#39;ve been
 meaning to write this post for a while now and most of this is already old
-stuff but I&amp;rsquo;m posting it anyhow for reference. I purchased the Neo Freerunner
+stuff but I&#39;m posting it anyhow for reference. I purchased the Neo Freerunner
 fully aware that it was a developer phone but my hope was that I could at least
-ssh into the device and make/receive a few phone calls. I&amp;rsquo;m happy to report
+ssh into the device and make/receive a few phone calls. I&#39;m happy to report
 that after first booting I was able to get most things functioning within a few
 hours.&lt;/p&gt;</description>
     </item>
@@ -152,13 +150,13 @@ hours.&lt;/p&gt;</description>
       <description>&lt;p&gt;&lt;strong&gt;Open. Mobile. Free.&lt;/strong&gt; That was the tag line printed on the side of the box
 which housed my shiny new &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
 FreeRunner&lt;/a&gt;. I finally had
-some time to sit down and play with this new device and so far it&amp;rsquo;s blown me
-away. If you&amp;rsquo;re a Linux geek and haven&amp;rsquo;t checked this out yet I highly
-recommend &lt;a href=&#34;http://www.openmoko.com/product.html&#34;&gt;getting one&lt;/a&gt;. It&amp;rsquo;s a truly
+some time to sit down and play with this new device and so far it&#39;s blown me
+away. If you&#39;re a Linux geek and haven&#39;t checked this out yet I highly
+recommend &lt;a href=&#34;http://www.openmoko.com/product.html&#34;&gt;getting one&lt;/a&gt;. It&#39;s a truly
 open platform with a thriving community and is supported by a company which has
 basically open sourced their internal development. Where else could you get the
 complete &lt;a href=&#34;http://wiki.openmoko.org/wiki/CAD_models&#34;&gt;CAD files&lt;/a&gt; for your phone?
-There&amp;rsquo;s a good post about why you might &lt;a href=&#34;http://www.fsf.org/blogs/community/5-reasons-to-avoid-iphone-3g&#34;&gt;think twice before buying an
+There&#39;s a good post about why you might &lt;a href=&#34;http://www.fsf.org/blogs/community/5-reasons-to-avoid-iphone-3g&#34;&gt;think twice before buying an
 iPhone&lt;/a&gt; and
 picking up a FreeRunner instead.&lt;/p&gt;</description>
     </item>
@@ -182,12 +180,12 @@ creating various assembly descriptor files.&lt;/p&gt;</description>
       <pubDate>Thu, 06 Dec 2007 05:23:48 +0000</pubDate>
       
       <guid>http://qnot.org/2007/12/06/database-design-with-dia/</guid>
-      <description>&lt;p&gt;In this post I&amp;rsquo;m going to give a quick how-to on creating database schemas with
-a wonderful tool called &lt;a href=&#34;http://live.gnome.org/Dia&#34;&gt;Dia&lt;/a&gt;. I&amp;rsquo;ve often found
-having a nice visual representation of a database to be quite helpful but can&amp;rsquo;t
+      <description>&lt;p&gt;In this post I&#39;m going to give a quick how-to on creating database schemas with
+a wonderful tool called &lt;a href=&#34;http://live.gnome.org/Dia&#34;&gt;Dia&lt;/a&gt;. I&#39;ve often found
+having a nice visual representation of a database to be quite helpful but can&#39;t
 stand keeping it up to date. As soon as you add a new column or change the
 design around you end up having to sync your visual diagram with your SQL
-files. It&amp;rsquo;s tedious having to  manage the various SQL for building the database
+files. It&#39;s tedious having to  manage the various SQL for building the database
 and this can be a larger pain when trying to support different database
 platforms each with their own SQL syntax. So before you create your next
 database read on and see how Dia can make your life a bit easier.&lt;/p&gt;</description>
@@ -199,8 +197,8 @@ database read on and see how Dia can make your life a bit easier.&lt;/p&gt;</des
       <pubDate>Tue, 21 Aug 2007 02:16:30 +0000</pubDate>
       
       <guid>http://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m a big fan of &lt;a href=&#34;http://xplanet.sourceforge.net/&#34;&gt;Xplanet&lt;/a&gt; and every year
-during the hurricane season there&amp;rsquo;s no better way to liven up your desktop than
+      <description>&lt;p&gt;I&#39;m a big fan of &lt;a href=&#34;http://xplanet.sourceforge.net/&#34;&gt;Xplanet&lt;/a&gt; and every year
+during the hurricane season there&#39;s no better way to liven up your desktop than
 to download the latest &lt;a href=&#34;http://xplanet.sourceforge.net/clouds.php&#34;&gt;cloud maps&lt;/a&gt;
 and watch the path of the storm.&lt;/p&gt;</description>
     </item>
@@ -224,11 +222,11 @@ use is &lt;code&gt;setCategoryLabelPositions(..)&lt;/code&gt; on the &lt;code&gt
       <guid>http://qnot.org/2007/07/16/mysql-bigint-types-and-ibatis/</guid>
       <description>&lt;p&gt;One nuance I recently ran into while using &lt;a href=&#34;http://ibatis.apache.org/&#34;&gt;iBATIS&lt;/a&gt;
 was inserting data into &lt;a href=&#34;http://www.mysql.com/&#34;&gt;MySQL&lt;/a&gt; bigint unsigned columns.
-iBATIS doesn&amp;rsquo;t seem to have a way to handle BigInteger data types and throws an
+iBATIS doesn&#39;t seem to have a way to handle BigInteger data types and throws an
 exception when attempting to do an insert. Fetching data out seemed to work OK
-because if iBATIS doesn&amp;rsquo;t know how to handle a certain type it just returns a
+because if iBATIS doesn&#39;t know how to handle a certain type it just returns a
 java.lang.Object. The way to go about inserting BigInteger types is to set up a
-type handler. Here&amp;rsquo;s an example type handler for BigInteger types:&lt;/p&gt;</description>
+type handler. Here&#39;s an example type handler for BigInteger types:&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -239,10 +237,10 @@ type handler. Here&amp;rsquo;s an example type handler for BigInteger types:&lt;
       <guid>http://qnot.org/2007/07/14/buffalo-going-green/</guid>
       <description>&lt;p&gt;Eight windmills now line up the shore of Lake Erie at the site which was once
 home to the old &lt;a href=&#34;http://en.wikipedia.org/wiki/Bethlehem_Steel&#34;&gt;Bethlehem Steel&lt;/a&gt;
-plant. It&amp;rsquo;s exciting to see Buffalo on the forefront of renewable energy and
+plant. It&#39;s exciting to see Buffalo on the forefront of renewable energy and
 this new wind farm dubbed &amp;ldquo;Steel Winds&amp;rdquo; is the first urban wind farm in the
-country.  It&amp;rsquo;s also the world&amp;rsquo;s first commercial project to use Clipper
-Windpower&amp;rsquo;s &lt;a href=&#34;http://www.clipperwind.com/techspecs.php&#34;&gt;Liberty series
+country.  It&#39;s also the world&#39;s first commercial project to use Clipper
+Windpower&#39;s &lt;a href=&#34;http://www.clipperwind.com/techspecs.php&#34;&gt;Liberty series
 turbines&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
@@ -253,7 +251,7 @@ turbines&lt;/a&gt;.&lt;/p&gt;</description>
       
       <guid>http://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</guid>
       <description>&lt;p&gt;In my &lt;a href=&#34;http://qnot.org/2007/01/14/customizing-gaim-chat-windows/&#34;&gt;previous post&lt;/a&gt; I discussed
-customizing Gaim chat windows. Since then Gaim has formally changed it&amp;rsquo;s name
+customizing Gaim chat windows. Since then Gaim has formally changed it&#39;s name
 to &lt;a href=&#34;http://pidgin.im/pidgin/home/&#34;&gt;Pidgin&lt;/a&gt; due to &lt;a href=&#34;http://pidgin.im/~elb/cgi-bin/pyblosxom.cgi/going_public.html&#34;&gt;legal issues with
 AOL&lt;/a&gt;. I finally
 upgraded to Pidgin and had to do a few minor tweaks to get the same chat window
@@ -266,14 +264,14 @@ customizations as before.&lt;/p&gt;</description>
       <pubDate>Wed, 27 Jun 2007 02:56:55 +0000</pubDate>
       
       <guid>http://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;ve been experimenting with
+      <description>&lt;p&gt;I&#39;ve been experimenting with
 &lt;a href=&#34;http://phpldapadmin.sourceforge.net/&#34;&gt;phpLDAPadmin&lt;/a&gt; for browsing/searching
-LDAP directories over the web and found it to be a wonderful tool. I&amp;rsquo;m
+LDAP directories over the web and found it to be a wonderful tool. I&#39;m
 currently working with LDAP in a central authentication system together with
 Kerberos and wanted to have a nice web interface for managing user information
 within the LDAP directory. phpLDAPadmin provides a very nice interface for
 browsing, searching, and updating entries which makes it a bit easier than
-working with the ldap* command line tools. Here&amp;rsquo;s my basic setup of
+working with the ldap* command line tools. Here&#39;s my basic setup of
 phpLDAPadmin using Kerberos for authentication. This assumes you already have
 an LDAP/Kerberos setup working and are using Apache as your web server.&lt;/p&gt;</description>
     </item>
@@ -284,12 +282,12 @@ an LDAP/Kerberos setup working and are using Apache as your web server.&lt;/p&gt
       <pubDate>Wed, 04 Apr 2007 13:30:01 +0000</pubDate>
       
       <guid>http://qnot.org/2007/04/04/adventures-in-a-penske/</guid>
-      <description>&lt;p&gt;My family and I recently decided to take a journey across the country. We&amp;rsquo;re
+      <description>&lt;p&gt;My family and I recently decided to take a journey across the country. We&#39;re
 relocating to the snow belt so we wanted to be sure and have one last adventure
 before we go without seeing the sun for most of the year. The only way to
 travel when taking a trip across country is to rent a nice big Penske truck,
 throw everything you own in the back, and take lots of pictures because you
-probably won&amp;rsquo;t be doing it ever again.&lt;/p&gt;</description>
+probably won&#39;t be doing it ever again.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -308,7 +306,7 @@ probably won&amp;rsquo;t be doing it ever again.&lt;/p&gt;</description>
       <pubDate>Thu, 29 Mar 2007 04:41:55 +0000</pubDate>
       
       <guid>http://qnot.org/2007/03/29/my-last-day-at-oreilly/</guid>
-      <description>I recently finished up my last day as an O&amp;rsquo;Reilly employee. I decided it was time to take the next step in my career and have accepted a position at the Center for Computational Research. My last day at O&amp;rsquo;Reilly was an emotional one and it was sad saying goodbye to the wonderful relationships I had built throughout my time there. I had the opportunity to work with some amazing people and wish them all well in the future.</description>
+      <description>I recently finished up my last day as an O&#39;Reilly employee. I decided it was time to take the next step in my career and have accepted a position at the Center for Computational Research. My last day at O&#39;Reilly was an emotional one and it was sad saying goodbye to the wonderful relationships I had built throughout my time there. I had the opportunity to work with some amazing people and wish them all well in the future.</description>
     </item>
     
     <item>
@@ -320,7 +318,7 @@ probably won&amp;rsquo;t be doing it ever again.&lt;/p&gt;</description>
       <description>&lt;p&gt;I recently came across a great ruby module called
 &lt;a href=&#34;http://icalendar.rubyforge.org/&#34;&gt;icalendar&lt;/a&gt; for working with
 &lt;a href=&#34;http://en.wikipedia.org/wiki/ICalendar&#34;&gt;iCalendar&lt;/a&gt; files. For a quick example
-here&amp;rsquo;s some code that generates the &lt;a href=&#34;http://www.sabres.com&#34;&gt;Buffalo Sabres&lt;/a&gt;
+here&#39;s some code that generates the &lt;a href=&#34;http://www.sabres.com&#34;&gt;Buffalo Sabres&lt;/a&gt;
 06/07 schedule in iCalendar format. The source data comes from the Excel
 spreadsheet available &lt;a href=&#34;http://www.sabres.com/downloads_html.cfm&#34;&gt;here&lt;/a&gt; which
 gets converted to CSV before running through the script.&lt;/p&gt;</description>
@@ -332,7 +330,7 @@ gets converted to CSV before running through the script.&lt;/p&gt;</description>
       <pubDate>Mon, 05 Feb 2007 05:08:51 +0000</pubDate>
       
       <guid>http://qnot.org/2007/02/05/mif-xml-at-oreilly/</guid>
-      <description>Keith, a fellow O&amp;rsquo;Reillyer, has written a few posts on how O&amp;rsquo;Reilly has been making use of MIF XML (MX). Keith gives some background and example uses as a follow up to my previous posts on converting MIF to XML. He also posted some XSLT for round-tripping the XML back into MIF.</description>
+      <description>Keith, a fellow O&#39;Reillyer, has written a few posts on how O&#39;Reilly has been making use of MIF XML (MX). Keith gives some background and example uses as a follow up to my previous posts on converting MIF to XML. He also posted some XSLT for round-tripping the XML back into MIF.</description>
     </item>
     
     <item>
@@ -343,7 +341,7 @@ gets converted to CSV before running through the script.&lt;/p&gt;</description>
       <guid>http://qnot.org/2007/02/01/converting-mif-to-xml-java-version/</guid>
       <description>&lt;p&gt;In my &lt;a href=&#34;http://qnot.org/2007/01/25/converting-mif-to-xml/&#34;&gt;previous post&lt;/a&gt; I discussed a
 tool called &lt;code&gt;mif2xml&lt;/code&gt; for converting MIF files to an intermediate XML dialect.
-In this post I&amp;rsquo;ll talk about the Java port of &lt;code&gt;mif2xml&lt;/code&gt; called &lt;code&gt;mif2xml-j&lt;/code&gt;
+In this post I&#39;ll talk about the Java port of &lt;code&gt;mif2xml&lt;/code&gt; called &lt;code&gt;mif2xml-j&lt;/code&gt;
 which you can download &lt;a href=&#34;https://github.com/aebruno/mif2xml-j&#34;&gt;here&lt;/a&gt; including
 just the &lt;a href=&#34;https://github.com/downloads/aebruno/mif2xml-j/mif2xml-0.3.jar&#34;&gt;executable
 jar&lt;/a&gt;.&lt;/p&gt;</description>
@@ -387,10 +385,10 @@ Tufte&lt;/a&gt; and further explained
       <guid>http://qnot.org/2007/01/14/customizing-gaim-chat-windows/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://gaim.sf.net&#34;&gt;Gaim&lt;/a&gt; is an excellent instant messaging client with
 support for multiple protocols and runs on several different
-&lt;a href=&#34;http://gaim.sourceforge.net/about.php&#34;&gt;platforms&lt;/a&gt;. For the longest time I&amp;rsquo;ve
+&lt;a href=&#34;http://gaim.sourceforge.net/about.php&#34;&gt;platforms&lt;/a&gt;. For the longest time I&#39;ve
 wanted to customize the background color of my chat windows so they resemble my
-xterm settings of green text on a black background. There doesn&amp;rsquo;t seem to be an
-easy way to do this via Gaim&amp;rsquo;s preferences and after a little digging I finally
+xterm settings of green text on a black background. There doesn&#39;t seem to be an
+easy way to do this via Gaim&#39;s preferences and after a little digging I finally
 got it working.&lt;/p&gt;</description>
     </item>
     

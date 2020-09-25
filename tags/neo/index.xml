@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Neo on </title>
@@ -17,12 +17,12 @@
       <pubDate>Thu, 14 Aug 2008 03:42:31 +0000</pubDate>
       
       <guid>http://qnot.org/2008/08/14/freerunner-first-boot/</guid>
-      <description>&lt;p&gt;Here&amp;rsquo;s some notes on my initial experience setting up the &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
-Freerunner&lt;/a&gt;. I&amp;rsquo;ve been
+      <description>&lt;p&gt;Here&#39;s some notes on my initial experience setting up the &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
+Freerunner&lt;/a&gt;. I&#39;ve been
 meaning to write this post for a while now and most of this is already old
-stuff but I&amp;rsquo;m posting it anyhow for reference. I purchased the Neo Freerunner
+stuff but I&#39;m posting it anyhow for reference. I purchased the Neo Freerunner
 fully aware that it was a developer phone but my hope was that I could at least
-ssh into the device and make/receive a few phone calls. I&amp;rsquo;m happy to report
+ssh into the device and make/receive a few phone calls. I&#39;m happy to report
 that after first booting I was able to get most things functioning within a few
 hours.&lt;/p&gt;</description>
     </item>
@@ -36,13 +36,13 @@ hours.&lt;/p&gt;</description>
       <description>&lt;p&gt;&lt;strong&gt;Open. Mobile. Free.&lt;/strong&gt; That was the tag line printed on the side of the box
 which housed my shiny new &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
 FreeRunner&lt;/a&gt;. I finally had
-some time to sit down and play with this new device and so far it&amp;rsquo;s blown me
-away. If you&amp;rsquo;re a Linux geek and haven&amp;rsquo;t checked this out yet I highly
-recommend &lt;a href=&#34;http://www.openmoko.com/product.html&#34;&gt;getting one&lt;/a&gt;. It&amp;rsquo;s a truly
+some time to sit down and play with this new device and so far it&#39;s blown me
+away. If you&#39;re a Linux geek and haven&#39;t checked this out yet I highly
+recommend &lt;a href=&#34;http://www.openmoko.com/product.html&#34;&gt;getting one&lt;/a&gt;. It&#39;s a truly
 open platform with a thriving community and is supported by a company which has
 basically open sourced their internal development. Where else could you get the
 complete &lt;a href=&#34;http://wiki.openmoko.org/wiki/CAD_models&#34;&gt;CAD files&lt;/a&gt; for your phone?
-There&amp;rsquo;s a good post about why you might &lt;a href=&#34;http://www.fsf.org/blogs/community/5-reasons-to-avoid-iphone-3g&#34;&gt;think twice before buying an
+There&#39;s a good post about why you might &lt;a href=&#34;http://www.fsf.org/blogs/community/5-reasons-to-avoid-iphone-3g&#34;&gt;think twice before buying an
 iPhone&lt;/a&gt; and
 picking up a FreeRunner instead.&lt;/p&gt;</description>
     </item>

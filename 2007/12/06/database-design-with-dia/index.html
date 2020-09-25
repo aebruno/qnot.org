@@ -22,7 +22,6 @@
 <div class="container">
 <ol class="breadcrumb">
     <li><a href="/">About</a></li>
-    <li><a href="/blog/">Syncopated Pandemonium</a></li>
     <li><a href="/publications/">Publications</a></li>
     <li><a href="https://github.com/aebruno">Code</a></li>
     <li><a href="/contact/">Contact</a></li>
@@ -32,38 +31,33 @@
 <div class="post">
   <h1>Database Design with Dia</h1>
   <div class="post-date">Thu, Dec 6, 2007</div>
-      <p>In this post I&rsquo;m going to give a quick how-to on creating database schemas with
-a wonderful tool called <a href="http://live.gnome.org/Dia">Dia</a>. I&rsquo;ve often found
-having a nice visual representation of a database to be quite helpful but can&rsquo;t
+      <p>In this post I'm going to give a quick how-to on creating database schemas with
+a wonderful tool called <a href="http://live.gnome.org/Dia">Dia</a>. I've often found
+having a nice visual representation of a database to be quite helpful but can't
 stand keeping it up to date. As soon as you add a new column or change the
 design around you end up having to sync your visual diagram with your SQL
-files. It&rsquo;s tedious having to  manage the various SQL for building the database
+files. It's tedious having to  manage the various SQL for building the database
 and this can be a larger pain when trying to support different database
 platforms each with their own SQL syntax. So before you create your next
 database read on and see how Dia can make your life a bit easier.</p>
-
 <p><a href="http://live.gnome.org/Dia">Dia</a> is a program for creating diagrams and for
-this exercise we&rsquo;ll be creating UML diagrams from within Dia. We&rsquo;re also going
+this exercise we'll be creating UML diagrams from within Dia. We're also going
 to use a perl script called <a href="http://tedia2sql.tigris.org/">tedia2sql</a> which
-will transform our Dia files directly to SQL for our target database. What&rsquo;s
+will transform our Dia files directly to SQL for our target database. What's
 also nice about creating database schemas this way is that you can generate SQL
 for multiple target databases without the maintenance overhead.</p>
-
 <p>First off, install a copy of Dia as well as tedia2sql. You can download
 tedia2sql <a href="http://tedia2sql.tigris.org/servlets/ProjectDocumentList">here</a> and
-download Dia <a href="http://live.gnome.org/Dia/Download">here</a>. I&rsquo;m not going to cover
+download Dia <a href="http://live.gnome.org/Dia/Download">here</a>. I'm not going to cover
 the install in this post but there should be packages available for most Linux
-distro&rsquo;s and if your not running Linux now is a great time to start!</p>
-
+distro's and if your not running Linux now is a great time to start!</p>
 <p>Fire up Dia, create a new diagram and save it as &ldquo;employee.dia&rdquo;. Select the UML
-sheet from the drop down list. We&rsquo;ll be using various UML objects to represent
-tables and definitions that make up our database. Here&rsquo;s a quick overview of
+sheet from the drop down list. We'll be using various UML objects to represent
+tables and definitions that make up our database. Here's a quick overview of
 the main UML objects and their usage:</p>
-
 <figure>
     <img src="/media/dia_menu.jpg"/> 
 </figure>
-
 
 <table>
 <thead>
@@ -72,114 +66,95 @@ the main UML objects and their usage:</p>
 <th>Description</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
-<td><img src="/media/dia_class.png" alt="" /></td>
+<td><img src="/media/dia_class.png" alt=""></td>
 <td>Class represents a table in the database. A Class has a name which corresponds to the name of the table and attributes which map to the columns of the table. Attributes in classes can have visibility (public, private, protected). Protected attributes are primary keys. More on classes later.</td>
 </tr>
-
 <tr>
-<td><img src="/media/dia_component.png" alt="" /></td>
+<td><img src="/media/dia_component.png" alt=""></td>
 <td>Component is a special object that lets you define a list of default values to be inserted into a table. These are equivalent to hard coding &ldquo;insert into ..&rdquo; statements in your SQL files.</td>
 </tr>
-
 <tr>
-<td><img src="/media/dia_small_package.png" alt="" /></td>
+<td><img src="/media/dia_small_package.png" alt=""></td>
 <td>Small Package represents a typemap. Typemaps are used for adding custom SQL types such as MySQL tinyint.</td>
 </tr>
 </tbody>
 </table>
-
 <p>Now lets create our first table. Select the &ldquo;Class&rdquo; object icon from the UML
 sheet and click inside the diagram editor window. This will add the class to
 your diagram. Now right click on the new class and select &ldquo;Show Properties&rdquo;.
 This will bring up a rather large and complex property window for the UML class
-you&rsquo;ve just created. We&rsquo;re only going to customize a few properties outlined
+you've just created. We're only going to customize a few properties outlined
 below.</p>
-
 <p>First, under the &ldquo;Class&rdquo; tab enter the name of the table (employee) in the
-&ldquo;Class Name: &ldquo; field. Next click on the &ldquo;Attributes&rdquo; tab and enter in the
-columns of the table as attributes. In the &ldquo;Name: &ldquo; field enter in the column
-name. In the &ldquo;Type: &ldquo; field enter in the SQL type for the column. If you want
+&ldquo;Class Name: &quot; field. Next click on the &ldquo;Attributes&rdquo; tab and enter in the
+columns of the table as attributes. In the &ldquo;Name: &quot; field enter in the column
+name. In the &ldquo;Type: &quot; field enter in the SQL type for the column. If you want
 to support multiple database platforms try to be generic here and only use ANSI
-SQL 1992 or else use a typemap. More on typemaps later. In the &ldquo;Value: &ldquo; field
+SQL 1992 or else use a typemap. More on typemaps later. In the &ldquo;Value: &quot; field
 enter any default values for the column. For example, this is where you could
-add in &ldquo;not null&rdquo;. If the column your adding is a primary key then don&rsquo;t put
-&ldquo;not null&rdquo; here and instead select &ldquo;Protected&rdquo; for the &ldquo;Visibility: &ldquo; field.
+add in &ldquo;not null&rdquo;. If the column your adding is a primary key then don't put
+&ldquo;not null&rdquo; here and instead select &ldquo;Protected&rdquo; for the &ldquo;Visibility: &quot; field.
 Not null will automatically get added to all primary keys on output generation.
 The screen shot below is an example of the Class property editor window.</p>
-
 <figure>
     <img src="/media/dia_attributes.jpg"/> 
 </figure>
 
-
 <p>Next, repeat the process for as many tables as you need in your database. For
 this example, create two tables &ldquo;employee&rdquo; and &ldquo;department&rdquo; with the columns as
 shown in the screenshot below (note the &lsquo;#&rsquo; in front of an attribute indicates
-that it&rsquo;s visibility is &ldquo;Protected&rdquo; thus making it a Primary Key):</p>
-
+that it's visibility is &ldquo;Protected&rdquo; thus making it a Primary Key):</p>
 <figure>
     <img src="/media/dia_employee.jpg"/> 
 </figure>
 
-
 <p>This is a simple example of a database which stores employee data along with
 the department they belong to. Now suppose we have a default list of
-departments that we&rsquo;d like to load into the department table when our database
-is created. To do this we&rsquo;ll use the &ldquo;Component&rdquo; object from the UML sheet.
+departments that we'd like to load into the department table when our database
+is created. To do this we'll use the &ldquo;Component&rdquo; object from the UML sheet.
 Select the &ldquo;Component&rdquo; object and add it to your diagram editor window. Right
 click and select &ldquo;Properties&rdquo;.</p>
-
 <figure>
     <img src="/media/dia_comp_prop.jpg"/> 
 </figure>
 
-
-<p>In the &ldquo;Stereotype: &ldquo; field you basically enter in the first part of an &ldquo;insert
+<p>In the &ldquo;Stereotype: &quot; field you basically enter in the first part of an &ldquo;insert
 into ..&rdquo; SQL statement. For this example, to insert a default list of
-departments we&rsquo;d normally write the following SQL:</p>
-
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">);</span>
-<span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Production&#39;</span><span class="p">);</span>
-<span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Design&#39;</span><span class="p">);</span></code></pre></div>
-
-<p>So in this case, for the &ldquo;Stereotype: &ldquo; field we&rsquo;d enter in &ldquo;department
-(department_id, name)&ldquo;. Click OK to close the properties dialog. Now in the
-Component object box enter in the values you&rsquo;d like to insert, one per line.
-Here&rsquo;s what our diagram should look like now:</p>
-
+departments we'd normally write the following SQL:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s1">Marketing</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s1">Production</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">department</span> <span class="p">(</span><span class="n">department_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s1">Design</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span></code></pre></div>
+<p>So in this case, for the &ldquo;Stereotype: &quot; field we'd enter in &ldquo;department
+(department_id, name)&quot;. Click OK to close the properties dialog. Now in the
+Component object box enter in the values you'd like to insert, one per line.
+Here's what our diagram should look like now:</p>
 <figure>
     <img src="/media/dia_employee2.jpg"/> 
 </figure>
 
-
-<p>Now lets add in a typemap. Typemaps are used for when you&rsquo;d like to configure
+<p>Now lets add in a typemap. Typemaps are used for when you'd like to configure
 custom types which are specific to a database platform. A good example of this
 is MySQL auto_increment. This is a feature specific to MySQL and not supported
-in all databases. Lets suppose we&rsquo;d like to have a primary key column which
+in all databases. Lets suppose we'd like to have a primary key column which
 gets auto incremented upon each insert. But we also want to support both MySQL
 and Apache Derby without having to maintain separate SQL files. To achieve this
-we&rsquo;ll create a custom typemap and define the specific SQL for each target db.</p>
-
+we'll create a custom typemap and define the specific SQL for each target db.</p>
 <p>Typemaps are created using a Small Package so select the &ldquo;Small Package&rdquo; object
 and add it to your diagram editor window. Right click and select &ldquo;Properties&rdquo;.</p>
-
 <figure>
     <img src="/media/dia_type_prop.jpg"/> 
 </figure>
 
-
-<p>In the &ldquo;Stereotype: &ldquo; field you enter in the target database. So for example
+<p>In the &ldquo;Stereotype: &quot; field you enter in the target database. So for example
 &ldquo;mysql: typemap&rdquo;.  For a list of supported target databases see tedia2sql
 &ndash;help. Some common ones are: postgres, mysql, sybase, oracle, db2, and innodb.
 Click OK to close the properties dialog. Now inside the Small package box you
-can enter custom types one per line. For this example we&rsquo;ll create a custom
+can enter custom types one per line. For this example we'll create a custom
 type with a name of &ldquo;identity&rdquo;. This means that when we generate our SQL files,
-tedia2sql will replace the column type with our custom type. Here&rsquo;s a few
+tedia2sql will replace the column type with our custom type. Here's a few
 examples:</p>
-
 <table>
 <thead>
 <tr>
@@ -187,31 +162,26 @@ examples:</p>
 <th>Apache Derby typemaps</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><code>identity: int unsigned auto_increment</code></td>
 <td><code>identity: int generated by default as identity</code></td>
 </tr>
-
 <tr>
 <td><code>bigid: bigint unsigned auto_increment</code></td>
 <td><code>bigid: long generated by default as identity</code></td>
 </tr>
 </tbody>
 </table>
-
-<p>Repeat the process for Apache Derby using &ldquo;db2: typemap&rdquo;.  Now that we&rsquo;ve
+<p>Repeat the process for Apache Derby using &ldquo;db2: typemap&rdquo;.  Now that we've
 defined our custom identity typemap we can change the employee_id column from
 type &ldquo;int&rdquo; to type &ldquo;identity&rdquo;. We can also do the same for our department
 table. Now these columns will be auto incrementing columns and depending on
 which target database we select on output the correct SQL will be generated.
 Our diagram should now look like this:</p>
-
 <figure>
     <img src="/media/dia_employee3.jpg"/> 
 </figure>
-
 
 <p>At this point we have created our database schema and defined a default list of
 departments to be inserted. We also created a typemap called &ldquo;identity&rdquo; which
@@ -221,94 +191,71 @@ tedia2sql we need to apply a small patch to the tedia2sql script. This fixes a
 very small formatting issue in tedia2sql related to the typemaps we created.
 Edit the tedia2sql script (/usr/bin/tedia2sql) and comment out the line inside
 the parseTypeMap(..) subroutine that looks like this:</p>
-
-<div class="highlight"><pre class="chroma"><code class="language-perl" data-lang="perl"><span class="nv">$defStr</span> <span class="o">=~</span> <span class="sr">s/s//g</span><span class="p">;</span> <span class="c1"># ignore spaces</span>
-     <span class="o">--</span> <span class="n">change</span> <span class="n">to</span> <span class="o">--</span>
+<div class="highlight"><pre class="chroma"><code class="language-perl" data-lang="perl"><span class="nv">$</span><span class="nv">defStr</span> <span class="o">=~</span> <span class="sr">s/s//g</span><span class="p">;</span> <span class="c1"># ignore spaces</span>
+     <span class="o">-</span><span class="o">-</span> <span class="n"></span><span class="n">change</span> <span class="n"></span><span class="n">to</span> <span class="o">-</span><span class="o">-</span>
 <span class="c1">#   $defStr =~ s/s//g; # ignore spaces</span></code></pre></div>
-
 <p>or just apply the patch I created
 <a href="/data/tedia2sql-typemap-1.2.12.patch">here</a> (works for version 1.2.12):</p>
-
 <pre><code>$ patch /usr/bin/tedia2sql &amp;lt; tedia2sql-typemap-1.2.12.patch
-</code></pre>
-
-<p>Now we can generate the SQL files for our target databases:</p>
-
+</code></pre><p>Now we can generate the SQL files for our target databases:</p>
 <pre><code>$ tedia2sql -i employee.dia -o employee-mysql.sql -t mysql -d
 $ tedia2sql -i employee.dia -o employee-derby.sql -t db2 -d
-</code></pre>
-
-<p>This will generate two SQL files for building the database in both MySQL and
+</code></pre><p>This will generate two SQL files for building the database in both MySQL and
 Apache derby. If you view these files you can see how tedia2sql handled our
 typemaps for the auto incrementing columns in each target database:</p>
-
 <p>MySQL
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- employee
 </span><span class="c1"></span><span class="k">create</span> <span class="k">table</span> <span class="n">employee</span> <span class="p">(</span>
   <span class="n">employee_id</span>                <span class="nb">int</span> <span class="n">unsigned</span> <span class="n">auto_increment</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
   <span class="n">department_id</span>             <span class="nb">int</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
   <span class="n">first_name</span>                <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
-  <span class="n">last_name</span>                 <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+  <span class="n">last_name</span>                 <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="p">,</span>
   <span class="n">start_date</span>                <span class="nb">date</span><span class="p">,</span>
   <span class="k">constraint</span> <span class="n">pk_Employee</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">employee_id</span><span class="p">)</span>
 <span class="p">)</span> <span class="p">;</span></code></pre></div></p>
-
 <p>Apache Derby
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- employee
 </span><span class="c1"></span><span class="k">create</span> <span class="k">table</span> <span class="n">employee</span> <span class="p">(</span>
   <span class="n">employee_id</span>                <span class="nb">int</span> <span class="k">generated</span> <span class="k">by</span> <span class="k">default</span> <span class="k">as</span> <span class="k">identity</span>  <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
   <span class="n">department_id</span>             <span class="nb">int</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
   <span class="n">first_name</span>                <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
-  <span class="n">last_name</span>                 <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+  <span class="n">last_name</span>                 <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="p">,</span>
   <span class="n">start_date</span>                <span class="nb">date</span><span class="p">,</span>
   <span class="k">constraint</span> <span class="n">pk_Employee</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">employee_id</span><span class="p">)</span>
 <span class="p">)</span> <span class="p">;</span></code></pre></div></p>
-
 <p>You can download the files generated as well as the employee.dia file I used in
 this tutorial here:</p>
-
 <ul>
 <li><a href="/data/employee.dia">employee.dia</a></li>
 <li><a href="/data/employee-mysql.sql">employee-mysql.sql</a></li>
 <li><a href="/data/employee-derby.sql">employee-derby.sql</a></li>
 </ul>
-
 <p>You can test the SQL files generated by tedia2sql and create the employee
 database as follows:</p>
-
 <p>MySQL</p>
-
 <pre><code>$ mysql -u user -p dbname &amp;lt; employee-mysql.sql
-</code></pre>
-
-<p>Apache Derby</p>
-
+</code></pre><p>Apache Derby</p>
 <pre><code>$ java -cp derby.jar:derbytools.jar \
        -Dderby.system.home=/path/to/dbroot \
        -Dij.protocol=jdbc:derby: \
        -Dij.database='employee;create=true'
     org.apache.derby.tools.ij employee-derby.sql
-</code></pre>
-
-<p>A quick Makefile will help out a lot in testing out your database schema:</p>
-
+</code></pre><p>A quick Makefile will help out a lot in testing out your database schema:</p>
 <div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">all</span><span class="o">:</span>
       tedia2sql -i employee.dia -o employee-mysql.sql -t mysql -d
       tedia2sql -i employee.dia -o employee-derby.sql -t db2 -d
 <span class="nf">clean</span><span class="o">:</span>
       rm -f *.sql
 </code></pre></div>
-
-<p>I&rsquo;ve found that for small to moderate size projects creating database schemas
+<p>I've found that for small to moderate size projects creating database schemas
 in Dia and using tedia2sql for SQL generation to be a lifesaver. You can also
-make use of Dia&rsquo;s export feature to export your database schema to a number of
+make use of Dia's export feature to export your database schema to a number of
 different formats such as jpg, png, eps, tiff, etc. I really only scratched the
 surface of what can be done using these great tools. tedia2sql has support for
 lots of cool features like indexes, foreign key constraints, views and much
 more. For more information check out <a href="http://tedia2sql.tigris.org/usingtedia2sql.html">using
-tedia2sql</a>  and <a href="http://dia-installer.de/doc/en/index.html">Dia&rsquo;s
+tedia2sql</a>  and <a href="http://dia-installer.de/doc/en/index.html">Dia's
 manual</a>.</p>
-
 <p>Happy Diagramming!</p>
 </div>
 

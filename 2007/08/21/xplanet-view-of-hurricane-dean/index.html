@@ -22,7 +22,6 @@
 <div class="container">
 <ol class="breadcrumb">
     <li><a href="/">About</a></li>
-    <li><a href="/blog/">Syncopated Pandemonium</a></li>
     <li><a href="/publications/">Publications</a></li>
     <li><a href="https://github.com/aebruno">Code</a></li>
     <li><a href="/contact/">Contact</a></li>
@@ -32,22 +31,18 @@
 <div class="post">
   <h1>Xplanet view of Hurricane Dean</h1>
   <div class="post-date">Tue, Aug 21, 2007</div>
-      <p>I&rsquo;m a big fan of <a href="http://xplanet.sourceforge.net/">Xplanet</a> and every year
-during the hurricane season there&rsquo;s no better way to liven up your desktop than
+      <p>I'm a big fan of <a href="http://xplanet.sourceforge.net/">Xplanet</a> and every year
+during the hurricane season there's no better way to liven up your desktop than
 to download the latest <a href="http://xplanet.sourceforge.net/clouds.php">cloud maps</a>
 and watch the path of the storm.</p>
-
-<p>Here&rsquo;s a screenshot of my desktop showing
+<p>Here's a screenshot of my desktop showing
 <a href="http://en.wikipedia.org/wiki/Hurricane_Dean_(2007)">hurricane dean</a>:</p>
-
 <figure>
     <img src="/media/dean_xplanet_large.jpg"/> 
 </figure>
 
-
 <p>I cron a script to download the latest cloud maps every 4 hours or so. The
 xplanet command I run is as follows:</p>
-
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">xplanet -origin sun -north orbit <span class="se">\
 </span><span class="se"></span>        -config xplanet.conf -label <span class="se">\
 </span><span class="se"></span>        -marker_file brightStars <span class="se">\
@@ -56,9 +51,7 @@ xplanet command I run is as follows:</p>
 </span><span class="se"></span>        -longitude -78 <span class="se">\
 </span><span class="se"></span>        -radius <span class="m">30</span> <span class="se">\
 </span><span class="se"></span>        -labelpos +30+30</code></pre></div>
-
-<p>Here&rsquo;s my xplanet.conf:</p>
-
+<p>Here's my xplanet.conf:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>earth<span class="o">]</span>
 <span class="nv">cloud_map</span><span class="o">=</span>clouds_2048.jpg
 <span class="nv">magnify</span><span class="o">=</span><span class="m">20</span>

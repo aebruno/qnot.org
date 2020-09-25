@@ -1,6 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://qnot.org/</loc>
+    <lastmod>2015-05-06T00:12:02+00:00</lastmod>
+  </url>
   
   <url>
     <loc>http://qnot.org/contact/</loc>
@@ -13,7 +18,27 @@
   </url>
   
   <url>
+    <loc>http://qnot.org/categories/bioinformatics/</loc>
+    <lastmod>2012-04-14T02:31:54+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/blog/</loc>
+    <lastmod>2012-04-14T02:31:54+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/categories/</loc>
+    <lastmod>2012-04-14T02:31:54+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://qnot.org/2012/04/14/counting-the-number-of-reads-in-a-bam-file/</loc>
+    <lastmod>2012-04-14T02:31:54+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/categories/java/</loc>
     <lastmod>2012-04-14T02:31:54+00:00</lastmod>
   </url>
   
@@ -23,8 +48,33 @@
   </url>
   
   <url>
+    <loc>http://qnot.org/categories/software-engineering/</loc>
+    <lastmod>2012-01-15T04:16:50+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/categories/hacks/</loc>
+    <lastmod>2011-07-01T04:15:21+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/categories/passtab/</loc>
+    <lastmod>2011-07-01T04:15:21+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</loc>
     <lastmod>2011-07-01T04:15:21+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/categories/passwords/</loc>
+    <lastmod>2011-07-01T04:15:21+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/categories/php/</loc>
+    <lastmod>2011-04-09T05:05:18+00:00</lastmod>
   </url>
   
   <url>
@@ -33,8 +83,23 @@
   </url>
   
   <url>
+    <loc>http://qnot.org/categories/xml/</loc>
+    <lastmod>2011-04-09T05:05:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/categories/linux/</loc>
+    <lastmod>2010-09-14T04:29:59+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://qnot.org/2010/09/14/logging-out-without-killing-a-process/</loc>
     <lastmod>2010-09-14T04:29:59+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/categories/freerunner/</loc>
+    <lastmod>2010-09-13T02:28:17+00:00</lastmod>
   </url>
   
   <url>
@@ -43,12 +108,37 @@
   </url>
   
   <url>
+    <loc>http://qnot.org/tags/freerunner/</loc>
+    <lastmod>2008-08-14T03:42:31+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://qnot.org/2008/08/14/freerunner-first-boot/</loc>
     <lastmod>2008-08-14T03:42:31+00:00</lastmod>
   </url>
   
   <url>
+    <loc>http://qnot.org/tags/neo/</loc>
+    <lastmod>2008-08-14T03:42:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/tags/</loc>
+    <lastmod>2008-08-14T03:42:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/tags/linux/</loc>
+    <lastmod>2008-07-23T03:22:40+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://qnot.org/2008/07/23/neo-freerunner-freedom/</loc>
+    <lastmod>2008-07-23T03:22:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://qnot.org/tags/openmoko/</loc>
     <lastmod>2008-07-23T03:22:40+00:00</lastmod>
   </url>
   
@@ -83,6 +173,11 @@
   </url>
   
   <url>
+    <loc>http://qnot.org/categories/personal/</loc>
+    <lastmod>2007-07-14T04:12:02+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</loc>
     <lastmod>2007-07-07T05:53:55+00:00</lastmod>
   </url>
@@ -113,6 +208,11 @@
   </url>
   
   <url>
+    <loc>http://qnot.org/categories/ruby/</loc>
+    <lastmod>2007-02-07T06:24:50+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://qnot.org/2007/02/05/mif-xml-at-oreilly/</loc>
     <lastmod>2007-02-05T05:08:51+00:00</lastmod>
   </url>
@@ -135,126 +235,6 @@
   <url>
     <loc>http://qnot.org/2007/01/14/customizing-gaim-chat-windows/</loc>
     <lastmod>2007-01-14T10:09:52+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/</loc>
-    <lastmod>2015-05-06T00:12:02+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/bioinformatics/</loc>
-    <lastmod>2012-04-14T02:31:54+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/blog/</loc>
-    <lastmod>2012-04-14T02:31:54+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/</loc>
-    <lastmod>2012-04-14T02:31:54+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/tags/freerunner/</loc>
-    <lastmod>2008-08-14T03:42:31+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/freerunner/</loc>
-    <lastmod>2010-09-13T02:28:17+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/hacks/</loc>
-    <lastmod>2011-07-01T04:15:21+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/java/</loc>
-    <lastmod>2012-04-14T02:31:54+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/tags/linux/</loc>
-    <lastmod>2008-07-23T03:22:40+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/linux/</loc>
-    <lastmod>2010-09-14T04:29:59+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/tags/neo/</loc>
-    <lastmod>2008-08-14T03:42:31+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/tags/openmoko/</loc>
-    <lastmod>2008-07-23T03:22:40+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/passtab/</loc>
-    <lastmod>2011-07-01T04:15:21+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/passwords/</loc>
-    <lastmod>2011-07-01T04:15:21+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/personal/</loc>
-    <lastmod>2007-07-14T04:12:02+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/php/</loc>
-    <lastmod>2011-04-09T05:05:18+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/ruby/</loc>
-    <lastmod>2007-02-07T06:24:50+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/software-engineering/</loc>
-    <lastmod>2012-01-15T04:16:50+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/tags/</loc>
-    <lastmod>2008-08-14T03:42:31+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://qnot.org/categories/xml/</loc>
-    <lastmod>2011-04-09T05:05:18+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>

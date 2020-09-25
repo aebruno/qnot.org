@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on </title>
@@ -17,7 +17,7 @@
       <pubDate>Tue, 14 Sep 2010 04:29:59 +0000</pubDate>
       
       <guid>http://qnot.org/2010/09/14/logging-out-without-killing-a-process/</guid>
-      <description>&lt;p&gt;Here&amp;rsquo;s the scenario, you&amp;rsquo;re logged into your favorite *nix box and are using
+      <description>&lt;p&gt;Here&#39;s the scenario, you&#39;re logged into your favorite *nix box and are using
 bash as your shell. You fired off some process which is going to take a while
 to run (and forgot to run &lt;a href=&#34;http://www.gnu.org/software/screen/&#34;&gt;screen&lt;/a&gt;) and
 you want to logout without killing that process.&lt;/p&gt;</description>
@@ -32,13 +32,13 @@ you want to logout without killing that process.&lt;/p&gt;</description>
       <description>&lt;p&gt;&lt;strong&gt;Open. Mobile. Free.&lt;/strong&gt; That was the tag line printed on the side of the box
 which housed my shiny new &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
 FreeRunner&lt;/a&gt;. I finally had
-some time to sit down and play with this new device and so far it&amp;rsquo;s blown me
-away. If you&amp;rsquo;re a Linux geek and haven&amp;rsquo;t checked this out yet I highly
-recommend &lt;a href=&#34;http://www.openmoko.com/product.html&#34;&gt;getting one&lt;/a&gt;. It&amp;rsquo;s a truly
+some time to sit down and play with this new device and so far it&#39;s blown me
+away. If you&#39;re a Linux geek and haven&#39;t checked this out yet I highly
+recommend &lt;a href=&#34;http://www.openmoko.com/product.html&#34;&gt;getting one&lt;/a&gt;. It&#39;s a truly
 open platform with a thriving community and is supported by a company which has
 basically open sourced their internal development. Where else could you get the
 complete &lt;a href=&#34;http://wiki.openmoko.org/wiki/CAD_models&#34;&gt;CAD files&lt;/a&gt; for your phone?
-There&amp;rsquo;s a good post about why you might &lt;a href=&#34;http://www.fsf.org/blogs/community/5-reasons-to-avoid-iphone-3g&#34;&gt;think twice before buying an
+There&#39;s a good post about why you might &lt;a href=&#34;http://www.fsf.org/blogs/community/5-reasons-to-avoid-iphone-3g&#34;&gt;think twice before buying an
 iPhone&lt;/a&gt; and
 picking up a FreeRunner instead.&lt;/p&gt;</description>
     </item>
@@ -49,12 +49,12 @@ picking up a FreeRunner instead.&lt;/p&gt;</description>
       <pubDate>Thu, 06 Dec 2007 05:23:48 +0000</pubDate>
       
       <guid>http://qnot.org/2007/12/06/database-design-with-dia/</guid>
-      <description>&lt;p&gt;In this post I&amp;rsquo;m going to give a quick how-to on creating database schemas with
-a wonderful tool called &lt;a href=&#34;http://live.gnome.org/Dia&#34;&gt;Dia&lt;/a&gt;. I&amp;rsquo;ve often found
-having a nice visual representation of a database to be quite helpful but can&amp;rsquo;t
+      <description>&lt;p&gt;In this post I&#39;m going to give a quick how-to on creating database schemas with
+a wonderful tool called &lt;a href=&#34;http://live.gnome.org/Dia&#34;&gt;Dia&lt;/a&gt;. I&#39;ve often found
+having a nice visual representation of a database to be quite helpful but can&#39;t
 stand keeping it up to date. As soon as you add a new column or change the
 design around you end up having to sync your visual diagram with your SQL
-files. It&amp;rsquo;s tedious having to  manage the various SQL for building the database
+files. It&#39;s tedious having to  manage the various SQL for building the database
 and this can be a larger pain when trying to support different database
 platforms each with their own SQL syntax. So before you create your next
 database read on and see how Dia can make your life a bit easier.&lt;/p&gt;</description>
@@ -66,8 +66,8 @@ database read on and see how Dia can make your life a bit easier.&lt;/p&gt;</des
       <pubDate>Tue, 21 Aug 2007 02:16:30 +0000</pubDate>
       
       <guid>http://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m a big fan of &lt;a href=&#34;http://xplanet.sourceforge.net/&#34;&gt;Xplanet&lt;/a&gt; and every year
-during the hurricane season there&amp;rsquo;s no better way to liven up your desktop than
+      <description>&lt;p&gt;I&#39;m a big fan of &lt;a href=&#34;http://xplanet.sourceforge.net/&#34;&gt;Xplanet&lt;/a&gt; and every year
+during the hurricane season there&#39;s no better way to liven up your desktop than
 to download the latest &lt;a href=&#34;http://xplanet.sourceforge.net/clouds.php&#34;&gt;cloud maps&lt;/a&gt;
 and watch the path of the storm.&lt;/p&gt;</description>
     </item>
@@ -79,7 +79,7 @@ and watch the path of the storm.&lt;/p&gt;</description>
       
       <guid>http://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</guid>
       <description>&lt;p&gt;In my &lt;a href=&#34;http://qnot.org/2007/01/14/customizing-gaim-chat-windows/&#34;&gt;previous post&lt;/a&gt; I discussed
-customizing Gaim chat windows. Since then Gaim has formally changed it&amp;rsquo;s name
+customizing Gaim chat windows. Since then Gaim has formally changed it&#39;s name
 to &lt;a href=&#34;http://pidgin.im/pidgin/home/&#34;&gt;Pidgin&lt;/a&gt; due to &lt;a href=&#34;http://pidgin.im/~elb/cgi-bin/pyblosxom.cgi/going_public.html&#34;&gt;legal issues with
 AOL&lt;/a&gt;. I finally
 upgraded to Pidgin and had to do a few minor tweaks to get the same chat window
@@ -94,10 +94,10 @@ customizations as before.&lt;/p&gt;</description>
       <guid>http://qnot.org/2007/01/14/customizing-gaim-chat-windows/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://gaim.sf.net&#34;&gt;Gaim&lt;/a&gt; is an excellent instant messaging client with
 support for multiple protocols and runs on several different
-&lt;a href=&#34;http://gaim.sourceforge.net/about.php&#34;&gt;platforms&lt;/a&gt;. For the longest time I&amp;rsquo;ve
+&lt;a href=&#34;http://gaim.sourceforge.net/about.php&#34;&gt;platforms&lt;/a&gt;. For the longest time I&#39;ve
 wanted to customize the background color of my chat windows so they resemble my
-xterm settings of green text on a black background. There doesn&amp;rsquo;t seem to be an
-easy way to do this via Gaim&amp;rsquo;s preferences and after a little digging I finally
+xterm settings of green text on a black background. There doesn&#39;t seem to be an
+easy way to do this via Gaim&#39;s preferences and after a little digging I finally
 got it working.&lt;/p&gt;</description>
     </item>
     

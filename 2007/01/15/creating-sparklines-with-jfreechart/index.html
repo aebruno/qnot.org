@@ -22,7 +22,6 @@
 <div class="container">
 <ol class="breadcrumb">
     <li><a href="/">About</a></li>
-    <li><a href="/blog/">Syncopated Pandemonium</a></li>
     <li><a href="/publications/">Publications</a></li>
     <li><a href="https://github.com/aebruno">Code</a></li>
     <li><a href="/contact/">Contact</a></li>
@@ -38,12 +37,10 @@ data. They are usually rendered without any axis, labels, or tick marks and
 appear as just a simple line. Sparklines were developed by <a href="http://www.edwardtufte.com/">Edward
 Tufte</a> and further explained
 <a href="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR&amp;topic_id=1">here</a>.</p>
-
 <p><a href="http://www.jfree.org/jfreechart/">JFreeChart</a> does not have any built in
 classes for creating sparklines but are easily created by adjusting a few
-settings in the basic charting classes. Here&rsquo;s a few quick examples of some
+settings in the basic charting classes. Here's a few quick examples of some
 sparklines generated using JFreeChart:</p>
-
 <table>
 <thead>
 <tr>
@@ -51,30 +48,24 @@ sparklines generated using JFreeChart:</p>
 <th>Trend</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>Foo 90</td>
-<td><img src="/media/sparkline.png" alt="" /></td>
+<td><img src="/media/sparkline.png" alt=""></td>
 </tr>
-
 <tr>
 <td>Bar 34</td>
-<td><img src="/media/sparkline1.png" alt="" /></td>
+<td><img src="/media/sparkline1.png" alt=""></td>
 </tr>
-
 <tr>
 <td>Baz 54</td>
-<td><img src="/media/sparkline2.png" alt="" /></td>
+<td><img src="/media/sparkline2.png" alt=""></td>
 </tr>
 </tbody>
 </table>
-
 <p>To create sparklines using JFreeChart you just need to turn off the display of
 labels, tickmarks, lines, etc. on the domain/range axis as well as the XYPlot.</p>
-
-<p>Here&rsquo;s a complete example:</p>
-
+<p>Here's a complete example:</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Calendar</span><span class="o">;</span>
@@ -94,75 +85,75 @@ labels, tickmarks, lines, etc. on the domain/range axis as well as the XYPlot.</
 <span class="kn">import</span> <span class="nn">org.jfree.ui.RectangleInsets</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Sparkline</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">TimeSeriesCollection</span> <span class="n">dataSet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TimeSeriesCollection</span><span class="o">();</span>
-        <span class="n">Day</span> <span class="n">day</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Day</span><span class="o">();</span>
-        <span class="n">TimeSeries</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TimeSeries</span><span class="o">(</span><span class="s">&#34;Sparkline&#34;</span><span class="o">,</span> <span class="n">day</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[</span><span class="o">]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">TimeSeriesCollection</span> <span class="n">dataSet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TimeSeriesCollection</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">Day</span> <span class="n">day</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Day</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">TimeSeries</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TimeSeries</span><span class="o">(</span><span class="s">&#34;Sparkline&#34;</span><span class="o">,</span> <span class="n">day</span><span class="o">.</span><span class="na">getClass</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
 
         <span class="c1">// XXX add real data here
-</span><span class="c1"></span>        <span class="n">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
-        <span class="n">Calendar</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
-        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+</span><span class="c1"></span>        <span class="n">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">Calendar</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">100</span><span class="o">;</span> <span class="n">i</span><span class="o">+</span><span class="o">+</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">100</span><span class="o">)</span><span class="o">;</span>
             <span class="k">if</span><span class="o">(</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">50</span><span class="o">)</span>
-                <span class="n">val</span> <span class="o">+=</span> <span class="n">50</span><span class="o">;</span>
-            <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">DATE</span><span class="o">,</span> <span class="n">7</span><span class="o">);</span>
-            <span class="n">Date</span> <span class="n">date</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">getTime</span><span class="o">();</span>
-            <span class="n">data</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Day</span><span class="o">(</span><span class="n">date</span><span class="o">),</span> <span class="n">val</span><span class="o">);</span>
+                <span class="n">val</span> <span class="o">+</span><span class="o">=</span> <span class="n">50</span><span class="o">;</span>
+            <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">DATE</span><span class="o">,</span> <span class="n">7</span><span class="o">)</span><span class="o">;</span>
+            <span class="n">Date</span> <span class="n">date</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">getTime</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+            <span class="n">data</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Day</span><span class="o">(</span><span class="n">date</span><span class="o">)</span><span class="o">,</span> <span class="n">val</span><span class="o">)</span><span class="o">;</span>
         <span class="o">}</span>
 
-        <span class="n">dataSet</span><span class="o">.</span><span class="na">addSeries</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="n">dataSet</span><span class="o">.</span><span class="na">addSeries</span><span class="o">(</span><span class="n">data</span><span class="o">)</span><span class="o">;</span>
 
         <span class="c1">// The sparkline is created by setting a bunch of the visible 
 </span><span class="c1"></span>        <span class="c1">// properties on the domain, range axis and the XYPlot 
 </span><span class="c1"></span>        <span class="c1">// to false
-</span><span class="c1"></span>        <span class="n">DateAxis</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DateAxis</span><span class="o">();</span>
-        <span class="n">x</span><span class="o">.</span><span class="na">setTickUnit</span><span class="o">(</span><span class="k">new</span> <span class="n">DateTickUnit</span><span class="o">(</span><span class="n">DateTickUnit</span><span class="o">.</span><span class="na">MONTH</span><span class="o">,</span> <span class="n">1</span><span class="o">));</span>
-        <span class="n">x</span><span class="o">.</span><span class="na">setTickLabelsVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">x</span><span class="o">.</span><span class="na">setTickMarksVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">x</span><span class="o">.</span><span class="na">setAxisLineVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">x</span><span class="o">.</span><span class="na">setNegativeArrowVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">x</span><span class="o">.</span><span class="na">setPositiveArrowVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">x</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</span><span class="c1"></span>        <span class="n">DateAxis</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DateAxis</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">x</span><span class="o">.</span><span class="na">setTickUnit</span><span class="o">(</span><span class="k">new</span> <span class="n">DateTickUnit</span><span class="o">(</span><span class="n">DateTickUnit</span><span class="o">.</span><span class="na">MONTH</span><span class="o">,</span> <span class="n">1</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">x</span><span class="o">.</span><span class="na">setTickLabelsVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">x</span><span class="o">.</span><span class="na">setTickMarksVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">x</span><span class="o">.</span><span class="na">setAxisLineVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">x</span><span class="o">.</span><span class="na">setNegativeArrowVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">x</span><span class="o">.</span><span class="na">setPositiveArrowVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">x</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
 
-        <span class="n">NumberAxis</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumberAxis</span><span class="o">();</span>
-        <span class="n">y</span><span class="o">.</span><span class="na">setTickLabelsVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">y</span><span class="o">.</span><span class="na">setTickMarksVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">y</span><span class="o">.</span><span class="na">setAxisLineVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">y</span><span class="o">.</span><span class="na">setNegativeArrowVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">y</span><span class="o">.</span><span class="na">setPositiveArrowVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">y</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="n">NumberAxis</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumberAxis</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">y</span><span class="o">.</span><span class="na">setTickLabelsVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">y</span><span class="o">.</span><span class="na">setTickMarksVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">y</span><span class="o">.</span><span class="na">setAxisLineVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">y</span><span class="o">.</span><span class="na">setNegativeArrowVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">y</span><span class="o">.</span><span class="na">setPositiveArrowVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">y</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
 
-        <span class="n">XYPlot</span> <span class="n">plot</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XYPlot</span><span class="o">();</span>
-        <span class="n">plot</span><span class="o">.</span><span class="na">setInsets</span><span class="o">(</span><span class="k">new</span> <span class="n">RectangleInsets</span><span class="o">(-</span><span class="n">1</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">));</span>
-        <span class="n">plot</span><span class="o">.</span><span class="na">setDataset</span><span class="o">(</span><span class="n">dataSet</span><span class="o">);</span>
-        <span class="n">plot</span><span class="o">.</span><span class="na">setDomainAxis</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
-        <span class="n">plot</span><span class="o">.</span><span class="na">setDomainGridlinesVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">plot</span><span class="o">.</span><span class="na">setDomainCrosshairVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">plot</span><span class="o">.</span><span class="na">setRangeGridlinesVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">plot</span><span class="o">.</span><span class="na">setRangeCrosshairVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">plot</span><span class="o">.</span><span class="na">setRangeAxis</span><span class="o">(</span><span class="n">y</span><span class="o">);</span>
+        <span class="n">XYPlot</span> <span class="n">plot</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XYPlot</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">plot</span><span class="o">.</span><span class="na">setInsets</span><span class="o">(</span><span class="k">new</span> <span class="n">RectangleInsets</span><span class="o">(</span><span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">plot</span><span class="o">.</span><span class="na">setDataset</span><span class="o">(</span><span class="n">dataSet</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">plot</span><span class="o">.</span><span class="na">setDomainAxis</span><span class="o">(</span><span class="n">x</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">plot</span><span class="o">.</span><span class="na">setDomainGridlinesVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">plot</span><span class="o">.</span><span class="na">setDomainCrosshairVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">plot</span><span class="o">.</span><span class="na">setRangeGridlinesVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">plot</span><span class="o">.</span><span class="na">setRangeCrosshairVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">plot</span><span class="o">.</span><span class="na">setRangeAxis</span><span class="o">(</span><span class="n">y</span><span class="o">)</span><span class="o">;</span>
         <span class="n">plot</span><span class="o">.</span><span class="na">setRenderer</span><span class="o">(</span><span class="k">new</span> <span class="n">StandardXYItemRenderer</span><span class="o">(</span>
-                <span class="n">StandardXYItemRenderer</span><span class="o">.</span><span class="na">LINES</span><span class="o">));</span>
+                <span class="n">StandardXYItemRenderer</span><span class="o">.</span><span class="na">LINES</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
 
         <span class="n">JFreeChart</span> <span class="n">chart</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JFreeChart</span><span class="o">(</span>
             <span class="kc">null</span><span class="o">,</span>
             <span class="n">JFreeChart</span><span class="o">.</span><span class="na">DEFAULT_TITLE_FONT</span><span class="o">,</span>
             <span class="n">plot</span><span class="o">,</span> <span class="kc">false</span>
-        <span class="o">);</span>
-        <span class="n">chart</span><span class="o">.</span><span class="na">setBorderVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="o">)</span><span class="o">;</span>
+        <span class="n">chart</span><span class="o">.</span><span class="na">setBorderVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
 
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">ChartUtilities</span><span class="o">.</span><span class="na">saveChartAsPNG</span><span class="o">(</span>
-                <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;sparkline.png&#34;</span><span class="o">),</span>
+                <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;sparkline.png&#34;</span><span class="o">)</span><span class="o">,</span>
                 <span class="n">chart</span><span class="o">,</span>
                 <span class="n">100</span><span class="o">,</span>
                 <span class="n">30</span>
-            <span class="o">);</span>
+            <span class="o">)</span><span class="o">;</span>
         <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Failed to render chart as png: &#34;</span>
-                    <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                    <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></div>

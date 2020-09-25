@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ruby on </title>
@@ -20,7 +20,7 @@
       <description>&lt;p&gt;I recently came across a great ruby module called
 &lt;a href=&#34;http://icalendar.rubyforge.org/&#34;&gt;icalendar&lt;/a&gt; for working with
 &lt;a href=&#34;http://en.wikipedia.org/wiki/ICalendar&#34;&gt;iCalendar&lt;/a&gt; files. For a quick example
-here&amp;rsquo;s some code that generates the &lt;a href=&#34;http://www.sabres.com&#34;&gt;Buffalo Sabres&lt;/a&gt;
+here&#39;s some code that generates the &lt;a href=&#34;http://www.sabres.com&#34;&gt;Buffalo Sabres&lt;/a&gt;
 06/07 schedule in iCalendar format. The source data comes from the Excel
 spreadsheet available &lt;a href=&#34;http://www.sabres.com/downloads_html.cfm&#34;&gt;here&lt;/a&gt; which
 gets converted to CSV before running through the script.&lt;/p&gt;</description>

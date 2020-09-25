@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Xml on </title>
+    <title>XML on </title>
     <link>http://qnot.org/categories/xml/</link>
-    <description>Recent content in Xml on </description>
+    <description>Recent content in XML on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 09 Apr 2011 05:05:18 +0000</lastBuildDate>
@@ -19,8 +19,8 @@
       <guid>http://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</guid>
       <description>&lt;p&gt;In this post I discuss my experience converting a WordPress blog into a print
 book. This is by no means a generic how-to guide but more along the lines of a
-case study. There&amp;rsquo;s a number of ways one could tackle this problem however I
-wasn&amp;rsquo;t able to find any existing methods that fit my needs. Specifically, I
+case study. There&#39;s a number of ways one could tackle this problem however I
+wasn&#39;t able to find any existing methods that fit my needs. Specifically, I
 wanted to convert the content of a WordPress blog into a high quality print
 ready PDF book (complete with chapters, sections, table of contents, images,
 figures, page numbering, index, etc.) which could then be sent to various
@@ -34,7 +34,7 @@ figures, page numbering, index, etc.) which could then be sent to various
       <pubDate>Mon, 05 Feb 2007 05:08:51 +0000</pubDate>
       
       <guid>http://qnot.org/2007/02/05/mif-xml-at-oreilly/</guid>
-      <description>Keith, a fellow O&amp;rsquo;Reillyer, has written a few posts on how O&amp;rsquo;Reilly has been making use of MIF XML (MX). Keith gives some background and example uses as a follow up to my previous posts on converting MIF to XML. He also posted some XSLT for round-tripping the XML back into MIF.</description>
+      <description>Keith, a fellow O&#39;Reillyer, has written a few posts on how O&#39;Reilly has been making use of MIF XML (MX). Keith gives some background and example uses as a follow up to my previous posts on converting MIF to XML. He also posted some XSLT for round-tripping the XML back into MIF.</description>
     </item>
     
     <item>
@@ -45,7 +45,7 @@ figures, page numbering, index, etc.) which could then be sent to various
       <guid>http://qnot.org/2007/02/01/converting-mif-to-xml-java-version/</guid>
       <description>&lt;p&gt;In my &lt;a href=&#34;http://qnot.org/2007/01/25/converting-mif-to-xml/&#34;&gt;previous post&lt;/a&gt; I discussed a
 tool called &lt;code&gt;mif2xml&lt;/code&gt; for converting MIF files to an intermediate XML dialect.
-In this post I&amp;rsquo;ll talk about the Java port of &lt;code&gt;mif2xml&lt;/code&gt; called &lt;code&gt;mif2xml-j&lt;/code&gt;
+In this post I&#39;ll talk about the Java port of &lt;code&gt;mif2xml&lt;/code&gt; called &lt;code&gt;mif2xml-j&lt;/code&gt;
 which you can download &lt;a href=&#34;https://github.com/aebruno/mif2xml-j&#34;&gt;here&lt;/a&gt; including
 just the &lt;a href=&#34;https://github.com/downloads/aebruno/mif2xml-j/mif2xml-0.3.jar&#34;&gt;executable
 jar&lt;/a&gt;.&lt;/p&gt;</description>

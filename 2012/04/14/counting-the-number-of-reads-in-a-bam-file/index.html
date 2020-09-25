@@ -22,7 +22,6 @@
 <div class="container">
 <ol class="breadcrumb">
     <li><a href="/">About</a></li>
-    <li><a href="/blog/">Syncopated Pandemonium</a></li>
     <li><a href="/publications/">Publications</a></li>
     <li><a href="https://github.com/aebruno">Code</a></li>
     <li><a href="/contact/">Contact</a></li>
@@ -39,24 +38,18 @@
 these files a common first task is to calculate the total number of alignments
 (reads) captured in the file. In this post I show some examples for finding the
 total number of reads using samtools and directly from Java code.</p>
-
 <p>For the
 examples below, I use the HG00173.chrom11 BAM file from the 1000 genomes
 project which can be downloaded
 <a href="ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/data/HG00173/alignment/">here</a>.</p>
-
 <p>First, we look at using the samtools command directly. One way to get the total
 number of alignments is to simply dump the entire SAM file and tell samtools to
 count instead of print (<code>-c</code> option):</p>
-
 <pre><code>$ samtools view -c HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
 5218322
-</code></pre>
-
-<p>If we&rsquo;re only interested in counting the total number of mapped reads we can
+</code></pre><p>If we're only interested in counting the total number of mapped reads we can
 add the <code>-F 4</code> flag. Alternativley, we can count only the unmapped reads with
 <code>-f 4</code>:</p>
-
 <pre><code># Mapped reads only
 $ samtools view -c -F 4 HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
 5068340
@@ -64,39 +57,30 @@ $ samtools view -c -F 4 HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.b
 # Unmapped reads only
 $ samtools view -c -f 4 HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
 149982
-</code></pre>
-
-<p>To understand how this works we first need to inspect the SAM format. The SAM
+</code></pre><p>To understand how this works we first need to inspect the SAM format. The SAM
 format includes a bitwise FLAG field described
 <a href="http://samtools.sourceforge.net/samtools.shtml#5">here</a>. The <code>-f/-F</code> options
 to the samtools command allow us to query based on the presense/absence of bits
 in the FLAG field. So <code>-f 4</code> only output alignments that are unmapped (flag
 0x0004 is set) and <code>-F 4</code> only output alignments that are <em>not</em> unmapped (i.e.
 flag 0x0004 is not set), hence these would only include mapped alignments.</p>
-
 <p>An example for paired end reads you could do the following. To count the number
-of reads having both itself and it&rsquo;s mate mapped:</p>
-
+of reads having both itself and it's mate mapped:</p>
 <pre><code>$ samtools view -c -f 1 -F 12 HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
 4906035
-</code></pre>
-
-<p>The <code>-f 1</code> switch only includes reads that are paired in sequencing and <code>-F 12</code>
+</code></pre><p>The <code>-f 1</code> switch only includes reads that are paired in sequencing and <code>-F 12</code>
 only includes reads that are <em>not</em> unmapped (flag 0x0004 is not set) and where
-the mate is <em>not</em> unmapped (flag 0x0008 is not set). Here we add <code>0x0004 +
-0x0008 = 12</code> and use the <code>-F</code> (bits not set), meaning you want to include all
+the mate is <em>not</em> unmapped (flag 0x0008 is not set). Here we add <code>0x0004 + 0x0008 = 12</code> and use the <code>-F</code> (bits not set), meaning you want to include all
 reads where neither flag 0x0004 or 0x0008 is set. For help understanding the
-values for the SAM FLAG field there&rsquo;s a handy web tool
+values for the SAM FLAG field there's a handy web tool
 <a href="http://picard.sourceforge.net/explain-flags.html">here</a>.</p>
-
-<p>There&rsquo;s also a nice command included in samtools called <code>flagstat</code> which
-computes various summary statistics. However, I wasn&rsquo;t able to find much
-documentation describing the output and it&rsquo;s not mentioned anywhere in the man
+<p>There's also a nice command included in samtools called <code>flagstat</code> which
+computes various summary statistics. However, I wasn't able to find much
+documentation describing the output and it's not mentioned anywhere in the man
 page. This
 <a href="http://biostar.stackexchange.com/questions/12502/what-does-samtools-flagstat-results-mean">post</a>
 examines the C code for the flagstat command which provides some insight into
 the output.</p>
-
 <pre><code>$ samtools flagstat HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
 5218322 + 0 in total (QC-passed reads + QC-failed reads)
 273531 + 0 duplicates
@@ -109,35 +93,30 @@ the output.</p>
 149982 + 0 singletons (2.88%:-nan%)
 19869 + 0 with mate mapped to a different chr
 15271 + 0 with mate mapped to a different chr (mapQ&gt;=5)
-</code></pre>
-
-<p>The above shows a few simple examples using the samtools command but what if
-you wanted to count the total number of reads in code? I&rsquo;ve been using the
+</code></pre><p>The above shows a few simple examples using the samtools command but what if
+you wanted to count the total number of reads in code? I've been using the
 excellent <a href="http://picard.sourceforge.net/">Picard</a> Java library as of late and
-haven&rsquo;t found a simple way to do this via the API. I was looking for a fast way
+haven't found a simple way to do this via the API. I was looking for a fast way
 to compute this without having to scan the entire BAM file each time. Would
 love to see this added as a public function to the
 <a href="http://picard.sourceforge.net/javadoc/net/sf/samtools/BAMIndexMetaData.html">BAMIndexMetaData</a>
-object or similar. Here&rsquo;s a function I wrote to calcuate the total mapped reads
+object or similar. Here's a function I wrote to calcuate the total mapped reads
 from a BAM file. This makes use of the BAM index for speed and obviously
 requires you to first index your BAM file:</p>
-
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">getTotalReadCount</span><span class="o">(</span><span class="n">SAMFileReader</span> <span class="n">sam</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
 
-    <span class="n">AbstractBAMFileIndex</span> <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractBAMFileIndex</span><span class="o">)</span> <span class="n">sam</span><span class="o">.</span><span class="na">getIndex</span><span class="o">();</span>
-    <span class="kt">int</span> <span class="n">nRefs</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="na">getNumberOfReferences</span><span class="o">();</span>
-    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nRefs</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-        <span class="n">BAMIndexMetaData</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="na">getMetaData</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-        <span class="n">count</span> <span class="o">+=</span> <span class="n">meta</span><span class="o">.</span><span class="na">getAlignedRecordCount</span><span class="o">();</span>
+    <span class="n">AbstractBAMFileIndex</span> <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractBAMFileIndex</span><span class="o">)</span> <span class="n">sam</span><span class="o">.</span><span class="na">getIndex</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">nRefs</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="na">getNumberOfReferences</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nRefs</span><span class="o">;</span> <span class="n">i</span><span class="o">+</span><span class="o">+</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BAMIndexMetaData</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="na">getMetaData</span><span class="o">(</span><span class="n">i</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">count</span> <span class="o">+</span><span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="na">getAlignedRecordCount</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
 <span class="o">}</span></code></pre></div>
-
 <p>This uses the BAMIndex to loop through each reference and sum the total mapped
 reads. A complete working example is included below:</p>
-
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">net.sf.samtools.AbstractBAMFileIndex</span><span class="o">;</span>
@@ -146,27 +125,25 @@ reads. A complete working example is included below:</p>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountMapped</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">File</span> <span class="n">bamFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[</span><span class="o">]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">File</span> <span class="n">bamFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="o">)</span><span class="o">;</span>
 
         <span class="n">SAMFileReader</span> <span class="n">sam</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SAMFileReader</span><span class="o">(</span><span class="n">bamFile</span><span class="o">,</span> 
-                                 <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">bamFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;.bai&#34;</span><span class="o">));</span>
+                                 <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">bamFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">(</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;.bai&#34;</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
 
-        <span class="n">AbstractBAMFileIndex</span> <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractBAMFileIndex</span><span class="o">)</span> <span class="n">sam</span><span class="o">.</span><span class="na">getIndex</span><span class="o">();</span>
+        <span class="n">AbstractBAMFileIndex</span> <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractBAMFileIndex</span><span class="o">)</span> <span class="n">sam</span><span class="o">.</span><span class="na">getIndex</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
 
         <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">index</span><span class="o">.</span><span class="na">getNumberOfReferences</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">BAMIndexMetaData</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="na">getMetaData</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-            <span class="n">count</span> <span class="o">+=</span> <span class="n">meta</span><span class="o">.</span><span class="na">getAlignedRecordCount</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">index</span><span class="o">.</span><span class="na">getNumberOfReferences</span><span class="o">(</span><span class="o">)</span><span class="o">;</span> <span class="n">i</span><span class="o">+</span><span class="o">+</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">BAMIndexMetaData</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="na">getMetaData</span><span class="o">(</span><span class="n">i</span><span class="o">)</span><span class="o">;</span>
+            <span class="n">count</span> <span class="o">+</span><span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="na">getAlignedRecordCount</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
         <span class="o">}</span>
 
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Total mapped reads: &#34;</span> <span class="o">+</span> <span class="n">count</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Total mapped reads: &#34;</span> <span class="o">+</span> <span class="n">count</span><span class="o">)</span><span class="o">;</span>
     <span class="o">}</span>
 
 <span class="o">}</span></code></pre></div>
-
 <p>Requires the Picard Java library. To compile/run:</p>
-
 <pre><code>$ javac -cp samtools.jar CountMapped.java
 $ java -cp samtools.jar:. CountMapped HG00173.chrom11.ILLUMINA.bwa.FIN.low_coverage.20111114.bam
 Total mapped reads: 5068340
