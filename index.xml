@@ -2,40 +2,40 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <link>http://qnot.org/</link>
+    <link>https://qnot.org/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 06 May 2015 00:12:02 +0000</lastBuildDate>
     
-	<atom:link href="http://qnot.org/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://qnot.org/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Contact</title>
-      <link>http://qnot.org/contact/</link>
+      <link>https://qnot.org/contact/</link>
       <pubDate>Wed, 06 May 2015 00:12:02 +0000</pubDate>
       
-      <guid>http://qnot.org/contact/</guid>
+      <guid>https://qnot.org/contact/</guid>
       <description>The best way to contact me is by email: aeb@qnot.org
  Web: http://qnot.org Work: https://buffalo.edu/~aebruno2  </description>
     </item>
     
     <item>
       <title>Publications</title>
-      <link>http://qnot.org/publications/</link>
+      <link>https://qnot.org/publications/</link>
       <pubDate>Wed, 06 May 2015 00:12:02 +0000</pubDate>
       
-      <guid>http://qnot.org/publications/</guid>
+      <guid>https://qnot.org/publications/</guid>
       <description>Andrew E. Bruno, Salvatore J. Guercio, Doris Sajdak, Tony Kew, and Matthew D. Jones. 2020. Grendel: Bare Metal Provisioning System for High Performance Computing. In Practice and Experience in Advanced Research Computing (PEARC ’20). Association for Computing Machinery, New York, NY, USA, 13–18. DOI: doi:10.1145/3311790.3396637 Andrew E. Bruno, Patrick Charbonneau, Janet Newman, Edward H. Snell, David R. So, Vincent Vanhoucke, Christopher J. Watkins, Shawn Williams, Julie Wilson. Classification of crystallization outcomes using deep convolutional neural networks.</description>
     </item>
     
     <item>
       <title>Counting the number of reads in a BAM file</title>
-      <link>http://qnot.org/2012/04/14/counting-the-number-of-reads-in-a-bam-file/</link>
+      <link>https://qnot.org/2012/04/14/counting-the-number-of-reads-in-a-bam-file/</link>
       <pubDate>Sat, 14 Apr 2012 02:31:54 +0000</pubDate>
       
-      <guid>http://qnot.org/2012/04/14/counting-the-number-of-reads-in-a-bam-file/</guid>
+      <guid>https://qnot.org/2012/04/14/counting-the-number-of-reads-in-a-bam-file/</guid>
       <description>&lt;p&gt;The output from short read aligners like
 &lt;a href=&#34;http://bowtie-bio.sourceforge.net/index.shtml&#34;&gt;Bowtie&lt;/a&gt; and
 &lt;a href=&#34;http://bio-bwa.sourceforge.net/&#34;&gt;BWA&lt;/a&gt; is commonly stored in
@@ -47,10 +47,10 @@ total number of reads using samtools and directly from Java code.&lt;/p&gt;</des
     
     <item>
       <title>Questions about Software Engineering</title>
-      <link>http://qnot.org/2012/01/15/questions-about-software-engineering/</link>
+      <link>https://qnot.org/2012/01/15/questions-about-software-engineering/</link>
       <pubDate>Sun, 15 Jan 2012 04:16:50 +0000</pubDate>
       
-      <guid>http://qnot.org/2012/01/15/questions-about-software-engineering/</guid>
+      <guid>https://qnot.org/2012/01/15/questions-about-software-engineering/</guid>
       <description>&lt;p&gt;I was going through some old emails yesterday and came across one from a
 student at RIT who interviewed me for an introductory course he was taking. The
 interview consisted of questions regarding software engineering and my
@@ -60,10 +60,10 @@ Research&lt;/a&gt;.&lt;/p&gt;</description>
     
     <item>
       <title>passtab - store passwords in your wallet</title>
-      <link>http://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</link>
+      <link>https://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</link>
       <pubDate>Fri, 01 Jul 2011 04:15:21 +0000</pubDate>
       
-      <guid>http://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</guid>
+      <guid>https://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</guid>
       <description>&lt;p&gt;Here&#39;s a quote from &lt;a href=&#34;http://www.schneier.com/blog/archives/2005/06/write_down_your.html&#34;&gt;Bruce
 Schneier&lt;/a&gt;
 that essentially sums up the motivation for this post:&lt;/p&gt;
@@ -83,10 +83,10 @@ light-weight system for managing passwords based on his idea.&lt;/p&gt;</descrip
     
     <item>
       <title>WordPress Blog to Print Book - A Case Study</title>
-      <link>http://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</link>
+      <link>https://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</link>
       <pubDate>Sat, 09 Apr 2011 05:05:18 +0000</pubDate>
       
-      <guid>http://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</guid>
+      <guid>https://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</guid>
       <description>&lt;p&gt;In this post I discuss my experience converting a WordPress blog into a print
 book. This is by no means a generic how-to guide but more along the lines of a
 case study. There&#39;s a number of ways one could tackle this problem however I
@@ -100,10 +100,10 @@ figures, page numbering, index, etc.) which could then be sent to various
     
     <item>
       <title>Logging out without killing a process</title>
-      <link>http://qnot.org/2010/09/14/logging-out-without-killing-a-process/</link>
+      <link>https://qnot.org/2010/09/14/logging-out-without-killing-a-process/</link>
       <pubDate>Tue, 14 Sep 2010 04:29:59 +0000</pubDate>
       
-      <guid>http://qnot.org/2010/09/14/logging-out-without-killing-a-process/</guid>
+      <guid>https://qnot.org/2010/09/14/logging-out-without-killing-a-process/</guid>
       <description>&lt;p&gt;Here&#39;s the scenario, you&#39;re logged into your favorite *nix box and are using
 bash as your shell. You fired off some process which is going to take a while
 to run (and forgot to run &lt;a href=&#34;http://www.gnu.org/software/screen/&#34;&gt;screen&lt;/a&gt;) and
@@ -112,25 +112,25 @@ you want to logout without killing that process.&lt;/p&gt;</description>
     
     <item>
       <title>No more moko for me</title>
-      <link>http://qnot.org/2010/09/13/no-more-moko-for-me/</link>
+      <link>https://qnot.org/2010/09/13/no-more-moko-for-me/</link>
       <pubDate>Mon, 13 Sep 2010 02:28:17 +0000</pubDate>
       
-      <guid>http://qnot.org/2010/09/13/no-more-moko-for-me/</guid>
+      <guid>https://qnot.org/2010/09/13/no-more-moko-for-me/</guid>
       <description>&lt;p&gt;Well it&#39;s been just over 2 years now since I picked up my &lt;a href=&#34;http://wiki.openmoko.org/wiki/Neo_FreeRunner&#34;&gt;Neo
 Freerunner&lt;/a&gt; and unfortunately I
 have nothing good to report back. When I first got my hands on the Freerunner I
 had great expectations as can be seen in my
-&lt;a href=&#34;http://qnot.org/2008/07/23/neo-freerunner-freedom/&#34;&gt;previous&lt;/a&gt;
-&lt;a href=&#34;http://qnot.org/2008/08/14/freerunner-first-boot/&#34;&gt;posts&lt;/a&gt; however it
+&lt;a href=&#34;https://qnot.org/2008/07/23/neo-freerunner-freedom/&#34;&gt;previous&lt;/a&gt;
+&lt;a href=&#34;https://qnot.org/2008/08/14/freerunner-first-boot/&#34;&gt;posts&lt;/a&gt; however it
 turns out I was little too optimistic.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Freerunner First Boot</title>
-      <link>http://qnot.org/2008/08/14/freerunner-first-boot/</link>
+      <link>https://qnot.org/2008/08/14/freerunner-first-boot/</link>
       <pubDate>Thu, 14 Aug 2008 03:42:31 +0000</pubDate>
       
-      <guid>http://qnot.org/2008/08/14/freerunner-first-boot/</guid>
+      <guid>https://qnot.org/2008/08/14/freerunner-first-boot/</guid>
       <description>&lt;p&gt;Here&#39;s some notes on my initial experience setting up the &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
 Freerunner&lt;/a&gt;. I&#39;ve been
 meaning to write this post for a while now and most of this is already old
@@ -143,10 +143,10 @@ hours.&lt;/p&gt;</description>
     
     <item>
       <title>Neo FreeRunner = Freedom</title>
-      <link>http://qnot.org/2008/07/23/neo-freerunner-freedom/</link>
+      <link>https://qnot.org/2008/07/23/neo-freerunner-freedom/</link>
       <pubDate>Wed, 23 Jul 2008 03:22:40 +0000</pubDate>
       
-      <guid>http://qnot.org/2008/07/23/neo-freerunner-freedom/</guid>
+      <guid>https://qnot.org/2008/07/23/neo-freerunner-freedom/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Open. Mobile. Free.&lt;/strong&gt; That was the tag line printed on the side of the box
 which housed my shiny new &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
 FreeRunner&lt;/a&gt;. I finally had
@@ -163,10 +163,10 @@ picking up a FreeRunner instead.&lt;/p&gt;</description>
     
     <item>
       <title>Creating executable jars with Maven</title>
-      <link>http://qnot.org/2008/01/25/creating-executable-jars-with-maven/</link>
+      <link>https://qnot.org/2008/01/25/creating-executable-jars-with-maven/</link>
       <pubDate>Fri, 25 Jan 2008 04:53:16 +0000</pubDate>
       
-      <guid>http://qnot.org/2008/01/25/creating-executable-jars-with-maven/</guid>
+      <guid>https://qnot.org/2008/01/25/creating-executable-jars-with-maven/</guid>
       <description>&lt;p&gt;After wrestling with &lt;a href=&#34;http://maven.apache.org/plugins/maven-assembly-plugin/&#34;&gt;Maven
 assemblies&lt;/a&gt; for while I
 finally figured out how to build executable jars. The Maven assembly plugin
@@ -176,10 +176,10 @@ creating various assembly descriptor files.&lt;/p&gt;</description>
     
     <item>
       <title>Database Design with Dia</title>
-      <link>http://qnot.org/2007/12/06/database-design-with-dia/</link>
+      <link>https://qnot.org/2007/12/06/database-design-with-dia/</link>
       <pubDate>Thu, 06 Dec 2007 05:23:48 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/12/06/database-design-with-dia/</guid>
+      <guid>https://qnot.org/2007/12/06/database-design-with-dia/</guid>
       <description>&lt;p&gt;In this post I&#39;m going to give a quick how-to on creating database schemas with
 a wonderful tool called &lt;a href=&#34;http://live.gnome.org/Dia&#34;&gt;Dia&lt;/a&gt;. I&#39;ve often found
 having a nice visual representation of a database to be quite helpful but can&#39;t
@@ -193,10 +193,10 @@ database read on and see how Dia can make your life a bit easier.&lt;/p&gt;</des
     
     <item>
       <title>Xplanet view of Hurricane Dean</title>
-      <link>http://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</link>
+      <link>https://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</link>
       <pubDate>Tue, 21 Aug 2007 02:16:30 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</guid>
+      <guid>https://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</guid>
       <description>&lt;p&gt;I&#39;m a big fan of &lt;a href=&#34;http://xplanet.sourceforge.net/&#34;&gt;Xplanet&lt;/a&gt; and every year
 during the hurricane season there&#39;s no better way to liven up your desktop than
 to download the latest &lt;a href=&#34;http://xplanet.sourceforge.net/clouds.php&#34;&gt;cloud maps&lt;/a&gt;
@@ -205,10 +205,10 @@ and watch the path of the storm.&lt;/p&gt;</description>
     
     <item>
       <title>Rotate Labels JFreeChart</title>
-      <link>http://qnot.org/2007/08/15/rotate-labels-jfreechart/</link>
+      <link>https://qnot.org/2007/08/15/rotate-labels-jfreechart/</link>
       <pubDate>Wed, 15 Aug 2007 03:06:55 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/08/15/rotate-labels-jfreechart/</guid>
+      <guid>https://qnot.org/2007/08/15/rotate-labels-jfreechart/</guid>
       <description>&lt;p&gt;When creating a chart that has rather long labels for the x-axis it is
 sometimes desirable to rotate them a bit so they fit on the plot. The method to
 use is &lt;code&gt;setCategoryLabelPositions(..)&lt;/code&gt; on the &lt;code&gt;CategoryAxis&lt;/code&gt; class.&lt;/p&gt;</description>
@@ -216,10 +216,10 @@ use is &lt;code&gt;setCategoryLabelPositions(..)&lt;/code&gt; on the &lt;code&gt
     
     <item>
       <title>MySQL bigint types and iBATIS</title>
-      <link>http://qnot.org/2007/07/16/mysql-bigint-types-and-ibatis/</link>
+      <link>https://qnot.org/2007/07/16/mysql-bigint-types-and-ibatis/</link>
       <pubDate>Mon, 16 Jul 2007 21:22:37 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/07/16/mysql-bigint-types-and-ibatis/</guid>
+      <guid>https://qnot.org/2007/07/16/mysql-bigint-types-and-ibatis/</guid>
       <description>&lt;p&gt;One nuance I recently ran into while using &lt;a href=&#34;http://ibatis.apache.org/&#34;&gt;iBATIS&lt;/a&gt;
 was inserting data into &lt;a href=&#34;http://www.mysql.com/&#34;&gt;MySQL&lt;/a&gt; bigint unsigned columns.
 iBATIS doesn&#39;t seem to have a way to handle BigInteger data types and throws an
@@ -231,10 +231,10 @@ type handler. Here&#39;s an example type handler for BigInteger types:&lt;/p&gt;
     
     <item>
       <title>Buffalo Going Green</title>
-      <link>http://qnot.org/2007/07/14/buffalo-going-green/</link>
+      <link>https://qnot.org/2007/07/14/buffalo-going-green/</link>
       <pubDate>Sat, 14 Jul 2007 04:12:02 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/07/14/buffalo-going-green/</guid>
+      <guid>https://qnot.org/2007/07/14/buffalo-going-green/</guid>
       <description>&lt;p&gt;Eight windmills now line up the shore of Lake Erie at the site which was once
 home to the old &lt;a href=&#34;http://en.wikipedia.org/wiki/Bethlehem_Steel&#34;&gt;Bethlehem Steel&lt;/a&gt;
 plant. It&#39;s exciting to see Buffalo on the forefront of renewable energy and
@@ -246,11 +246,11 @@ turbines&lt;/a&gt;.&lt;/p&gt;</description>
     
     <item>
       <title>Customizing Pidgin Chat Windows</title>
-      <link>http://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</link>
+      <link>https://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</link>
       <pubDate>Sat, 07 Jul 2007 05:53:55 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</guid>
-      <description>&lt;p&gt;In my &lt;a href=&#34;http://qnot.org/2007/01/14/customizing-gaim-chat-windows/&#34;&gt;previous post&lt;/a&gt; I discussed
+      <guid>https://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</guid>
+      <description>&lt;p&gt;In my &lt;a href=&#34;https://qnot.org/2007/01/14/customizing-gaim-chat-windows/&#34;&gt;previous post&lt;/a&gt; I discussed
 customizing Gaim chat windows. Since then Gaim has formally changed it&#39;s name
 to &lt;a href=&#34;http://pidgin.im/pidgin/home/&#34;&gt;Pidgin&lt;/a&gt; due to &lt;a href=&#34;http://pidgin.im/~elb/cgi-bin/pyblosxom.cgi/going_public.html&#34;&gt;legal issues with
 AOL&lt;/a&gt;. I finally
@@ -260,10 +260,10 @@ customizations as before.&lt;/p&gt;</description>
     
     <item>
       <title>phpLDAPadmin and Kerberos</title>
-      <link>http://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</link>
+      <link>https://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</link>
       <pubDate>Wed, 27 Jun 2007 02:56:55 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</guid>
+      <guid>https://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</guid>
       <description>&lt;p&gt;I&#39;ve been experimenting with
 &lt;a href=&#34;http://phpldapadmin.sourceforge.net/&#34;&gt;phpLDAPadmin&lt;/a&gt; for browsing/searching
 LDAP directories over the web and found it to be a wonderful tool. I&#39;m
@@ -278,10 +278,10 @@ an LDAP/Kerberos setup working and are using Apache as your web server.&lt;/p&gt
     
     <item>
       <title>Adventures in a Penske</title>
-      <link>http://qnot.org/2007/04/04/adventures-in-a-penske/</link>
+      <link>https://qnot.org/2007/04/04/adventures-in-a-penske/</link>
       <pubDate>Wed, 04 Apr 2007 13:30:01 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/04/04/adventures-in-a-penske/</guid>
+      <guid>https://qnot.org/2007/04/04/adventures-in-a-penske/</guid>
       <description>&lt;p&gt;My family and I recently decided to take a journey across the country. We&#39;re
 relocating to the snow belt so we wanted to be sure and have one last adventure
 before we go without seeing the sun for most of the year. The only way to
@@ -292,29 +292,29 @@ probably won&#39;t be doing it ever again.&lt;/p&gt;</description>
     
     <item>
       <title>Farewell to an old friend</title>
-      <link>http://qnot.org/2007/03/30/farewell-to-an-old-friend/</link>
+      <link>https://qnot.org/2007/03/30/farewell-to-an-old-friend/</link>
       <pubDate>Fri, 30 Mar 2007 02:56:01 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/03/30/farewell-to-an-old-friend/</guid>
+      <guid>https://qnot.org/2007/03/30/farewell-to-an-old-friend/</guid>
       <description>I had to say goodbye to one of my dearest friends a few weeks ago. I sold my bus stella and will no longer be able to see wine country through that big bay window anymore. We had some great adventures together but the time has come for us to part our ways. Farewell old friend.
   </description>
     </item>
     
     <item>
       <title>My last day at O&#39;Reilly</title>
-      <link>http://qnot.org/2007/03/29/my-last-day-at-oreilly/</link>
+      <link>https://qnot.org/2007/03/29/my-last-day-at-oreilly/</link>
       <pubDate>Thu, 29 Mar 2007 04:41:55 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/03/29/my-last-day-at-oreilly/</guid>
+      <guid>https://qnot.org/2007/03/29/my-last-day-at-oreilly/</guid>
       <description>I recently finished up my last day as an O&#39;Reilly employee. I decided it was time to take the next step in my career and have accepted a position at the Center for Computational Research. My last day at O&#39;Reilly was an emotional one and it was sad saying goodbye to the wonderful relationships I had built throughout my time there. I had the opportunity to work with some amazing people and wish them all well in the future.</description>
     </item>
     
     <item>
       <title>Creating iCalendar Files in Ruby</title>
-      <link>http://qnot.org/2007/02/07/creating-icalendar-files-in-ruby/</link>
+      <link>https://qnot.org/2007/02/07/creating-icalendar-files-in-ruby/</link>
       <pubDate>Wed, 07 Feb 2007 06:24:50 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/02/07/creating-icalendar-files-in-ruby/</guid>
+      <guid>https://qnot.org/2007/02/07/creating-icalendar-files-in-ruby/</guid>
       <description>&lt;p&gt;I recently came across a great ruby module called
 &lt;a href=&#34;http://icalendar.rubyforge.org/&#34;&gt;icalendar&lt;/a&gt; for working with
 &lt;a href=&#34;http://en.wikipedia.org/wiki/ICalendar&#34;&gt;iCalendar&lt;/a&gt; files. For a quick example
@@ -326,20 +326,20 @@ gets converted to CSV before running through the script.&lt;/p&gt;</description>
     
     <item>
       <title>MIF XML at O&#39;Reilly</title>
-      <link>http://qnot.org/2007/02/05/mif-xml-at-oreilly/</link>
+      <link>https://qnot.org/2007/02/05/mif-xml-at-oreilly/</link>
       <pubDate>Mon, 05 Feb 2007 05:08:51 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/02/05/mif-xml-at-oreilly/</guid>
+      <guid>https://qnot.org/2007/02/05/mif-xml-at-oreilly/</guid>
       <description>Keith, a fellow O&#39;Reillyer, has written a few posts on how O&#39;Reilly has been making use of MIF XML (MX). Keith gives some background and example uses as a follow up to my previous posts on converting MIF to XML. He also posted some XSLT for round-tripping the XML back into MIF.</description>
     </item>
     
     <item>
       <title>Converting MIF to XML - Java Version</title>
-      <link>http://qnot.org/2007/02/01/converting-mif-to-xml-java-version/</link>
+      <link>https://qnot.org/2007/02/01/converting-mif-to-xml-java-version/</link>
       <pubDate>Thu, 01 Feb 2007 03:57:01 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/02/01/converting-mif-to-xml-java-version/</guid>
-      <description>&lt;p&gt;In my &lt;a href=&#34;http://qnot.org/2007/01/25/converting-mif-to-xml/&#34;&gt;previous post&lt;/a&gt; I discussed a
+      <guid>https://qnot.org/2007/02/01/converting-mif-to-xml-java-version/</guid>
+      <description>&lt;p&gt;In my &lt;a href=&#34;https://qnot.org/2007/01/25/converting-mif-to-xml/&#34;&gt;previous post&lt;/a&gt; I discussed a
 tool called &lt;code&gt;mif2xml&lt;/code&gt; for converting MIF files to an intermediate XML dialect.
 In this post I&#39;ll talk about the Java port of &lt;code&gt;mif2xml&lt;/code&gt; called &lt;code&gt;mif2xml-j&lt;/code&gt;
 which you can download &lt;a href=&#34;https://github.com/aebruno/mif2xml-j&#34;&gt;here&lt;/a&gt; including
@@ -349,10 +349,10 @@ jar&lt;/a&gt;.&lt;/p&gt;</description>
     
     <item>
       <title>Converting MIF to XML</title>
-      <link>http://qnot.org/2007/01/25/converting-mif-to-xml/</link>
+      <link>https://qnot.org/2007/01/25/converting-mif-to-xml/</link>
       <pubDate>Thu, 25 Jan 2007 08:39:43 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/01/25/converting-mif-to-xml/</guid>
+      <guid>https://qnot.org/2007/01/25/converting-mif-to-xml/</guid>
       <description>&lt;p&gt;MIF (Maker Interchange Format) is an ASCII text representation of a
 &lt;a href=&#34;http://en.wikipedia.org/wiki/FrameMaker&#34;&gt;FrameMaker&lt;/a&gt; document. You can export
 your FrameMaker documents into this text based representation to allow for
@@ -365,10 +365,10 @@ from Adobe (link may be out of date).&lt;/p&gt;</description>
     
     <item>
       <title>Creating Sparklines with JFreeChart</title>
-      <link>http://qnot.org/2007/01/15/creating-sparklines-with-jfreechart/</link>
+      <link>https://qnot.org/2007/01/15/creating-sparklines-with-jfreechart/</link>
       <pubDate>Mon, 15 Jan 2007 08:05:01 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/01/15/creating-sparklines-with-jfreechart/</guid>
+      <guid>https://qnot.org/2007/01/15/creating-sparklines-with-jfreechart/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Sparkline&#34;&gt;Sparklines&lt;/a&gt; are very small charts
 usually displayed along side some text and help quickly compare time series
 data. They are usually rendered without any axis, labels, or tick marks and
@@ -379,10 +379,10 @@ Tufte&lt;/a&gt; and further explained
     
     <item>
       <title>Customizing Gaim Chat Windows</title>
-      <link>http://qnot.org/2007/01/14/customizing-gaim-chat-windows/</link>
+      <link>https://qnot.org/2007/01/14/customizing-gaim-chat-windows/</link>
       <pubDate>Sun, 14 Jan 2007 10:09:52 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/01/14/customizing-gaim-chat-windows/</guid>
+      <guid>https://qnot.org/2007/01/14/customizing-gaim-chat-windows/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://gaim.sf.net&#34;&gt;Gaim&lt;/a&gt; is an excellent instant messaging client with
 support for multiple protocols and runs on several different
 &lt;a href=&#34;http://gaim.sourceforge.net/about.php&#34;&gt;platforms&lt;/a&gt;. For the longest time I&#39;ve

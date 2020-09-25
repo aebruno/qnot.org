@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>OpenMoko on </title>
-    <link>http://qnot.org/tags/openmoko/</link>
+    <link>https://qnot.org/tags/openmoko/</link>
     <description>Recent content in OpenMoko on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 23 Jul 2008 03:22:40 +0000</lastBuildDate>
     
-	<atom:link href="http://qnot.org/tags/openmoko/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://qnot.org/tags/openmoko/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Neo FreeRunner = Freedom</title>
-      <link>http://qnot.org/2008/07/23/neo-freerunner-freedom/</link>
+      <link>https://qnot.org/2008/07/23/neo-freerunner-freedom/</link>
       <pubDate>Wed, 23 Jul 2008 03:22:40 +0000</pubDate>
       
-      <guid>http://qnot.org/2008/07/23/neo-freerunner-freedom/</guid>
+      <guid>https://qnot.org/2008/07/23/neo-freerunner-freedom/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Open. Mobile. Free.&lt;/strong&gt; That was the tag line printed on the side of the box
 which housed my shiny new &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
 FreeRunner&lt;/a&gt;. I finally had

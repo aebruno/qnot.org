@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PHP on </title>
-    <link>http://qnot.org/categories/php/</link>
+    <link>https://qnot.org/categories/php/</link>
     <description>Recent content in PHP on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 09 Apr 2011 05:05:18 +0000</lastBuildDate>
     
-	<atom:link href="http://qnot.org/categories/php/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://qnot.org/categories/php/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>WordPress Blog to Print Book - A Case Study</title>
-      <link>http://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</link>
+      <link>https://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</link>
       <pubDate>Sat, 09 Apr 2011 05:05:18 +0000</pubDate>
       
-      <guid>http://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</guid>
+      <guid>https://qnot.org/2011/04/09/wordpress-blog-to-print-book-a-case-study/</guid>
       <description>&lt;p&gt;In this post I discuss my experience converting a WordPress blog into a print
 book. This is by no means a generic how-to guide but more along the lines of a
 case study. There&#39;s a number of ways one could tackle this problem however I
@@ -30,10 +30,10 @@ figures, page numbering, index, etc.) which could then be sent to various
     
     <item>
       <title>phpLDAPadmin and Kerberos</title>
-      <link>http://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</link>
+      <link>https://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</link>
       <pubDate>Wed, 27 Jun 2007 02:56:55 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</guid>
+      <guid>https://qnot.org/2007/06/27/phpldapadmin-and-kerberos/</guid>
       <description>&lt;p&gt;I&#39;ve been experimenting with
 &lt;a href=&#34;http://phpldapadmin.sourceforge.net/&#34;&gt;phpLDAPadmin&lt;/a&gt; for browsing/searching
 LDAP directories over the web and found it to be a wonderful tool. I&#39;m

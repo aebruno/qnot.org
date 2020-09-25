@@ -2,120 +2,120 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on </title>
-    <link>http://qnot.org/categories/</link>
+    <link>https://qnot.org/categories/</link>
     <description>Recent content in Categories on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 14 Apr 2012 02:31:54 +0000</lastBuildDate>
     
-	<atom:link href="http://qnot.org/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://qnot.org/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Bioinformatics</title>
-      <link>http://qnot.org/categories/bioinformatics/</link>
+      <link>https://qnot.org/categories/bioinformatics/</link>
       <pubDate>Sat, 14 Apr 2012 02:31:54 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/bioinformatics/</guid>
+      <guid>https://qnot.org/categories/bioinformatics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java</title>
-      <link>http://qnot.org/categories/java/</link>
+      <link>https://qnot.org/categories/java/</link>
       <pubDate>Sat, 14 Apr 2012 02:31:54 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/java/</guid>
+      <guid>https://qnot.org/categories/java/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Software Engineering</title>
-      <link>http://qnot.org/categories/software-engineering/</link>
+      <link>https://qnot.org/categories/software-engineering/</link>
       <pubDate>Sun, 15 Jan 2012 04:16:50 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/software-engineering/</guid>
+      <guid>https://qnot.org/categories/software-engineering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hacks</title>
-      <link>http://qnot.org/categories/hacks/</link>
+      <link>https://qnot.org/categories/hacks/</link>
       <pubDate>Fri, 01 Jul 2011 04:15:21 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/hacks/</guid>
+      <guid>https://qnot.org/categories/hacks/</guid>
       <description></description>
     </item>
     
     <item>
       <title>passtab</title>
-      <link>http://qnot.org/categories/passtab/</link>
+      <link>https://qnot.org/categories/passtab/</link>
       <pubDate>Fri, 01 Jul 2011 04:15:21 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/passtab/</guid>
+      <guid>https://qnot.org/categories/passtab/</guid>
       <description></description>
     </item>
     
     <item>
       <title>passwords</title>
-      <link>http://qnot.org/categories/passwords/</link>
+      <link>https://qnot.org/categories/passwords/</link>
       <pubDate>Fri, 01 Jul 2011 04:15:21 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/passwords/</guid>
+      <guid>https://qnot.org/categories/passwords/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PHP</title>
-      <link>http://qnot.org/categories/php/</link>
+      <link>https://qnot.org/categories/php/</link>
       <pubDate>Sat, 09 Apr 2011 05:05:18 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/php/</guid>
+      <guid>https://qnot.org/categories/php/</guid>
       <description></description>
     </item>
     
     <item>
       <title>XML</title>
-      <link>http://qnot.org/categories/xml/</link>
+      <link>https://qnot.org/categories/xml/</link>
       <pubDate>Sat, 09 Apr 2011 05:05:18 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/xml/</guid>
+      <guid>https://qnot.org/categories/xml/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Linux</title>
-      <link>http://qnot.org/categories/linux/</link>
+      <link>https://qnot.org/categories/linux/</link>
       <pubDate>Tue, 14 Sep 2010 04:29:59 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/linux/</guid>
+      <guid>https://qnot.org/categories/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>FreeRunner</title>
-      <link>http://qnot.org/categories/freerunner/</link>
+      <link>https://qnot.org/categories/freerunner/</link>
       <pubDate>Mon, 13 Sep 2010 02:28:17 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/freerunner/</guid>
+      <guid>https://qnot.org/categories/freerunner/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Personal</title>
-      <link>http://qnot.org/categories/personal/</link>
+      <link>https://qnot.org/categories/personal/</link>
       <pubDate>Sat, 14 Jul 2007 04:12:02 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/personal/</guid>
+      <guid>https://qnot.org/categories/personal/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ruby</title>
-      <link>http://qnot.org/categories/ruby/</link>
+      <link>https://qnot.org/categories/ruby/</link>
       <pubDate>Wed, 07 Feb 2007 06:24:50 +0000</pubDate>
       
-      <guid>http://qnot.org/categories/ruby/</guid>
+      <guid>https://qnot.org/categories/ruby/</guid>
       <description></description>
     </item>
     

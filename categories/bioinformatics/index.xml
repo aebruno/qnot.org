@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bioinformatics on </title>
-    <link>http://qnot.org/categories/bioinformatics/</link>
+    <link>https://qnot.org/categories/bioinformatics/</link>
     <description>Recent content in Bioinformatics on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 14 Apr 2012 02:31:54 +0000</lastBuildDate>
     
-	<atom:link href="http://qnot.org/categories/bioinformatics/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://qnot.org/categories/bioinformatics/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Counting the number of reads in a BAM file</title>
-      <link>http://qnot.org/2012/04/14/counting-the-number-of-reads-in-a-bam-file/</link>
+      <link>https://qnot.org/2012/04/14/counting-the-number-of-reads-in-a-bam-file/</link>
       <pubDate>Sat, 14 Apr 2012 02:31:54 +0000</pubDate>
       
-      <guid>http://qnot.org/2012/04/14/counting-the-number-of-reads-in-a-bam-file/</guid>
+      <guid>https://qnot.org/2012/04/14/counting-the-number-of-reads-in-a-bam-file/</guid>
       <description>&lt;p&gt;The output from short read aligners like
 &lt;a href=&#34;http://bowtie-bio.sourceforge.net/index.shtml&#34;&gt;Bowtie&lt;/a&gt; and
 &lt;a href=&#34;http://bio-bwa.sourceforge.net/&#34;&gt;BWA&lt;/a&gt; is commonly stored in

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>passwords on </title>
-    <link>http://qnot.org/categories/passwords/</link>
+    <link>https://qnot.org/categories/passwords/</link>
     <description>Recent content in passwords on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Jul 2011 04:15:21 +0000</lastBuildDate>
     
-	<atom:link href="http://qnot.org/categories/passwords/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://qnot.org/categories/passwords/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>passtab - store passwords in your wallet</title>
-      <link>http://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</link>
+      <link>https://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</link>
       <pubDate>Fri, 01 Jul 2011 04:15:21 +0000</pubDate>
       
-      <guid>http://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</guid>
+      <guid>https://qnot.org/2011/07/01/passtab-store-passwords-in-your-wallet/</guid>
       <description>&lt;p&gt;Here&#39;s a quote from &lt;a href=&#34;http://www.schneier.com/blog/archives/2005/06/write_down_your.html&#34;&gt;Bruce
 Schneier&lt;/a&gt;
 that essentially sums up the motivation for this post:&lt;/p&gt;

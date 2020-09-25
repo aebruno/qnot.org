@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on </title>
-    <link>http://qnot.org/categories/linux/</link>
+    <link>https://qnot.org/categories/linux/</link>
     <description>Recent content in Linux on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 14 Sep 2010 04:29:59 +0000</lastBuildDate>
     
-	<atom:link href="http://qnot.org/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://qnot.org/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Logging out without killing a process</title>
-      <link>http://qnot.org/2010/09/14/logging-out-without-killing-a-process/</link>
+      <link>https://qnot.org/2010/09/14/logging-out-without-killing-a-process/</link>
       <pubDate>Tue, 14 Sep 2010 04:29:59 +0000</pubDate>
       
-      <guid>http://qnot.org/2010/09/14/logging-out-without-killing-a-process/</guid>
+      <guid>https://qnot.org/2010/09/14/logging-out-without-killing-a-process/</guid>
       <description>&lt;p&gt;Here&#39;s the scenario, you&#39;re logged into your favorite *nix box and are using
 bash as your shell. You fired off some process which is going to take a while
 to run (and forgot to run &lt;a href=&#34;http://www.gnu.org/software/screen/&#34;&gt;screen&lt;/a&gt;) and
@@ -25,10 +25,10 @@ you want to logout without killing that process.&lt;/p&gt;</description>
     
     <item>
       <title>Neo FreeRunner = Freedom</title>
-      <link>http://qnot.org/2008/07/23/neo-freerunner-freedom/</link>
+      <link>https://qnot.org/2008/07/23/neo-freerunner-freedom/</link>
       <pubDate>Wed, 23 Jul 2008 03:22:40 +0000</pubDate>
       
-      <guid>http://qnot.org/2008/07/23/neo-freerunner-freedom/</guid>
+      <guid>https://qnot.org/2008/07/23/neo-freerunner-freedom/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Open. Mobile. Free.&lt;/strong&gt; That was the tag line printed on the side of the box
 which housed my shiny new &lt;a href=&#34;http://wiki.openmoko.org/wiki/FreeRunner_Overview&#34;&gt;Neo
 FreeRunner&lt;/a&gt;. I finally had
@@ -45,10 +45,10 @@ picking up a FreeRunner instead.&lt;/p&gt;</description>
     
     <item>
       <title>Database Design with Dia</title>
-      <link>http://qnot.org/2007/12/06/database-design-with-dia/</link>
+      <link>https://qnot.org/2007/12/06/database-design-with-dia/</link>
       <pubDate>Thu, 06 Dec 2007 05:23:48 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/12/06/database-design-with-dia/</guid>
+      <guid>https://qnot.org/2007/12/06/database-design-with-dia/</guid>
       <description>&lt;p&gt;In this post I&#39;m going to give a quick how-to on creating database schemas with
 a wonderful tool called &lt;a href=&#34;http://live.gnome.org/Dia&#34;&gt;Dia&lt;/a&gt;. I&#39;ve often found
 having a nice visual representation of a database to be quite helpful but can&#39;t
@@ -62,10 +62,10 @@ database read on and see how Dia can make your life a bit easier.&lt;/p&gt;</des
     
     <item>
       <title>Xplanet view of Hurricane Dean</title>
-      <link>http://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</link>
+      <link>https://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</link>
       <pubDate>Tue, 21 Aug 2007 02:16:30 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</guid>
+      <guid>https://qnot.org/2007/08/21/xplanet-view-of-hurricane-dean/</guid>
       <description>&lt;p&gt;I&#39;m a big fan of &lt;a href=&#34;http://xplanet.sourceforge.net/&#34;&gt;Xplanet&lt;/a&gt; and every year
 during the hurricane season there&#39;s no better way to liven up your desktop than
 to download the latest &lt;a href=&#34;http://xplanet.sourceforge.net/clouds.php&#34;&gt;cloud maps&lt;/a&gt;
@@ -74,11 +74,11 @@ and watch the path of the storm.&lt;/p&gt;</description>
     
     <item>
       <title>Customizing Pidgin Chat Windows</title>
-      <link>http://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</link>
+      <link>https://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</link>
       <pubDate>Sat, 07 Jul 2007 05:53:55 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</guid>
-      <description>&lt;p&gt;In my &lt;a href=&#34;http://qnot.org/2007/01/14/customizing-gaim-chat-windows/&#34;&gt;previous post&lt;/a&gt; I discussed
+      <guid>https://qnot.org/2007/07/07/customizing-pidgin-chat-windows/</guid>
+      <description>&lt;p&gt;In my &lt;a href=&#34;https://qnot.org/2007/01/14/customizing-gaim-chat-windows/&#34;&gt;previous post&lt;/a&gt; I discussed
 customizing Gaim chat windows. Since then Gaim has formally changed it&#39;s name
 to &lt;a href=&#34;http://pidgin.im/pidgin/home/&#34;&gt;Pidgin&lt;/a&gt; due to &lt;a href=&#34;http://pidgin.im/~elb/cgi-bin/pyblosxom.cgi/going_public.html&#34;&gt;legal issues with
 AOL&lt;/a&gt;. I finally
@@ -88,10 +88,10 @@ customizations as before.&lt;/p&gt;</description>
     
     <item>
       <title>Customizing Gaim Chat Windows</title>
-      <link>http://qnot.org/2007/01/14/customizing-gaim-chat-windows/</link>
+      <link>https://qnot.org/2007/01/14/customizing-gaim-chat-windows/</link>
       <pubDate>Sun, 14 Jan 2007 10:09:52 +0000</pubDate>
       
-      <guid>http://qnot.org/2007/01/14/customizing-gaim-chat-windows/</guid>
+      <guid>https://qnot.org/2007/01/14/customizing-gaim-chat-windows/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://gaim.sf.net&#34;&gt;Gaim&lt;/a&gt; is an excellent instant messaging client with
 support for multiple protocols and runs on several different
 &lt;a href=&#34;http://gaim.sourceforge.net/about.php&#34;&gt;platforms&lt;/a&gt;. For the longest time I&#39;ve
