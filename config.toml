@@ -1,4 +1,4 @@
-baseURL = "http://qnot.org/"
+baseURL = "https://qnot.org/"
 languageCode = "en-us"
 pygmentsStyle = "monokai"
 pygmentsUseClasses = true
