@@ -4,6 +4,11 @@ slug: publications
 title: Publications
 ---
 
+1. **Andrew E. Bruno**, Salvatore J. Guercio, Doris Sajdak, Tony Kew, and Matthew
+   D. Jones. 2020. Grendel: Bare Metal Provisioning System for High Performance
+   Computing. In Practice and Experience in Advanced Research Computing (PEARC
+   ’20). Association for Computing Machinery, New York, NY, USA, 13–18. DOI:
+   [`doi:10.1145/3311790.3396637`](https://doi.org/10.1145/3311790.3396637)
 1. **Andrew E. Bruno**, Patrick Charbonneau, Janet Newman, Edward H. Snell, David
    R. So, Vincent Vanhoucke, Christopher J. Watkins, Shawn Williams, Julie Wilson.
    Classification of crystallization outcomes using deep convolutional neural
