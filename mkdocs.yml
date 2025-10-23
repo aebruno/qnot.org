@@ -1,0 +1,27 @@
+site_name: qnot.org
+docs_dir: 'pages'
+site_description: 'Andrew E. Bruno is a software developer and GNU/Linux enthusiast. His interests include web development, high performance computing, and data visualization.'
+site_url: 'https://qnot.org'
+site_author: 'Andrew E. Bruno'
+repo_name: 'aebruno/qnot.org'
+repo_url: 'https://github.com/aebruno/qnot.org'
+edit_uri: ''
+
+theme:
+  name: terminal
+  favicon: assets/favicon.ico
+  custom_dir: overrides
+  palette: qnot
+  features:
+    - navigation.side.hide
+    - navigation.side.toc.hide
+    - navigation.top.search_button.hide
+    - style.links.underline.hide
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - def_list
+  - meta
+  - toc:
+      permalink: "#"
