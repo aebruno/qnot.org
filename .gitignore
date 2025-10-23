@@ -1,1 +1,10 @@
-public
+.py[cod]
+*.swp
+build
+*.DS_Store
+venv/
+*.code-workspace
+.vscode
+.env
+.venv/
+site/

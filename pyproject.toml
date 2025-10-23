@@ -1,0 +1,17 @@
+[project]
+name = "qnot.org"
+version = "0.0.1"
+requires-python = ">=3.12"
+authors = [
+    { name = "Andrew E. Bruno" },
+]
+description = "Andrew E. Bruno personal website"
+dependencies = [
+    "mkdocs>=1.6.1",
+    "mkdocs-terminal",
+    "pygments",
+    "pymdown-extensions",
+]
+
+[project.urls]
+"Source Code" = "https://github.com/aebruno/qnot.org"
